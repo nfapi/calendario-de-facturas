@@ -51,11 +51,9 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
     try:
         mail = imaplib.IMAP4_SSL("imap.gmail.com")
         mail.login(username, app_password)
-        mail.select("inbox")
+        mail.select("[Gmail]/All Mail")
 
-        # Buscar correos que contengan palabras clave típicas de facturas
-        search_query = '(OR (SUBJECT "factura") (OR (SUBJECT "vencimiento") (SUBJECT "comprobante")))'
-        status, messages = mail.search(None, search_query)
+        status, messages = mail.search(None, "ALL")
 
         if status != "OK" or not messages[0]:
             print("ℹ️ No se encontraron correos nuevos con facturas en la búsqueda básica.")
