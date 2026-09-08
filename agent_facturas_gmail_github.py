@@ -118,6 +118,9 @@ def extract_bills_with_gemini(emails_data: list, api_key: str) -> list:
     Eres un asistente contable automatizado. Tu tarea es analizar el texto de los correos electrónicos 
     de facturas y extraer una lista estructurada con todas las facturas vigentes o recientes.
     Asegúrate de formatear la fecha estrictamente como YYYY-MM-DD.
+    Asegurate de revisar los correos archivados, pospuestos o en la bandeja de entrada, y extraer todas las facturas que contengan información de vencimiento.
+    Los emails de Brubank suelen tener vencimientos de varias empresas, asegúrate de extraer cada factura individualmente y que no sean redundantes, por ejemplo, la factura del gas de Grecia puede venir de un mail de Camuzzi pero tambien en uno de Brubank.
+    
     Para el estado: 'pending' si vence en el futuro, 'overdue' si la fecha de vencimiento ya pasó, o 'issued' si es solo una notificación/cuenta corriente.
     """
 
