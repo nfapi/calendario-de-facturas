@@ -53,7 +53,7 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
         mail.login(username, app_password)
         status, _ = mail.select('"[Gmail]/All Mail"')
         if status != "OK":
-          raise RuntimeError("No se pudo seleccionar la carpeta [Gmail]/All Mail")
+            raise RuntimeError("No se pudo seleccionar la carpeta [Gmail]/All Mail")
 
         status, messages = mail.search(None, "ALL")
 
