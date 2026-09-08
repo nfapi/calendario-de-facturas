@@ -51,55 +51,77 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
     try:
         mail = imaplib.IMAP4_SSL("imap.gmail.com")
         mail.login(username, app_password)
-        status, _ = mail.select('"[Gmail]/All Mail"')
+        status, mailbox_data = mail.list()
         if status != "OK":
-            raise RuntimeError("No se pudo seleccionar la carpeta [Gmail]/All Mail")
+            raise RuntimeError("No se pudieron listar las carpetas de Gmail")
 
-        status, messages = mail.search(
-            None,
-            "X-GM-RAW",
-            "in:anywhere -in:spam -in:trash"
-        )
+        mailboxes = []
+        for mailbox_data_item in mailbox_data or []:
+            mailbox_line = mailbox_data_item.decode("utf-8", errors="replace")
+            mailbox_name = mailbox_line.rsplit(' "/" ', 1)[-1].strip('"')
+            mailbox_name_lower = mailbox_name.casefold()
+            mailbox_flags = mailbox_line.split(")", 1)[0].casefold()
+            if (
+                mailbox_name
+                and "\\noselect" not in mailbox_flags
+                and "\\sent" not in mailbox_flags
+                and "\\drafts" not in mailbox_flags
+                and "\\spam" not in mailbox_flags
+                and "\\trash" not in mailbox_flags
+                and not mailbox_name_lower.endswith(("/spam", "/trash", "/papelera"))
+                and mailbox_name_lower not in {"spam", "trash", "papelera"}
+            ):
+                mailboxes.append(mailbox_name)
 
-        if status != "OK" or not messages[0]:
-            print("ℹ️ No se encontraron correos nuevos con facturas en la búsqueda básica.")
-            return []
-
-        email_ids = messages[0].split()
-        # Tomar los últimos 'max_emails'
-        latest_ids = email_ids[-max_emails:]
         email_contents = []
+        seen_message_ids = set()
 
-        print(f"📩 Leyendo los últimos {len(latest_ids)} correos relevantes...")
+        for mailbox_name in mailboxes:
+            status, _ = mail.select(f'"{mailbox_name}"')
+            if status != "OK":
+                continue
 
-        for e_id in reversed(latest_ids):
-            _, msg_data = mail.fetch(e_id, "(RFC822)")
-            for response_part in msg_data:
-                if isinstance(response_part, tuple):
-                    msg = email.message_from_bytes(response_part[1])
-                    
-                    # Decodificar asunto
-                    subject, encoding = decode_header(msg["Subject"])[0]
-                    if isinstance(subject, bytes):
-                        subject = subject.decode(encoding or "utf-8", errors="ignore")
-                    
-                    # Extraer cuerpo del correo
-                    body = ""
-                    if msg.is_multipart():
-                        for part in msg.walk():
-                            content_type = part.get_content_type()
-                            content_disposition = str(part.get("Content-Disposition"))
-                            if content_type == "text/plain" and "attachment" not in content_disposition:
-                                body = part.get_payload(decode=True).decode("utf-8", errors="ignore")
-                                break
-                    else:
-                        body = msg.get_payload(decode=True).decode("utf-8", errors="ignore")
+            status, messages = mail.search(None, "ALL")
+            if status != "OK" or not messages[0]:
+                continue
 
-                    email_contents.append({
-                        "subject": subject,
-                        "date": msg.get("Date"),
-                        "body": body[:3000] # Limitar longitud
-                    })
+            email_ids = messages[0].split()
+            latest_ids = email_ids[-max_emails:]
+            print(f"📩 Leyendo hasta {len(latest_ids)} correos de {mailbox_name}...")
+
+            for e_id in reversed(latest_ids):
+                _, msg_data = mail.fetch(e_id, "(RFC822)")
+                for response_part in msg_data:
+                    if isinstance(response_part, tuple):
+                        msg = email.message_from_bytes(response_part[1])
+                        message_id = msg.get("Message-ID")
+                        if message_id and message_id in seen_message_ids:
+                            continue
+                        if message_id:
+                            seen_message_ids.add(message_id)
+
+                        # Decodificar asunto
+                        subject, encoding = decode_header(msg["Subject"])[0]
+                        if isinstance(subject, bytes):
+                            subject = subject.decode(encoding or "utf-8", errors="ignore")
+
+                        # Extraer cuerpo del correo
+                        body = ""
+                        if msg.is_multipart():
+                            for part in msg.walk():
+                                content_type = part.get_content_type()
+                                content_disposition = str(part.get("Content-Disposition"))
+                                if content_type == "text/plain" and "attachment" not in content_disposition:
+                                    body = part.get_payload(decode=True).decode("utf-8", errors="ignore")
+                                    break
+                        else:
+                            body = msg.get_payload(decode=True).decode("utf-8", errors="ignore")
+
+                        email_contents.append({
+                            "subject": subject,
+                            "date": msg.get("Date"),
+                            "body": body[:3000] # Limitar longitud
+                        })
 
         mail.logout()
         print(f"✅ Se procesaron {len(email_contents)} correos de facturas con éxito.")
@@ -124,6 +146,9 @@ def extract_bills_with_gemini(emails_data: list, api_key: str) -> list:
     Asegúrate de formatear la fecha estrictamente como YYYY-MM-DD.
     Asegurate de revisar los correos archivados, pospuestos o en la bandeja de entrada, y extraer todas las facturas que contengan información de vencimiento.
     Los emails de Brubank suelen tener vencimientos de varias empresas, asegúrate de extraer cada factura individualmente y que no sean redundantes, por ejemplo, la factura del gas de Grecia puede venir de un mail de Camuzzi pero tambien en uno de Brubank.
+    Presta especial atención a correos de EDES, ABSA, ARCA, Camuzzi, Brubank, Movistar, Personal,
+    Municipalidad de Bahía Blanca y BVNET. Identifícalos por el remitente, asunto o contenido,
+    aunque no usen literalmente la palabra "factura".
     
     Para el estado: 'pending' si vence en el futuro, 'overdue' si la fecha de vencimiento ya pasó, o 'issued' si es solo una notificación/cuenta corriente.
     """
