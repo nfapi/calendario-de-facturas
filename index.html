@@ -87,7 +87,7 @@
   </main>
 
   <script>
-        let bills = [];
+      let bills = [];
 
     let todayDate = new Date();
     let currentYear = todayDate.getFullYear();
@@ -97,6 +97,17 @@
 
     function formatCurrency(val) {
       return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(val);
+    }
+
+    function formatDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function getBillStatus(billDate) {
+      return billDate >= formatDateKey(todayDate) ? 'pending' : 'overdue';
     }
 
     function renderCalendar() {
@@ -123,14 +134,15 @@
         const dayBills = bills.filter(b => b.date === dateStr);
 
         const cell = document.createElement('div');
-        cell.className = 'p-2 min-h-[100px] flex flex-col justify-start bg-slate-800/90 border-t border-slate-800';
+        const isToday = dateStr === formatDateKey(todayDate);
+        cell.className = `p-2 min-h-[100px] flex flex-col justify-start bg-slate-800/90 border-t border-slate-800${isToday ? ' ring-2 ring-inset ring-indigo-400 bg-indigo-950/50' : ''}`;
 
         let billItemsHtml = '';
         dayBills.forEach(bill => {
+          const status = getBillStatus(bill.date);
           let badgeClass = 'bg-slate-700 text-slate-300';
-          if (bill.status === 'pending') badgeClass = 'bg-amber-500/20 text-amber-300 border border-amber-500/40';
-          if (bill.status === 'overdue') badgeClass = 'bg-rose-500/20 text-rose-300 border border-rose-500/40';
-          if (bill.status === 'issued') badgeClass = 'bg-blue-500/20 text-blue-300 border border-blue-500/40';
+          if (status === 'pending') badgeClass = 'bg-amber-500/20 text-amber-300 border border-amber-500/40';
+          if (status === 'overdue') badgeClass = 'bg-rose-500/20 text-rose-300 border border-rose-500/40';
 
           billItemsHtml += `
             <div class="p-1.5 mb-1 rounded-lg text-[11px] leading-tight ${badgeClass} shadow-sm">
@@ -142,7 +154,7 @@
 
         cell.innerHTML = `
           <div class="flex justify-between items-center mb-1">
-            <span class="text-xs font-bold text-slate-300">${day}</span>
+            <span class="text-xs font-bold text-slate-300">${day}${isToday ? ' · Hoy' : ''}</span>
           </div>
           <div class="space-y-1 overflow-y-auto max-h-[75px]">${billItemsHtml}</div>
         `;
@@ -160,10 +172,11 @@
       bills.forEach(bill => {
         const row = document.createElement('tr');
         row.className = 'hover:bg-slate-800/50 transition';
+        const status = getBillStatus(bill.date);
 
-        let statusBadge = bill.status === 'pending' 
+        let statusBadge = status === 'pending'
           ? `<span class="px-2 py-0.5 text-xs font-medium bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full">Próxima</span>`
-          : (bill.status === 'overdue' 
+          : (status === 'overdue'
               ? `<span class="px-2 py-0.5 text-xs font-medium bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-full">Vencida</span>`
               : `<span class="px-2 py-0.5 text-xs font-medium bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full">Emitida</span>`);
 

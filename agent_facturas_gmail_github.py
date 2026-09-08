@@ -201,11 +201,15 @@ def load_bill_database(file_path: str) -> list:
     try:
         with open(file_path, "r", encoding="utf-8") as data_file:
             data = json.load(data_file)
-            return data if isinstance(data, list) else []
+            return [normalize_bill(bill) for bill in data] if isinstance(data, list) else []
     except FileNotFoundError:
         return []
     except (json.JSONDecodeError, OSError) as error:
       raise RuntimeError(f"No se pudo leer la base de facturas: {error}") from error
+
+def normalize_bill(bill: dict) -> dict:
+    """Elimina estados derivados para que la fecha sea la única fuente de verdad."""
+    return {key: value for key, value in bill.items() if key not in {"status", "badge"}}
 
 def bill_identity(bill: dict) -> tuple:
     """Genera una identidad estable para evitar duplicados entre ejecuciones."""
@@ -219,13 +223,13 @@ def bill_identity(bill: dict) -> tuple:
 
 def append_new_bills(existing_bills: list, extracted_bills: list) -> list:
     """Conserva el histórico y agrega solamente facturas inexistentes."""
-    merged_bills = list(existing_bills)
+    merged_bills = [normalize_bill(bill) for bill in existing_bills]
     known_bills = {bill_identity(bill) for bill in merged_bills}
 
     for bill in extracted_bills:
         identity = bill_identity(bill)
         if identity not in known_bills:
-            merged_bills.append(bill)
+            merged_bills.append(normalize_bill(bill))
             known_bills.add(identity)
 
     return merged_bills
@@ -233,7 +237,11 @@ def append_new_bills(existing_bills: list, extracted_bills: list) -> list:
 def save_bill_database(file_path: str, bills_data: list) -> str:
     """Serializa la base de facturas para que el frontend la consuma."""
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
-    database_content = json.dumps(bills_data, ensure_ascii=False, indent=2) + "\n"
+    database_content = json.dumps(
+      [normalize_bill(bill) for bill in bills_data],
+      ensure_ascii=False,
+      indent=2
+    ) + "\n"
     with open(file_path, "w", encoding="utf-8") as data_file:
         data_file.write(database_content)
     return database_content

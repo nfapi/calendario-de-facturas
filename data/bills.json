@@ -6,8 +6,6 @@
     "location": "Zelarrayan 133 PB D",
     "date": "2026-09-11",
     "amount": 174631,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Notificación recibida por Brubank y ConsorcioAbierto"
   },
   {
@@ -17,8 +15,6 @@
     "location": "Grecia 524, Bahía Blanca",
     "date": "2026-09-17",
     "amount": 152294.76,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Liquidación 2 de 2"
   },
   {
@@ -28,8 +24,6 @@
     "location": "Zelarrayan 133 PB/D, Bahía Blanca",
     "date": "2026-09-14",
     "amount": 273157.76,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Liquidación 2 de 2"
   },
   {
@@ -39,8 +33,6 @@
     "location": "Bahía Blanca",
     "date": "2026-09-10",
     "amount": 7553.77,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Usuario: Canepa Néstor Armando"
   },
   {
@@ -50,8 +42,6 @@
     "location": "Bahía Blanca",
     "date": "2026-09-21",
     "amount": 21514.46,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
   },
   {
@@ -61,8 +51,6 @@
     "location": "Provincia de Buenos Aires",
     "date": "2026-09-10",
     "amount": 35930.3,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -72,8 +60,6 @@
     "location": "Provincia de Buenos Aires",
     "date": "2026-09-10",
     "amount": 59360.9,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -83,8 +69,6 @@
     "location": "Bahía Blanca",
     "date": "2026-09-10",
     "amount": 5000,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -94,8 +78,6 @@
     "location": "Bahía Blanca",
     "date": "2026-09-10",
     "amount": 154861.6,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -105,8 +87,6 @@
     "location": "Bahía Blanca",
     "date": "2026-09-10",
     "amount": 42000,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -116,8 +96,6 @@
     "location": "Bahía Blanca",
     "date": "2026-09-10",
     "amount": 25000,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -127,8 +105,6 @@
     "location": "Brubank",
     "date": "2026-09-10",
     "amount": 795189.09,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Pago mínimo: $88.005,12"
   },
   {
@@ -138,8 +114,6 @@
     "location": "Visa",
     "date": "2026-09-07",
     "amount": 210396.12,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -149,8 +123,6 @@
     "location": "OSDE",
     "date": "2026-08-18",
     "amount": 1053376.76,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -160,8 +132,6 @@
     "location": "19 de Mayo 551 02/A, Bahía Blanca",
     "date": "2026-08-27",
     "amount": 43881.34,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Liquidación 1 de 2"
   },
   {
@@ -171,8 +141,6 @@
     "location": "Grecia 524, Bahía Blanca",
     "date": "2026-08-19",
     "amount": 144543.49,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Liquidación 1 de 2"
   },
   {
@@ -182,8 +150,6 @@
     "location": "Zelarrayan 133 PB/D, Bahía Blanca",
     "date": "2026-08-14",
     "amount": 266142.22,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Liquidación 1 de 2"
   },
   {
@@ -193,8 +159,6 @@
     "location": "Bahía Blanca",
     "date": "2026-08-20",
     "amount": 22947.84,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
   },
   {
@@ -204,8 +168,6 @@
     "location": "Bahía Blanca",
     "date": "2026-07-20",
     "amount": 24497.46,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
   },
   {
@@ -215,8 +177,6 @@
     "location": "Grecia 524, Bahía Blanca",
     "date": "2026-07-20",
     "amount": 134836.32,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Aviso vía Brubank"
   },
   {
@@ -226,8 +186,6 @@
     "location": "Línea 2914186999",
     "date": "2026-07-19",
     "amount": 52049.99,
-    "status": "overdue",
-    "badge": "Vencida",
     "extra": "Débito en Tarjeta Visa"
   },
   {
@@ -237,8 +195,6 @@
     "location": "Assertia Solutions LLC",
     "date": "2026-09-10",
     "amount": 5600,
-    "status": "pending",
-    "badge": "Próxima",
     "extra": "Factura emitida en USD"
   }
 ]
