@@ -1,13 +1,244 @@
 [
   {
-    "id": "zelarrayan-133-2026-09-11",
-    "service": "Consorcio Zelarrayan 133",
+    "id": "1",
+    "service": "B Roela Siro / Consorcio Zelarrayan 133",
     "detail": "Expensas unidad PB D",
     "location": "Zelarrayan 133 PB D",
     "date": "2026-09-11",
     "amount": 174631,
     "status": "pending",
     "badge": "Próxima",
-    "extra": "1º vencimiento - Administración Fabian Iungelson"
+    "extra": "Notificación recibida por Brubank y ConsorcioAbierto"
+  },
+  {
+    "id": "2",
+    "service": "EDES",
+    "detail": "Factura de servicio eléctrico (NIS 260457201)",
+    "location": "Grecia 524, Bahía Blanca",
+    "date": "2026-09-17",
+    "amount": 152294.76,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Liquidación 2 de 2"
+  },
+  {
+    "id": "3",
+    "service": "EDES",
+    "detail": "Factura de servicio eléctrico (NIS 258805601)",
+    "location": "Zelarrayan 133 PB/D, Bahía Blanca",
+    "date": "2026-09-14",
+    "amount": 273157.76,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Liquidación 2 de 2"
+  },
+  {
+    "id": "4",
+    "service": "ABSA",
+    "detail": "Factura de agua (Unidad de Facturación 2220784)",
+    "location": "Bahía Blanca",
+    "date": "2026-09-10",
+    "amount": 7553.77,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Usuario: Canepa Néstor Armando"
+  },
+  {
+    "id": "5",
+    "service": "ABSA",
+    "detail": "Factura de agua (Unidad de Facturación 2220782)",
+    "location": "Bahía Blanca",
+    "date": "2026-09-21",
+    "amount": 21514.46,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
+  },
+  {
+    "id": "6",
+    "service": "ARBA Automotor",
+    "detail": "Impuesto Automotor",
+    "location": "Provincia de Buenos Aires",
+    "date": "2026-09-10",
+    "amount": 35930.3,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "7",
+    "service": "ARBA Automotor",
+    "detail": "Impuesto Automotor",
+    "location": "Provincia de Buenos Aires",
+    "date": "2026-09-10",
+    "amount": 59360.9,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "8",
+    "service": "Colegio Claret",
+    "detail": "Cuota escolar",
+    "location": "Bahía Blanca",
+    "date": "2026-09-10",
+    "amount": 5000,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "9",
+    "service": "Colegio Claret",
+    "detail": "Cuota escolar",
+    "location": "Bahía Blanca",
+    "date": "2026-09-10",
+    "amount": 154861.6,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "10",
+    "service": "Colegio Claret",
+    "detail": "Cuota escolar",
+    "location": "Bahía Blanca",
+    "date": "2026-09-10",
+    "amount": 42000,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "11",
+    "service": "Colegio Claret",
+    "detail": "Cuota escolar",
+    "location": "Bahía Blanca",
+    "date": "2026-09-10",
+    "amount": 25000,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "12",
+    "service": "Brubank",
+    "detail": "Resumen Tarjeta de Crédito",
+    "location": "Brubank",
+    "date": "2026-09-10",
+    "amount": 795189.09,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Pago mínimo: $88.005,12"
+  },
+  {
+    "id": "13",
+    "service": "Visa",
+    "detail": "Resumen / Servicio de Tarjeta",
+    "location": "Visa",
+    "date": "2026-09-07",
+    "amount": 210396.12,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "14",
+    "service": "OSDE",
+    "detail": "Servicio de Medicina Prepaga",
+    "location": "OSDE",
+    "date": "2026-08-18",
+    "amount": 1053376.76,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "15",
+    "service": "EDES",
+    "detail": "Factura de servicio eléctrico (NIS 255211201)",
+    "location": "19 de Mayo 551 02/A, Bahía Blanca",
+    "date": "2026-08-27",
+    "amount": 43881.34,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Liquidación 1 de 2"
+  },
+  {
+    "id": "16",
+    "service": "EDES",
+    "detail": "Factura de servicio eléctrico (NIS 260457201)",
+    "location": "Grecia 524, Bahía Blanca",
+    "date": "2026-08-19",
+    "amount": 144543.49,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Liquidación 1 de 2"
+  },
+  {
+    "id": "17",
+    "service": "EDES",
+    "detail": "Factura de servicio eléctrico (NIS 258805601)",
+    "location": "Zelarrayan 133 PB/D, Bahía Blanca",
+    "date": "2026-08-14",
+    "amount": 266142.22,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Liquidación 1 de 2"
+  },
+  {
+    "id": "18",
+    "service": "ABSA",
+    "detail": "Factura de agua (Unidad de Facturación 2220782)",
+    "location": "Bahía Blanca",
+    "date": "2026-08-20",
+    "amount": 22947.84,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
+  },
+  {
+    "id": "19",
+    "service": "ABSA",
+    "detail": "Factura de agua (Unidad de Facturación 2220782)",
+    "location": "Bahía Blanca",
+    "date": "2026-07-20",
+    "amount": 24497.46,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
+  },
+  {
+    "id": "20",
+    "service": "EDES",
+    "detail": "Factura de servicio eléctrico (NIS 260457201)",
+    "location": "Grecia 524, Bahía Blanca",
+    "date": "2026-07-20",
+    "amount": 134836.32,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Aviso vía Brubank"
+  },
+  {
+    "id": "21",
+    "service": "Movistar",
+    "detail": "Factura Móvil (Cuenta 11683637)",
+    "location": "Línea 2914186999",
+    "date": "2026-07-19",
+    "amount": 52049.99,
+    "status": "overdue",
+    "badge": "Vencida",
+    "extra": "Débito en Tarjeta Visa"
+  },
+  {
+    "id": "22",
+    "service": "Assertia Solutions LLC",
+    "detail": "Invoice INV-000036",
+    "location": "Assertia Solutions LLC",
+    "date": "2026-09-10",
+    "amount": 5600,
+    "status": "pending",
+    "badge": "Próxima",
+    "extra": "Factura emitida en USD"
   }
 ]
