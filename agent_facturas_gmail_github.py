@@ -55,7 +55,11 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
         if status != "OK":
             raise RuntimeError("No se pudo seleccionar la carpeta [Gmail]/All Mail")
 
-        status, messages = mail.search(None, "ALL")
+        status, messages = mail.search(
+            None,
+            "X-GM-RAW",
+            "in:anywhere -in:spam -in:trash"
+        )
 
         if status != "OK" or not messages[0]:
             print("ℹ️ No se encontraron correos nuevos con facturas en la búsqueda básica.")
