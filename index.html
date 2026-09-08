@@ -87,20 +87,7 @@
   </main>
 
   <script>
-    // Structured JSON Injected by Agent
-    const bills = [
-      {
-            "id": "zelarrayan-133-2026-09-11",
-            "service": "Consorcio Zelarrayan 133",
-            "detail": "Expensas unidad PB D",
-            "location": "Zelarrayan 133 PB D",
-            "date": "2026-09-11",
-            "amount": 174631,
-            "status": "pending",
-            "badge": "Pr\u00f3xima",
-            "extra": "1\u00ba vencimiento - Administraci\u00f3n Fabian Iungelson"
-      }
-];
+        let bills = [];
 
     let todayDate = new Date();
     let currentYear = todayDate.getFullYear();
@@ -199,10 +186,25 @@
       currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } renderCalendar();
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
-      renderCalendar();
-      renderTable();
+    async function loadBills() {
+      try {
+        const response = await fetch('data/bills.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        bills = await response.json();
+        renderCalendar();
+        renderTable();
+      } catch (error) {
+        console.error('No se pudo cargar la base de facturas:', error);
+        document.getElementById('bills-table-body').innerHTML = `
+          <tr><td colspan="5" class="py-6 px-4 text-center text-rose-300">
+            No se pudo cargar la información de facturas.
+          </td></tr>`;
+      }
       lucide.createIcons();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadBills();
     });
   </script>
 </body>

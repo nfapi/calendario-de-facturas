@@ -6,7 +6,7 @@ import imaplib
 import email
 from email.header import decode_header
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from google import genai
 from google.genai import types
 
@@ -44,8 +44,8 @@ def get_env(var_name: str, required: bool = True) -> str:
 
 def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int = 15) -> list:
     """
-    Conecta a la bandeja de entrada de Gmail por IMAP y recupera el texto de los 
-    correos relacionados con facturas y vencimientos.
+    Recorre las carpetas seleccionables de Gmail y recupera correos recientes
+    relacionados con facturas y vencimientos.
     """
     print("📧 Conectando a Gmail vía IMAP...")
     try:
@@ -75,13 +75,14 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
 
         email_contents = []
         seen_message_ids = set()
+        since_date = (datetime.now() - timedelta(days=30)).strftime("%d-%b-%Y")
 
         for mailbox_name in mailboxes:
             status, _ = mail.select(f'"{mailbox_name}"')
             if status != "OK":
                 continue
 
-            status, messages = mail.search(None, "ALL")
+            status, messages = mail.search(None, "SINCE", since_date)
             if status != "OK" or not messages[0]:
                 continue
 
@@ -194,6 +195,48 @@ def extract_bills_with_gemini(emails_data: list, api_key: str) -> list:
     except Exception as e:
         print(f"❌ Error al procesar datos con Gemini: {e}")
         return []
+
+def load_bill_database(file_path: str) -> list:
+    """Lee la base JSON existente sin modificar su histórico."""
+    try:
+        with open(file_path, "r", encoding="utf-8") as data_file:
+            data = json.load(data_file)
+            return data if isinstance(data, list) else []
+    except FileNotFoundError:
+        return []
+    except (json.JSONDecodeError, OSError) as error:
+      raise RuntimeError(f"No se pudo leer la base de facturas: {error}") from error
+
+def bill_identity(bill: dict) -> tuple:
+    """Genera una identidad estable para evitar duplicados entre ejecuciones."""
+    return (
+        str(bill.get("service", "")).strip().casefold(),
+        str(bill.get("detail", "")).strip().casefold(),
+        str(bill.get("location", "")).strip().casefold(),
+        str(bill.get("date", "")).strip(),
+        str(bill.get("amount", "")).strip(),
+    )
+
+def append_new_bills(existing_bills: list, extracted_bills: list) -> list:
+    """Conserva el histórico y agrega solamente facturas inexistentes."""
+    merged_bills = list(existing_bills)
+    known_bills = {bill_identity(bill) for bill in merged_bills}
+
+    for bill in extracted_bills:
+        identity = bill_identity(bill)
+        if identity not in known_bills:
+            merged_bills.append(bill)
+            known_bills.add(identity)
+
+    return merged_bills
+
+def save_bill_database(file_path: str, bills_data: list) -> str:
+    """Serializa la base de facturas para que el frontend la consuma."""
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    database_content = json.dumps(bills_data, ensure_ascii=False, indent=2) + "\n"
+    with open(file_path, "w", encoding="utf-8") as data_file:
+        data_file.write(database_content)
+    return database_content
 
 def generate_html_calendar(bills_data: list) -> str:
     """
@@ -460,14 +503,19 @@ def main():
         print("⚠️ No se pudieron extraer datos válidos de facturas.")
         return
 
-    # 4. Generar nuevo HTML del calendario
-    updated_html = generate_html_calendar(bills_data)
+    # 4. Conservar el histórico y agregar solamente facturas nuevas
+    database_path = os.path.join("data", "bills.json")
+    existing_bills = load_bill_database(database_path)
+    merged_bills = append_new_bills(existing_bills, bills_data)
+    new_bills_count = len(merged_bills) - len(existing_bills)
+    database_content = save_bill_database(database_path, merged_bills)
+    print(f"✅ Se agregaron {new_bills_count} facturas nuevas; histórico total: {len(merged_bills)}.")
 
-    # 5. Hacer commit en GitHub (index.html)
+    # 5. Publicar solamente la base de datos; index.html la lee desde el navegador
     commit_to_github(
         repo=github_repo,
-        file_path="index.html",
-        content=updated_html,
+        file_path=database_path,
+        content=database_content,
         token=github_token
     )
 
