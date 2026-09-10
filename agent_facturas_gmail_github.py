@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import base64
+import hashlib
 import imaplib
 import email
 from email.header import decode_header
@@ -212,25 +213,32 @@ def normalize_bill(bill: dict) -> dict:
     return {key: value for key, value in bill.items() if key not in {"status", "badge"}}
 
 def bill_identity(bill: dict) -> tuple:
-    """Genera una identidad estable para evitar duplicados entre ejecuciones."""
+    """Genera una identidad estable aunque Gemini cambie el detalle o el id."""
     return (
         str(bill.get("service", "")).strip().casefold(),
-        str(bill.get("detail", "")).strip().casefold(),
         str(bill.get("location", "")).strip().casefold(),
         str(bill.get("date", "")).strip(),
         str(bill.get("amount", "")).strip(),
     )
 
+def bill_id(bill: dict) -> str:
+    """Crea un id determinista para que la misma factura conserve siempre su id."""
+    identity = json.dumps(bill_identity(bill), ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(identity.encode("utf-8")).hexdigest()
+
 def append_new_bills(existing_bills: list, extracted_bills: list) -> list:
     """Conserva el histórico y agrega solamente facturas inexistentes."""
-    merged_bills = [normalize_bill(bill) for bill in existing_bills]
-    known_bills = {bill_identity(bill) for bill in merged_bills}
+    merged_bills = []
+    known_bills = set()
 
-    for bill in extracted_bills:
+    for bill in [*existing_bills, *extracted_bills]:
+        bill = normalize_bill(bill)
         identity = bill_identity(bill)
-        if identity not in known_bills:
-            merged_bills.append(normalize_bill(bill))
-            known_bills.add(identity)
+        if identity in known_bills:
+            continue
+        bill["id"] = bill_id(bill)
+        merged_bills.append(bill)
+        known_bills.add(identity)
 
     return merged_bills
 
