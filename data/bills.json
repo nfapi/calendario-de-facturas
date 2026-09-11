@@ -196,5 +196,23 @@
     "date": "2026-09-10",
     "amount": 5600,
     "extra": "Factura emitida en USD"
+  },
+  {
+    "id": "23",
+    "service": "Consorcio Zelarrayan 133",
+    "detail": "Expensas unidad PB D",
+    "location": "Zelarrayan 133 PB D",
+    "date": "2026-09-11",
+    "amount": 174631,
+    "extra": "1º Vencimiento - Administración Fabian Iungelson"
+  },
+  {
+    "id": "24",
+    "service": "EDES",
+    "detail": "Factura de energía eléctrica - Liquidación 2 de 2",
+    "location": "19 DE MAYO Nro 551 02/A BAHIA BLANCA (NIS 255211201)",
+    "date": "2026-09-25",
+    "amount": 46308.62,
+    "extra": "Liquidación 2 de 2"
   }
 ]
