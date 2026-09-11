@@ -6,6 +6,7 @@ Agente que lee correos de Gmail, extrae facturas con Gemini y mantiene un calend
 
 - `agent_facturas_gmail_github.py`: integración Gmail + Gemini y actualización de datos.
 - `data/bills.json`: base de datos JSON versionada con el histórico de facturas.
+- `data/sync.json`: fecha y hora UTC de la última sincronización completada correctamente.
 - `index.html`: calendario estático que carga `data/bills.json` desde el navegador.
 - `.github/workflows/facturas-agent.yml`: ejecución automática diaria y ejecución manual.
 

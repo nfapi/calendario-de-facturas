@@ -8,6 +8,7 @@ on:
 jobs:
   sync-facturas:
     runs-on: ubuntu-latest
+    timeout-minutes: 130
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
@@ -27,4 +28,22 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
           GITHUB_REPO: ${{ github.repository }}
-        run: python agent_facturas_gmail_github.py
+        run: |
+          attempt=1
+          while [ "$attempt" -le 2 ]; do
+            echo "▶️ Intento $attempt de 2"
+            if python -u agent_facturas_gmail_github.py; then
+              echo "✅ El agente finalizó correctamente."
+              exit 0
+            fi
+
+            status=$?
+            if [ "$attempt" -eq 2 ]; then
+              echo "❌ El agente falló también en el segundo intento."
+              exit "$status"
+            fi
+
+            echo "⚠️ El agente falló (código $status). Reintentando en una hora..."
+            sleep 3600
+            attempt=$((attempt + 1))
+          done

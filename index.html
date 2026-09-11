@@ -28,7 +28,7 @@
       
       <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-medium text-slate-300">
         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        Última sincronización: <span class="text-white font-semibold">08 de September, 2026</span>
+        Última sincronización: <span id="last-sync" class="text-white font-semibold">Cargando...</span>
       </div>
     </div>
   </header>
@@ -204,6 +204,19 @@
         const response = await fetch('data/bills.json');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         bills = await response.json();
+
+        const syncResponse = await fetch('data/sync.json');
+        if (syncResponse.ok) {
+          const syncData = await syncResponse.json();
+          const syncDate = new Date(syncData.lastSync);
+          if (!Number.isNaN(syncDate.getTime())) {
+            document.getElementById('last-sync').textContent = new Intl.DateTimeFormat('es-AR', {
+              dateStyle: 'medium',
+              timeStyle: 'short'
+            }).format(syncDate);
+          }
+        }
+
         renderCalendar();
         renderTable();
       } catch (error) {

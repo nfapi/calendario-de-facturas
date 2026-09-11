@@ -8,7 +8,7 @@ import unicodedata
 from decimal import Decimal, InvalidOperation
 from email.header import decode_header
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from google import genai
 from google.genai import types
 
@@ -195,8 +195,7 @@ def extract_bills_with_gemini(emails_data: list, api_key: str) -> list:
         return extracted_bills
 
     except Exception as e:
-        print(f"❌ Error al procesar datos con Gemini: {e}")
-        return []
+        raise RuntimeError(f"Error al procesar datos con Gemini: {e}") from e
 
 def load_bill_database(file_path: str) -> list:
     """Lee la base JSON existente sin modificar su histórico."""
@@ -270,6 +269,14 @@ def save_bill_database(file_path: str, bills_data: list) -> str:
         data_file.write(database_content)
     return database_content
 
+def build_sync_metadata() -> str:
+    """Genera la marca temporal que la página muestra como última sincronización."""
+    return json.dumps(
+        {"lastSync": datetime.now(timezone.utc).isoformat()},
+        ensure_ascii=False,
+        indent=2
+    ) + "\n"
+
 def commit_to_github(repo: str, file_path: str, content: str, token: str):
     """
     Crea o actualiza un archivo del repositorio usando la API REST de GitHub.
@@ -284,6 +291,10 @@ def commit_to_github(repo: str, file_path: str, content: str, token: str):
 
     # Check if file exists to get SHA
     res = requests.get(url, headers=headers)
+    if res.status_code not in [200, 404]:
+        raise RuntimeError(
+            f"Error al consultar el archivo en GitHub ({res.status_code}): {res.text}"
+        )
     sha = res.json().get("sha") if res.status_code == 200 else None
 
     encoded_content = base64.b64encode(content.encode('utf-8')).decode('utf-8')
@@ -299,7 +310,9 @@ def commit_to_github(repo: str, file_path: str, content: str, token: str):
         print("🎉 ¡Sincronización con GitHub finalizada con éxito!")
         print("🌐 GitHub Pages desplegará los cambios automáticamente en instantes.")
     else:
-        print(f"❌ Error al enviar datos a GitHub ({put_res.status_code}): {put_res.text}")
+        raise RuntimeError(
+            f"Error al enviar datos a GitHub ({put_res.status_code}): {put_res.text}"
+        )
 
 def main():
     print("🤖 Iniciando Agente de Automatización de Facturas...")
@@ -322,8 +335,7 @@ def main():
     bills_data = extract_bills_with_gemini(raw_emails, gemini_key)
 
     if not bills_data:
-        print("⚠️ No se pudieron extraer datos válidos de facturas.")
-        return
+        raise RuntimeError("Gemini no devolvió datos válidos de facturas.")
 
     # 4. Conservar el histórico y agregar solamente facturas nuevas
     database_path = os.path.join("data", "bills.json")
@@ -333,11 +345,17 @@ def main():
     database_content = save_bill_database(database_path, merged_bills)
     print(f"✅ Se agregaron {new_bills_count} facturas nuevas; histórico total: {len(merged_bills)}.")
 
-    # 5. Publicar solamente la base de datos; index.html la lee desde el navegador
+    # 5. Publicar la base de datos y la marca temporal de la sincronización exitosa
     commit_to_github(
         repo=github_repo,
         file_path=database_path,
         content=database_content,
+        token=github_token
+    )
+    commit_to_github(
+        repo=github_repo,
+        file_path=os.path.join("data", "sync.json"),
+        content=build_sync_metadata(),
         token=github_token
     )
 
