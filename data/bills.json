@@ -1,6 +1,6 @@
 [
   {
-    "id": "8c5bc4bdcbce7c01e931721abbd49d6383e49a06f27c1d1c78efbe50058cc2ad",
+    "id": "1",
     "service": "B Roela Siro / Consorcio Zelarrayan 133",
     "detail": "Expensas unidad PB D",
     "location": "Zelarrayan 133 PB D",
@@ -9,7 +9,7 @@
     "extra": "Notificación recibida por Brubank y ConsorcioAbierto"
   },
   {
-    "id": "3107cd2bcd884ea63a36f349896b45d0e25c212a5eafa7a3338d389f10f79c2b",
+    "id": "2",
     "service": "EDES",
     "detail": "Factura de servicio eléctrico (NIS 260457201)",
     "location": "Grecia 524, Bahía Blanca",
@@ -18,7 +18,7 @@
     "extra": "Liquidación 2 de 2"
   },
   {
-    "id": "1a71da667a79b1df9c7e31c778e2e3bfa78ffb02404c64b7897c3d07483fa8f1",
+    "id": "3",
     "service": "EDES",
     "detail": "Factura de servicio eléctrico (NIS 258805601)",
     "location": "Zelarrayan 133 PB/D, Bahía Blanca",
@@ -27,7 +27,7 @@
     "extra": "Liquidación 2 de 2"
   },
   {
-    "id": "642442309e9cd547d4882b4cd2c33e926bfa85ccabb75aa58fb2f433367209af",
+    "id": "4",
     "service": "ABSA",
     "detail": "Factura de agua (Unidad de Facturación 2220784)",
     "location": "Bahía Blanca",
@@ -36,7 +36,7 @@
     "extra": "Usuario: Canepa Néstor Armando"
   },
   {
-    "id": "5b4527af3e8b16e83988ffc8d6e8bb6097bcc599c4d43517a69dab46b7ad5c54",
+    "id": "5",
     "service": "ABSA",
     "detail": "Factura de agua (Unidad de Facturación 2220782)",
     "location": "Bahía Blanca",
@@ -45,7 +45,7 @@
     "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
   },
   {
-    "id": "b9406bdb5e7baeec765561511037ccc2d0b7c0f2ab611db2882791bb3d1af151",
+    "id": "6",
     "service": "ARBA Automotor",
     "detail": "Impuesto Automotor",
     "location": "Provincia de Buenos Aires",
@@ -54,7 +54,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "8f2e804aec27408d300cdff757423cd45e2e90ae265231f5594991f71c258359",
+    "id": "7",
     "service": "ARBA Automotor",
     "detail": "Impuesto Automotor",
     "location": "Provincia de Buenos Aires",
@@ -63,7 +63,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "3b6f312d4e0c60455226d662b366756d5c9dd413ea64f6397d1635c42e6ecb62",
+    "id": "8",
     "service": "Colegio Claret",
     "detail": "Cuota escolar",
     "location": "Bahía Blanca",
@@ -72,7 +72,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "ac474c0da3686faf1e62d039fc01baaedefe937e6e3b42243939251b6ab8a45a",
+    "id": "9",
     "service": "Colegio Claret",
     "detail": "Cuota escolar",
     "location": "Bahía Blanca",
@@ -81,7 +81,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "0b26e7478cd8e05954860aec23da246db933218ac730be05bbebd686a2726084",
+    "id": "10",
     "service": "Colegio Claret",
     "detail": "Cuota escolar",
     "location": "Bahía Blanca",
@@ -90,7 +90,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "2163c948652bf38d267f34e50bdaf28b999750edf7ce119af370b20672603da0",
+    "id": "11",
     "service": "Colegio Claret",
     "detail": "Cuota escolar",
     "location": "Bahía Blanca",
@@ -99,7 +99,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "b328edd3680815575a80205796814f2abf5f8f943a05cf824a6ee750ae719643",
+    "id": "12",
     "service": "Brubank",
     "detail": "Resumen Tarjeta de Crédito",
     "location": "Brubank",
@@ -108,7 +108,7 @@
     "extra": "Pago mínimo: $88.005,12"
   },
   {
-    "id": "078f82f3bda804222d5f5af91abf0d0db7e763870124e775cb4f52bebf8a1f0b",
+    "id": "13",
     "service": "Visa",
     "detail": "Resumen / Servicio de Tarjeta",
     "location": "Visa",
@@ -117,7 +117,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "985894b8717a44ddb95906397aa5c9f8efb5b1c5b7033a9efd676a9fee21c326",
+    "id": "14",
     "service": "OSDE",
     "detail": "Servicio de Medicina Prepaga",
     "location": "OSDE",
@@ -126,7 +126,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "b3247830affc46dfaf8717efaae27954a61ec290555b9a9564b9f86621d03112",
+    "id": "15",
     "service": "EDES",
     "detail": "Factura de servicio eléctrico (NIS 255211201)",
     "location": "19 de Mayo 551 02/A, Bahía Blanca",
@@ -135,7 +135,7 @@
     "extra": "Liquidación 1 de 2"
   },
   {
-    "id": "cbcd3c759a95ede9302d5e4b977595d1b0f2b216935e28c8ef7837c788a784a7",
+    "id": "16",
     "service": "EDES",
     "detail": "Factura de servicio eléctrico (NIS 260457201)",
     "location": "Grecia 524, Bahía Blanca",
@@ -144,7 +144,7 @@
     "extra": "Liquidación 1 de 2"
   },
   {
-    "id": "602c5ec0f5c3ae61d97a54e29785edc398a86c0dcc8b7e708d9932097208df2d",
+    "id": "17",
     "service": "EDES",
     "detail": "Factura de servicio eléctrico (NIS 258805601)",
     "location": "Zelarrayan 133 PB/D, Bahía Blanca",
@@ -153,7 +153,7 @@
     "extra": "Liquidación 1 de 2"
   },
   {
-    "id": "e83ce3af8f82e13f6374077a7645b01246c7ac5760760f6e1908b8e5d74d4902",
+    "id": "18",
     "service": "ABSA",
     "detail": "Factura de agua (Unidad de Facturación 2220782)",
     "location": "Bahía Blanca",
@@ -162,7 +162,7 @@
     "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
   },
   {
-    "id": "071096140c1c8f6b578f993c160dc30f50ea92be44740044ac08081786f0f9d1",
+    "id": "19",
     "service": "ABSA",
     "detail": "Factura de agua (Unidad de Facturación 2220782)",
     "location": "Bahía Blanca",
@@ -171,7 +171,7 @@
     "extra": "Usuario: Fapitalle Nicolas - Curino Roxana"
   },
   {
-    "id": "8ae2785dcdb9d78957a3a4054dbc6a56946ecbb5b2d0156e7fff0c07ba7c7f81",
+    "id": "20",
     "service": "EDES",
     "detail": "Factura de servicio eléctrico (NIS 260457201)",
     "location": "Grecia 524, Bahía Blanca",
@@ -180,7 +180,7 @@
     "extra": "Aviso vía Brubank"
   },
   {
-    "id": "550ed7374da16a96fc3f3700bacd54c1af20d8a9474855718863b5096c379f8d",
+    "id": "21",
     "service": "Movistar",
     "detail": "Factura Móvil (Cuenta 11683637)",
     "location": "Línea 2914186999",
@@ -189,94 +189,12 @@
     "extra": "Débito en Tarjeta Visa"
   },
   {
-    "id": "fa410c1c5e2e9a5e74a0b45ffe2b6958482633dc0ad5ed7a7f57b6c57ca3f2f2",
+    "id": "22",
     "service": "Assertia Solutions LLC",
     "detail": "Invoice INV-000036",
     "location": "Assertia Solutions LLC",
     "date": "2026-09-10",
     "amount": 5600,
     "extra": "Factura emitida en USD"
-  },
-  {
-    "id": "66140d2e019e11b42e3f813fd1123bd5ae5f9ef84dfe676d0c911c6552ff2fde",
-    "service": "Brubank",
-    "detail": "Resumen de Tarjeta de Crédito",
-    "location": "Tarjeta de crédito Brubank",
-    "date": "2026-09-10",
-    "amount": 795189.09,
-    "extra": "Saldo en pesos ARS 795.189,09"
-  },
-  {
-    "id": "0d26856216cce916673c74cbc4a4144bc9d2062ff5e8772b540dafa25efddd21",
-    "service": "Visa",
-    "detail": "Factura por vencer Visa",
-    "location": "Brubank",
-    "date": "2026-09-07",
-    "amount": 210396.12
-  },
-  {
-    "id": "205b1a5ceb8ea999c339520a395c2e7f93cab0595b8c812346b924f9d13eae41",
-    "service": "OSDE",
-    "detail": "Factura por vencer OSDE",
-    "location": "Brubank",
-    "date": "2026-08-18",
-    "amount": 1053376.76
-  },
-  {
-    "id": "6670dd99dee84e3f1c9459fbf06350827b179ba6d75786fef9ffdcf82eb017f0",
-    "service": "ConsorcioAbierto",
-    "detail": "Expensas Zelarrayan 133 PB D",
-    "location": "Zelarrayan 133 PB D",
-    "date": "2026-09-11",
-    "amount": 174631.0
-  },
-  {
-    "id": "af416e50f4ccad969027cd3416d5aa4fbd5cf78ad98539510c0c2a8c0af1bd71",
-    "service": "Assertia Solutions LLC",
-    "detail": "Invoice INV-000036",
-    "location": "Zoho Invoice",
-    "date": "2026-09-10",
-    "amount": 5600.0,
-    "extra": "USD"
-  },
-  {
-    "id": "253f5db135fb5c55fd12f9c1451197c0d28cc1652195ebd068b889dff2c25d79",
-    "service": "ABSA",
-    "detail": "Factura Digital Servicio de Agua",
-    "location": "Unidad de Facturación 2220784",
-    "date": "2026-09-10",
-    "amount": 7553.77
-  },
-  {
-    "id": "f0589de6c6003abea80240a877a3721c6d7bfbe75b46d3ba4178bb8144232d18",
-    "service": "ABSA",
-    "detail": "Factura Digital Servicio de Agua",
-    "location": "Unidad de Facturación 2220782",
-    "date": "2026-09-21",
-    "amount": 21514.46
-  },
-  {
-    "id": "523622c1d468ba9d7c038ff342c73823e73ac6c877d2404dcaa4d38972d7366e",
-    "service": "EDES",
-    "detail": "Factura Energía Eléctrica (Liquidación 2 de 2)",
-    "location": "GRECIA Nro 524 BAHIA BLANCA (NIS: 260457201)",
-    "date": "2026-09-17",
-    "amount": 152294.76
-  },
-  {
-    "id": "f2881a3605c34801bc84ce6d50e68310ed7790d99ada4a15af155aa2c612ffab",
-    "service": "EDES",
-    "detail": "Factura Energía Eléctrica (Liquidación 2 de 2)",
-    "location": "ZELARRAYAN Nro 133 PB/D BAHIA BLANCA (NIS: 258805601)",
-    "date": "2026-09-14",
-    "amount": 273157.76
-  },
-  {
-    "id": "280655620bae6dd55ef0e0d5468d860848ef313fb573050ec9d9bbb5c9454c0f",
-    "service": "EDES",
-    "detail": "Factura Energía Eléctrica (Liquidación 1 de 2)",
-    "location": "19 DE MAYO Nro 551 02/A BAHIA BLANCA (NIS: 255211201)",
-    "date": "2026-08-27",
-    "amount": 43881.34
   }
 ]

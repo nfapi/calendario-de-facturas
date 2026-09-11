@@ -27,7 +27,7 @@ El agente no genera ni modifica el HTML. Busca correos de los últimos 30 días 
 }
 ```
 
-El agente agrega facturas nuevas y conserva el histórico. La identidad se determina por servicio, ubicación, fecha y monto; el detalle y el `id` recibido desde Gemini no se usan porque pueden variar entre correos. El `id` se genera de forma determinista y es único para cada factura.
+El agente agrega facturas nuevas y conserva el histórico. La identidad se determina por servicio normalizado, fecha de vencimiento y monto; el detalle, la ubicación y el `id` recibido desde Gemini no se usan porque pueden variar entre correos. Los `id` se asignan como números consecutivos al guardar la lista.
 
 El estado no se guarda en JSON: `index.html` lo calcula según la fecha actual. Las facturas futuras o de hoy aparecen como próximas y las anteriores como vencidas. El día actual se resalta en el calendario.
 

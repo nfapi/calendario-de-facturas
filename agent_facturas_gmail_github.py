@@ -2,9 +2,10 @@ import os
 import sys
 import json
 import base64
-import hashlib
 import imaplib
 import email
+import unicodedata
+from decimal import Decimal, InvalidOperation
 from email.header import decode_header
 import requests
 from datetime import datetime, timedelta
@@ -212,19 +213,34 @@ def normalize_bill(bill: dict) -> dict:
     """Elimina estados derivados para que la fecha sea la única fuente de verdad."""
     return {key: value for key, value in bill.items() if key not in {"status", "badge"}}
 
-def bill_identity(bill: dict) -> tuple:
-    """Genera una identidad estable aunque Gemini cambie el detalle o el id."""
-    return (
-        str(bill.get("service", "")).strip().casefold(),
-        str(bill.get("location", "")).strip().casefold(),
-        str(bill.get("date", "")).strip(),
-        str(bill.get("amount", "")).strip(),
-    )
+def normalize_service(service: object) -> str:
+    """Agrupa nombres alternativos del mismo proveedor o medio de pago."""
+    value = unicodedata.normalize("NFKD", str(service or ""))
+    value = "".join(character for character in value if not unicodedata.combining(character))
+    value = " ".join(value.casefold().split())
+    if "arba" in value:
+        return "arba"
+    if "edes" in value:
+        return "edes"
+    if "absa" in value:
+        return "absa"
+    if "roela" in value or "consorcioabierto" in value or "consorcio abierto" in value:
+        return "consorcio"
+    if "assertia" in value or "zoho" in value:
+        return "assertia"
+    return value
 
-def bill_id(bill: dict) -> str:
-    """Crea un id determinista para que la misma factura conserve siempre su id."""
-    identity = json.dumps(bill_identity(bill), ensure_ascii=False, separators=(",", ":"))
-    return hashlib.sha256(identity.encode("utf-8")).hexdigest()
+def bill_identity(bill: dict) -> tuple:
+    """Genera una identidad estable aunque cambien textos y ubicaciones del aviso."""
+    try:
+        amount = Decimal(str(bill.get("amount", ""))).normalize()
+    except (InvalidOperation, ValueError):
+        amount = str(bill.get("amount", "")).strip()
+    return (
+        normalize_service(bill.get("service", "")),
+        str(bill.get("date", "")).strip(),
+        amount,
+    )
 
 def append_new_bills(existing_bills: list, extracted_bills: list) -> list:
     """Conserva el histórico y agrega solamente facturas inexistentes."""
@@ -236,7 +252,7 @@ def append_new_bills(existing_bills: list, extracted_bills: list) -> list:
         identity = bill_identity(bill)
         if identity in known_bills:
             continue
-        bill["id"] = bill_id(bill)
+        bill["id"] = str(len(merged_bills) + 1)
         merged_bills.append(bill)
         known_bills.add(identity)
 
