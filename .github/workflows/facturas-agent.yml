@@ -2,7 +2,7 @@ name: Facturas Agent Sync
 
 on:
   schedule:
-    - cron: '0 11 * * *' # Todos los días a las 08:00 AM (UTC-3)
+    - cron: '0 7 * * *'  # Todos los días a las 08:00 AM (UTC-3)
   workflow_dispatch: # Permite ejecutarlo manualmente con un botón
 
 jobs:
