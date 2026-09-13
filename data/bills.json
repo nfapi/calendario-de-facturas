@@ -214,5 +214,14 @@
     "date": "2026-09-25",
     "amount": 46308.62,
     "extra": "Liquidación 2 de 2"
+  },
+  {
+    "id": "25",
+    "service": "OSDE",
+    "detail": "Servicio de medicina prepaga",
+    "location": "",
+    "date": "2026-09-15",
+    "amount": 1064037.1,
+    "extra": "Aviso recibido vía Brubank"
   }
 ]
