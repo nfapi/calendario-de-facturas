@@ -223,5 +223,21 @@
     "date": "2026-09-15",
     "amount": 1064037.1,
     "extra": "Aviso recibido vía Brubank"
+  },
+  {
+    "id": "26",
+    "service": "ARCA",
+    "detail": "Monotributo Física",
+    "date": "2026-09-21",
+    "amount": 210899.93,
+    "extra": "Notificación via Brubank"
+  },
+  {
+    "id": "27",
+    "service": "ARCA",
+    "detail": "Monotributo Física",
+    "date": "2026-09-21",
+    "amount": 173661.45,
+    "extra": "Notificación via Brubank"
   }
 ]
