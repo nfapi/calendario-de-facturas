@@ -6,9 +6,9 @@ on:
   workflow_dispatch: # Permite ejecutarlo manualmente con un botón
 
 jobs:
-  sync-facturas:
+  personal-bills:
     runs-on: ubuntu-latest
-    timeout-minutes: 130
+    timeout-minutes: 60
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
@@ -31,6 +31,21 @@ jobs:
         run: |
           python -u agent_facturas_gmail_github.py --provider personal
 
+  camuzzi-bills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install google-genai requests
+
       - name: Process Camuzzi gas bills
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
@@ -40,6 +55,21 @@ jobs:
           GITHUB_REPO: ${{ github.repository }}
         run: |
           python -u agent_facturas_gmail_github.py --provider camuzzi
+
+  edes-bills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install google-genai requests
 
       - name: Process EDES bills
         env:
@@ -51,6 +81,21 @@ jobs:
         run: |
           python -u agent_facturas_gmail_github.py --provider edes
 
+  absa-bills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install google-genai requests
+
       - name: Process ABSA bills
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
@@ -60,6 +105,21 @@ jobs:
           GITHUB_REPO: ${{ github.repository }}
         run: |
           python -u agent_facturas_gmail_github.py --provider absa
+
+  arca-bills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install google-genai requests
 
       - name: Process ARCA bills
         env:
