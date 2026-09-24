@@ -321,12 +321,21 @@ def append_new_bills(existing_bills: list, extracted_bills: list) -> list:
 
 
 def parse_args() -> argparse.Namespace:
-    """Permite ejecutar el agente para un solo proveedor o para todos."""
+    """Permite ejecutar un proveedor y guardar el resultado como artifact."""
     parser = argparse.ArgumentParser(description="Agente de facturas por proveedor")
     parser.add_argument(
         "--provider",
         choices=[*PROVIDER_PRIORITY],
         help="Procesa solo un proveedor: personal, camuzzi, edes, absa, arca, etc.",
+    )
+    parser.add_argument(
+        "--output",
+        help="Guarda las facturas extraídas en un JSON para que otro job las consolide.",
+    )
+    parser.add_argument(
+        "--no-publish",
+        action="store_true",
+        help="No actualiza GitHub; se usa en los jobs paralelos de extracción.",
     )
     return parser.parse_args()
 
@@ -394,14 +403,19 @@ def main():
 
     gmail_user = get_env("GMAIL_USER")
     gmail_pass = get_env("GMAIL_APP_PASSWORD")
-    github_token = get_env("GITHUB_TOKEN")
-    github_repo = get_env("GITHUB_REPO")
+    github_token = ""
+    github_repo = ""
+    if not args.no_publish:
+        github_token = get_env("GITHUB_TOKEN")
+        github_repo = get_env("GITHUB_REPO")
 
     provider_filter = args.provider if args.provider else None
     raw_emails = fetch_recent_bill_emails(gmail_user, gmail_pass, provider=provider_filter)
 
     if not raw_emails:
         print(f"ℹ️ No se encontraron facturas recientes para {provider_filter or 'todos los proveedores'}. Finalizando ejecución.")
+        if args.output:
+            save_bill_database(args.output, [])
         return
 
     grouped = group_emails_by_provider(raw_emails)
@@ -421,7 +435,15 @@ def main():
         print(f"⚠️ Falló el parser de {provider.upper()}: {error}")
 
     if not bills_data:
+        if args.output:
+            save_bill_database(args.output, [])
         raise RuntimeError("Los parsers locales no devolvieron datos válidos de facturas.")
+
+    if args.output:
+        save_bill_database(args.output, bills_data)
+        print(f"✅ Se guardaron {len(bills_data)} facturas en {args.output}.")
+        if args.no_publish:
+            return
 
     database_path = os.path.join("data", "bills.json")
     existing_bills = load_bill_database(database_path)

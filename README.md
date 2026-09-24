@@ -8,9 +8,12 @@ Agente que lee correos de Gmail, extrae facturas con parsers locales y mantiene 
 - `data/bills.json`: base de datos JSON versionada con el histórico de facturas.
 - `data/sync.json`: fecha y hora UTC de la última sincronización completada correctamente.
 - `index.html`: calendario estático que carga `data/bills.json` desde el navegador.
-- `.github/workflows/facturas-agent.yml`: ejecución automática diaria y ejecución manual.
+- `.github/workflows/facturas-agent.yml`: jobs paralelos por proveedor y publicación final.
+- `merge_bills.py`: consolida los artifacts exitosos y actualiza el histórico una sola vez.
 
 El agente no genera ni modifica el HTML. Busca correos de los últimos 30 días en las carpetas seleccionables de Gmail, incluyendo Inbox, archivados y etiquetas. Excluye Spam, Papelera, Enviados y Borradores. Los mensajes repetidos por distintas etiquetas se procesan una sola vez.
+
+En GitHub Actions, cada proveedor se procesa en un job paralelo y guarda sus facturas como artifact. El job `merge-and-publish` espera a todos con `if: always()`, conserva los resultados de los jobs exitosos aunque otro falle y realiza una única actualización de `data/bills.json` y `data/sync.json`.
 
 ## Datos y estados
 
