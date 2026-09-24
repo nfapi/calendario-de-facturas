@@ -20,6 +20,7 @@ from parsers import (
     parse_municipalidad_bill,
     parse_personal_bill,
     parse_provider_bills,
+    parse_providers_in_parallel,
 )
 
 """
@@ -406,18 +407,18 @@ def main():
     grouped = group_emails_by_provider(raw_emails)
     providers_to_process = [provider_filter] if provider_filter else list(grouped.keys())
 
-    bills_data = []
-    for provider in providers_to_process:
-        provider_emails = grouped.get(provider, [])
-        if not provider_emails:
-            continue
+    parsed_by_provider, parser_failures = parse_providers_in_parallel(
+        grouped,
+        providers=providers_to_process,
+    )
+    bills_data = [
+        bill
+        for provider_bills in parsed_by_provider.values()
+        for bill in provider_bills
+    ]
 
-        provider_bills = parse_provider_bills(provider, provider_emails)
-        if not provider_bills:
-            raise RuntimeError(
-                f"El parser local de {provider.upper()} no pudo extraer ninguna factura."
-            )
-        bills_data.extend(provider_bills)
+    for provider, error in sorted(parser_failures.items()):
+        print(f"⚠️ Falló el parser de {provider.upper()}: {error}")
 
     if not bills_data:
         raise RuntimeError("Los parsers locales no devolvieron datos válidos de facturas.")

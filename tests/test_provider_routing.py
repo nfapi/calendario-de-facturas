@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from agent_facturas_gmail_github import (
     detect_provider,
@@ -9,7 +10,9 @@ from agent_facturas_gmail_github import (
     parse_movistar_bill,
     parse_municipalidad_bill,
     parse_personal_bill,
+    parse_providers_in_parallel,
 )
+from parsers import dispatcher as parser_dispatcher
 
 
 class ProviderRoutingTests(unittest.TestCase):
@@ -135,6 +138,28 @@ class ProviderRoutingTests(unittest.TestCase):
         self.assertIn("edes", grouped)
         self.assertEqual(len(grouped["personal"]), 1)
         self.assertEqual(len(grouped["edes"]), 1)
+
+    def test_parallel_parsers_keep_successes_when_one_fails(self):
+        def working_parser(_email_text):
+            return [{"service": "Proveedor OK", "amount": 1}]
+
+        def failing_parser(_email_text):
+            raise ValueError("formato inesperado")
+
+        grouped = {
+            "working": [{"subject": "ok", "body": "factura"}],
+            "broken": [{"subject": "error", "body": "factura"}],
+        }
+        with patch.dict(
+            parser_dispatcher.PARSER_BY_PROVIDER,
+            {"working": working_parser, "broken": failing_parser},
+            clear=True,
+        ):
+            parsed, failures = parse_providers_in_parallel(grouped)
+
+        self.assertEqual(parsed["working"][0]["service"], "Proveedor OK")
+        self.assertIn("broken", failures)
+        self.assertIn("formato inesperado", failures["broken"])
 
 
 if __name__ == "__main__":

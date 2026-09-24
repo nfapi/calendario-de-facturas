@@ -2,11 +2,11 @@ name: Facturas Agent Sync
 
 on:
   schedule:
-    - cron: '0 7 * * *'  # Todos los días a las 08:00 AM (UTC-3)
-  workflow_dispatch: # Permite ejecutarlo manualmente con un botón
+    - cron: '0 7 * * *'
+  workflow_dispatch:
 
 jobs:
-  personal-bills:
+  sync-bills:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -18,114 +18,13 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: pip install requests
 
-      - name: Process Personal bills
+      - name: Process all provider bills in parallel
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
           GITHUB_REPO: ${{ github.repository }}
-        run: |
-          python -u agent_facturas_gmail_github.py --provider personal
-
-  camuzzi-bills:
-    needs: personal-bills
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v5
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        run: pip install requests
-
-      - name: Process Camuzzi gas bills
-        env:
-          GMAIL_USER: ${{ secrets.GMAIL_USER }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
-          GITHUB_REPO: ${{ github.repository }}
-        run: |
-          python -u agent_facturas_gmail_github.py --provider camuzzi
-
-  edes-bills:
-    needs: camuzzi-bills
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v5
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        run: pip install requests
-
-      - name: Process EDES bills
-        env:
-          GMAIL_USER: ${{ secrets.GMAIL_USER }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
-          GITHUB_REPO: ${{ github.repository }}
-        run: |
-          python -u agent_facturas_gmail_github.py --provider edes
-
-  absa-bills:
-    needs: edes-bills
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v5
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        run: pip install requests
-
-      - name: Process ABSA bills
-        env:
-          GMAIL_USER: ${{ secrets.GMAIL_USER }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
-          GITHUB_REPO: ${{ github.repository }}
-        run: |
-          python -u agent_facturas_gmail_github.py --provider absa
-
-  arca-bills:
-    needs: absa-bills
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v5
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        run: pip install requests
-
-      - name: Process ARCA bills
-        env:
-          GMAIL_USER: ${{ secrets.GMAIL_USER }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
-          GITHUB_REPO: ${{ github.repository }}
-        run: |
-          python -u agent_facturas_gmail_github.py --provider arca
+        run: python -u agent_facturas_gmail_github.py

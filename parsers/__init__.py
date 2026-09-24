@@ -1,6 +1,6 @@
 """Parsers deterministas de facturas por proveedor."""
 
-from .dispatcher import parse_provider_bills
+from .dispatcher import parse_provider_bills, parse_providers_in_parallel
 from .absa import parse_absa_bill
 from .edes import parse_edes_bill
 from .generic import parse_generic_provider_bill
@@ -16,4 +16,5 @@ __all__ = [
     "parse_municipalidad_bill",
     "parse_personal_bill",
     "parse_provider_bills",
+    "parse_providers_in_parallel",
 ]
