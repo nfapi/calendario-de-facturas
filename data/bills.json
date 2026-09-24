@@ -239,5 +239,14 @@
     "date": "2026-09-21",
     "amount": 173661.45,
     "extra": "Notificación via Brubank"
+  },
+  {
+    "id": "28",
+    "service": "Personal",
+    "detail": "Factura de servicios de Personal",
+    "location": "",
+    "date": "2026-10-05",
+    "amount": 93552.09,
+    "extra": "Parser local de Personal"
   }
 ]
