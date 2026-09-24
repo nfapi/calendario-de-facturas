@@ -1,0 +1,2286 @@
+Delivered-To: nicolasfapitalle@gmail.com
+Received: by 2002:a05:7010:ab49:b0:538:faf9:e793 with SMTP id dn9csp8411991mdb;
+        Thu, 17 Sep 2026 23:50:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=2; AKwUvBxLgod/gVeelEYRO7Ee4/dKomLJd+w/34BXBOC4TTVcW9tyY7+m3vevGHiG/8yJvEjF/YoSnzHLqM3TpAwQjSt1@gmail.com
+X-Received: by 2002:a05:622a:292:b0:530:f8ac:6085 with SMTP id d75a77b69052e-5329e316557mr25581661cf.16.1789714216677;
+        Thu, 17 Sep 2026 23:50:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789714216; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MEfWw0wRUuAHPwhBVTXFm6iwGOZTjeJHn2q4VfpjyU8EPTIRZjrIquf+virNhpkTwM
+         8j9EGWwaFKiWGOirdFbKv6DijNvRd1kSKeDzj1lo6evrVTHwB4OKlM8kAIk7CE+VjP/i
+         Txi9bh+5a5bjZObBi2q7UhpwCi9MfSqPFqoXy9bCE0GFlp1zLiC4cXNd8qn7qPyDvicQ
+         qsnovKV5+z/tAJf6MYBkBmo3Vag3QREGaWz1n5p2ln4jI0qmm137pMducN71vckgrggL
+         yNAphVKdSI/3iaA54msyw+60u0bEhS2AujD+8n/57YGkg/MrWy3ELudng5S1drArjwsX
+         TuWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:message-id:to:from:subject:mime-version
+         :date:sender:dkim-signature:dkim-signature;
+        bh=ds44rWB76BuUCjyIzYWxCYntFIIqZwCpZXkD8vfzCSs=;
+        fh=4b4W06k4SnIqZE6EGmNuUHuRSKd2XKMpUEwfsHxveyE=;
+        b=N8URmMP++JSjgZ1QSZt8NqYHw/vc3RX9WObuIGJK0zhaAJcMcgSS+AP/ba+NotisJo
+         AfrSxd4MfW3ImW0nJXhfXRsFRqZ1j+Tq0Tlq1QIJHFYG5QnnHWR9YrCemkwGNgboEjOu
+         E31Mbr5rlvgVoNcnD7ZrT645B4mS/dxGVGopEZGYMV/3qYxPJk7JSnozIPDFvHD+22WM
+         x2YhOJvwSFfrhEoq8bCNTR3iXCZ0aUIadZoeV8u5ycUzicPoizgtkO9RWnfP0Qyj+mVm
+         +J+HnJ+ga6BUyZVVHqiUAMEm9JSJkdqt9ZWh+8i4QV9Lkb7H+OTiEci+DCO/VeoFvlMS
+         UM0g==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@factura.camuzzigas.com.ar header.s=mailo header.b=mltyoo08;
+       dkim=pass header.i=@mailgun.org header.s=mg header.b=lDc7q62g;
+       spf=pass (google.com: domain of bounce+7a699b.9ce785-nicolasfapitalle=gmail.com@factura.camuzzigas.com.ar designates 159.135.231.238 as permitted sender) smtp.mailfrom="bounce+7a699b.9ce785-nicolasfapitalle=gmail.com@factura.camuzzigas.com.ar";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=factura.camuzzigas.com.ar
+Return-Path: <bounce+7a699b.9ce785-nicolasfapitalle=gmail.com@factura.camuzzigas.com.ar>
+Received: from v5238.v5e94de3c.use4.send.mailgun.net (v5238.v5e94de3c.use4.send.mailgun.net. [159.135.231.238])
+        by mx.google.com with UTF8SMTPS id d75a77b69052e-532a1956e42si7448081cf.110.2026.09.17.23.50.16
+        for <nicolasfapitalle@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 17 Sep 2026 23:50:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce+7a699b.9ce785-nicolasfapitalle=gmail.com@factura.camuzzigas.com.ar designates 159.135.231.238 as permitted sender) client-ip=159.135.231.238;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@factura.camuzzigas.com.ar header.s=mailo header.b=mltyoo08;
+       dkim=pass header.i=@mailgun.org header.s=mg header.b=lDc7q62g;
+       spf=pass (google.com: domain of bounce+7a699b.9ce785-nicolasfapitalle=gmail.com@factura.camuzzigas.com.ar designates 159.135.231.238 as permitted sender) smtp.mailfrom="bounce+7a699b.9ce785-nicolasfapitalle=gmail.com@factura.camuzzigas.com.ar";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=factura.camuzzigas.com.ar
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=factura.camuzzigas.com.ar; q=dns/txt; s=mailo; t=1789714216; x=1789721416;
+ h=Content-Transfer-Encoding: Content-Type: Message-Id: To: To: From: From: Subject: Subject: Mime-Version: Date: Sender: Sender: X-Feedback-Id;
+ bh=ds44rWB76BuUCjyIzYWxCYntFIIqZwCpZXkD8vfzCSs=;
+ b=mltyoo08KiGQObESL6IxEmctZV/p9T8qJIq3cMRIi7GneH3/r/aW72635ndWMrXEwVcZrbZ8BU8GflCqhGHfqIvPqzlxMoY3tsDy4ZUfIcOQVaS9SXwfEbArEx3H3MoTcuLIf5/bJYnz2RdADQO6wXXmiq0msUEYTkGrr4+XUPE=
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mailgun.org; q=dns/txt; s=mg; t=1789714216; x=1789721416;
+ h=Content-Transfer-Encoding: Content-Type: Message-Id: To: To: From: From: Subject: Subject: Mime-Version: Date: Sender: Sender: X-Feedback-Id;
+ bh=ds44rWB76BuUCjyIzYWxCYntFIIqZwCpZXkD8vfzCSs=;
+ b=lDc7q62ggWAtKGlyqC/T6RXQGUzqLqgZmYf1GXLdiYV9qYGFLxtEjG1OyTMyT10hkoGSCNPLQkvFu65d34gvbD2f3KFLwY9JkCcuRLE64UXluIxnU0g+L8BLxTzGJFfxHVOVcDao+xioL1pvGkM8l0jPLJCzAlYtTU/9C6Gyg+8=
+X-Mailgun-Sid: WyIxMDFlNyIsIm5pY29sYXNmYXBpdGFsbGVAZ21haWwuY29tIiwiOWNlNzg1Il0=
+X-Feedback-Id: factura@factura.camuzzigas.com.ar::5996ee65cd16824dac9a963a:mailgun
+Received: by 394f6f21d2abc66aaeb0e36d591914cc68930c0f96c5682feac262761dfd4a16 with HTTP
+ id 6aacdf2834bc6d8974e831e6; Fri, 18 Sep 2026 06:50:16 GMT
+X-Mailgun-Sending-Ip: 159.135.231.238
+Sender: factura@factura.camuzzigas.com.ar
+Date: Fri, 18 Sep 2026 06:50:16 +0000
+Mime-Version: 1.0
+Subject: =?UTF-8?q?Camuzzi_te_acerca_tu_factura._Nro._Cuenta:_8000/0-1012-0204292/?=
+ =?UTF-8?q?4_del_periodo___04/26__=E2=80=93_liquidaci=C3=B3n_2_de_2?=
+From: Camuzzi <factura@factura.camuzzigas.com.ar>
+To: franciscofapitalle@gmail.com, nicolasfapitalle@gmail.com
+Message-Id: <20260918065016.5de37f568c22cd5d@factura.camuzzigas.com.ar>
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!--  PARA USAR CUADRO INFORMATIVO -->
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:v=3D"urn:sc=
+hemas-microsoft-com:vml">
+
+<head>
+  <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF-8">
+</head>
+
+<body class=3D"outlook"
+  style=3D"  font-family: Arial,Helvetica,sans-serif !important; margin: 0p=
+x auto; height: 100%;  text-align: center; background-color: #dde1e7;">
+      <!-- NAME: SIMPLE TEXT -->
+      <!--[if gte mso 15]>
+        <xml>            <o:OfficeDocumentSettings>            <o:AllowPNG/=
+>            <o:PixelsPerInch>96</o:PixelsPerInch>            </o:OfficeDoc=
+umentSettings>        </xml>        <![endif]-->
+      <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+      <meta name=3D"viewport" content=3D"width=3Ddevice-width">
+      <title></title>
+      <style type=3D"text/css">
+        /* -------------------------------------=20
+
+		GLOBAL=20
+
+------------------------------------- */
+
+        * {
+
+          margin: 0;
+
+          padding: 0;
+
+        }
+
+
+
+
+
+        img {
+
+          max-width: 100%;
+
+        }
+
+
+
+        .collapse {
+
+          margin: 0;
+
+          padding: 0;
+
+        }
+
+
+
+
+
+
+
+        /* -------------------------------------=20
+
+		ELEMENTS=20
+
+------------------------------------- */
+
+        a {
+          color: #2BA6CB;
+        }
+
+
+
+
+
+        p.callout {
+
+          padding: 15px;
+
+          background-color: #ECF8FF;
+
+          margin-bottom: 15px;
+
+        }
+
+        .callout a {
+
+          font-weight: bold;
+
+          color: #2BA6CB;
+
+        }
+
+
+
+        table.social {
+
+          /* 	padding:15px; */
+
+          background-color: #ebebeb;
+
+
+
+        }
+
+        .social .soc-btn {
+
+          padding: 3px 7px;
+
+          font-size: 12px;
+
+          margin-bottom: 10px;
+
+          text-decoration: none;
+
+          color: #FFF;
+          font-weight: bold;
+
+          display: block;
+
+          text-align: center;
+
+        }
+
+        a.fb {
+          background-color: #3B5998 !important;
+        }
+
+        a.tw {
+          background-color: #1daced !important;
+        }
+
+        a.gp {
+          background-color: #DB4A39 !important;
+        }
+
+        a.ms {
+          background-color: #000 !important;
+        }
+
+
+
+        .sidebar .soc-btn {
+
+          display: block;
+
+          width: 100%;
+
+        }
+
+
+
+        /* -------------------------------------=20
+
+		HEADER=20
+
+------------------------------------- */
+
+        table.head-wrap {
+          width: 100%;
+        }
+
+
+
+        .header.container table td.logo {
+          padding: 15px;
+        }
+
+        .header.container table td.label {
+          padding: 15px;
+          padding-left: 0px;
+        }
+
+
+
+
+
+        /* -------------------------------------=20
+
+		BODY=20
+
+------------------------------------- */
+
+        table.body-wrap {
+          width: 100%;
+        }
+
+
+
+
+
+        /* -------------------------------------=20
+
+		FOOTER=20
+
+------------------------------------- */
+
+        table.footer-wrap {
+          width: 100%;
+          clear: both !important;
+
+        }
+
+        .footer-wrap .container td.content p {
+          border-top: 1px solid rgb(215, 215, 215);
+          padding-top: 15px;
+        }
+
+        .footer-wrap .container td.content p {
+
+          font-size: 10px;
+
+          font-weight: bold;
+
+
+
+        }
+
+
+
+        br.solo-mob-vi {
+          display: none;
+        }
+
+        /* -------------------------------------=20
+
+		TYPOGRAPHY=20
+
+------------------------------------- */
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+
+          font-family: Arial, sans-serif;
+          line-height: 1.1;
+          margin-bottom: 15px;
+          color: #000;
+
+        }
+
+
+
+
+
+        h1 {
+          font-weight: 200;
+          font-size: 44px;
+        }
+
+        h2 {
+          font-weight: 200;
+          font-size: 37px;
+        }
+
+        h3 {
+          font-weight: 500;
+          font-size: 27px;
+        }
+
+        h4 {
+          font-weight: 500;
+          font-size: 23px;
+        }
+
+        h5 {
+          font-weight: 900;
+          font-size: 17px;
+        }
+
+        h6 {
+          font-weight: 900;
+          font-size: 14px;
+          text-transform: uppercase;
+          color: #444;
+        }
+
+
+
+        .collapse {
+          margin: 0 !important;
+        }
+
+
+
+        p,
+        ul {
+
+          margin-bottom: 10px;
+
+          font-weight: normal;
+
+          font-size: 14px;
+
+          line-height: 1.6;
+
+        }
+
+        p.lead {
+          font-size: 17px;
+        }
+
+        p.last {
+          margin-bottom: 0px;
+        }
+
+
+
+        ul li {
+
+          margin-left: 5px;
+
+          list-style-position: inside;
+
+        }
+
+
+
+        /* -------------------------------------=20
+
+		SIDEBAR=20
+
+------------------------------------- */
+
+        ul.sidebar {
+
+          background: #ebebeb;
+
+          display: block;
+
+          list-style-type: none;
+
+        }
+
+        ul.sidebar li {
+          display: block;
+          margin: 0;
+        }
+
+        ul.sidebar li a {
+
+          text-decoration: none;
+
+          color: #666;
+
+          padding: 10px 16px;
+
+          /* 	font-weight:bold; */
+
+          margin-right: 10px;
+
+          /* 	text-align:center; */
+
+          cursor: pointer;
+
+          border-bottom: 1px solid #777777;
+
+          border-top: 1px solid #FFFFFF;
+
+          display: block;
+
+          margin: 0;
+
+        }
+
+        ul.sidebar li a.last {
+          border-bottom-width: 0px;
+        }
+
+        ul.sidebar li a h1,
+        ul.sidebar li a h2,
+        ul.sidebar li a h3,
+        ul.sidebar li a h4,
+        ul.sidebar li a h5,
+        ul.sidebar li a h6,
+        ul.sidebar li a p {
+          margin-bottom: 0 !important;
+        }
+
+
+
+
+
+        /* ---------------------------------------------------=20
+
+RESPONSIVENESS	=09
+
+------------------------------------------------------ */
+
+
+
+        .container {
+
+          display: block !important;
+
+          max-width: 600px !important;
+
+          margin: 0 auto !important;
+          /* makes it centered */
+
+          clear: both !important;
+
+        }
+
+
+
+        .content {
+
+          /* padding: 15px 30px; */
+
+          padding-bottom: 0px !important;
+
+          max-width: 600px !important;
+
+          margin: 0 auto;
+
+          display: block;
+
+        }
+
+
+
+        /* tablas al 100% wide */
+
+        .content table {
+          width: 100%;
+        }
+
+
+
+
+
+        /* Odds and ends */
+
+        .column {
+
+          width: 300px;
+
+          float: left;
+
+        }
+
+        .column tr td {
+          padding: 15px;
+        }
+
+        .column-wrap {
+
+          padding: 0 !important;
+
+          margin: 0 auto;
+
+          max-width: 600px !important;
+
+        }
+
+        .column table {
+          width: 100%;
+        }
+
+        .social .column {
+
+          width: 280px;
+
+          min-width: 279px;
+
+          float: left;
+
+        }
+
+
+
+        .clear {
+          display: block;
+          clear: both;
+        }
+
+        .precio {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .precio2 {
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+
+
+
+
+        h3.adherite {
+          font-size: 16px;
+          line-height: 20px !important;
+        }
+
+        a.ov-link2 {
+          font-size: 16px !important;
+          padding: 5px 10px !important;
+        }
+
+        img.qr-icono {
+          max-width: 95px;
+          max-height: 100px;
+        }
+
+
+
+        /* -------------------------------------------=20
+
+MQ para tel??fonos
+
+-------------------------------------------- */
+
+        @media only screen and (min-width: 601px) {
+
+          .oculta-desk {
+            display: none !important;
+          }
+
+        }
+
+        @media only screen and (max-width: 600px) {
+
+
+
+          a[class=3D"btn"] {
+            display: block !important;
+            margin-bottom: 10px !important;
+            background-image: none !important;
+            margin-right: 0 !important;
+          }
+
+
+
+          div[class=3D"column"] {
+            width: auto !important;
+            float: none !important;
+          }
+
+
+
+          table.social div[class=3D"column"] {
+
+            width: auto !important;
+
+          }
+
+
+
+          .precio {
+            font-size: 16px;
+            font-weight: bold;
+          }
+
+
+
+          img.icono {
+            max-width: 60px !important;
+            max-height: 60px !important;
+          }
+
+          .oculta {
+            display: none !important;
+          }
+
+          .oculta-mob {
+            display: none !important;
+          }
+
+
+
+          img.btn-store {
+            max-width: 130px;
+            max-height: 41px;
+          }
+
+          img.logo-camuzzi {
+            max-width: 130px;
+            max-height: 34px;
+          }
+
+          a.ov-link,
+
+          a.ov-link2 {
+
+            font-size: 12px !important;
+
+            color: #fff !important;
+
+            background: #53b0f6 !important;
+
+            padding: 5px 10px !important;
+
+            margin-top: 10px !important;
+
+            text-decoration: none;
+
+            line-height: 12px;
+
+
+
+          }
+
+
+
+          a.link-abajo {
+
+            font-size: 12px !important;
+
+          }
+
+
+
+          img.ppd {
+            max-width: 40px;
+            max-height: 45px;
+          }
+
+          img.fi {
+            max-width: 90px;
+            max-height: 76px;
+          }
+
+          a.ov-link2 {
+            font-size: 16px !important;
+            padding: 5px 10px !important;
+          }
+
+        }
+
+        body,
+        td,
+        th {
+
+          font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        .container1 {
+          display: block !important;
+
+          max-width: 600px !important;
+
+          margin: 0 auto !important;
+          /* makes it centered */
+
+          clear: both !important;
+
+        }
+
+        img.icono {
+          max-width: 80px;
+          max-height: 80px;
+        }
+
+
+
+
+
+        img.ppd {
+          max-width: 40px;
+          max-height: 45px;
+        }
+
+
+
+
+
+        @media (min-width: 320px) and (max-width: 374px) {
+
+          p.icon-txt-mob {
+            font-size: 12px;
+          }
+
+          img.icon-new {
+            max-width: 60px;
+          }
+
+          a.ov-link2 {
+            font-size: 12px !important;
+            padding: 5px 5px !important;
+          }
+
+          h3.adherite {
+            font-size: 13px;
+            line-height: 16px !important;
+          }
+
+          br.solo-mob-vi {
+            display: block;
+          }
+
+          img.qr-icono {
+            max-width: 40px;
+            max-height: 40px;
+          }
+
+        }
+
+        @media (min-width: 375px) and (max-width: 424px) {
+
+          p.icon-txt-mob {
+            font-size: 13px;
+          }
+
+          img.icon-new {
+            max-width: 80px;
+          }
+
+          a.ov-link2 {
+            font-size: 12px !important;
+            padding: 5px 5px !important;
+          }
+
+          h3.adherite {
+            font-size: 14px;
+            line-height: 18px !important;
+          }
+
+          br.solo-mob-vi {
+            display: block;
+          }
+
+          img.qr-icono {
+            max-width: 40px;
+            max-height: 40px;
+          }
+
+        }
+
+        @media (min-width: 425px) and (max-width: 639px) {
+
+          p.icon-txt-mob {
+            font-size: 14px;
+          }
+
+          img.icon-new {
+            max-width: 100%;
+          }
+
+          a.ov-link2 {
+            font-size: 14px !important;
+            padding: 5px 10px !important;
+          }
+
+          h3.adherite {
+            font-size: 14px;
+            line-height: 18px !important;
+          }
+
+          br.solo-mob-vi {
+            display: none;
+          }
+
+          img.qr-icono {
+            max-width: 50px;
+            max-height: 50px;
+          }
+
+        }
+
+
+
+        p.icon-txt-mob {
+          font-size: 14px;
+        }
+
+        img.icon-new {
+          max-width: 100%;
+        }
+
+        .seiscientos {
+          width: 100%;
+        }
+      </style>
+      <!--[if gte mso 9]>
+    <style type=3D"text/css">    body {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    bo=
+dy.outlook {width: 600px !important; max-width: 600px !important; margin: 0=
+ auto;padding: 0 auto; text-align:center;}    .ov-link2 { background: #53b0=
+f6 !important; background-color: #53b0f6 !important; color: #fff !important=
+; padding: 5px 10px !important;}    .ov-link { background: #53b0f6 !importa=
+nt; background-color: #53b0f6 !important; color: #fff !important; padding: =
+5px 10px !important;}    .seiscientos {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    </=
+style><![endif]-->
+      <!--[if gte mso 10]>
+    <style type=3D"text/css">    body {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    bo=
+dy.outlook {width: 600px !important; max-width: 600px !important; margin: 0=
+ auto;padding: 0 auto; text-align:center;}    .ov-link2 { background: #53b0=
+f6 !important; background-color: #53b0f6 !important; color: #fff !important=
+; padding: 5px 10px !important;}    .ov-link { background: #53b0f6 !importa=
+nt; background-color: #53b0f6 !important; color: #fff !important; padding: =
+5px 10px !important;}    .seiscientos {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    </=
+style><![endif]-->
+      <!--[if gte mso 11]>
+    <style type=3D"text/css">    body {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    bo=
+dy.outlook {width: 600px !important; max-width: 600px !important; margin: 0=
+ auto;padding: 0 auto; text-align:center;}    .ov-link2 { background: #53b0=
+f6 !important; background-color: #53b0f6 !important; color: #fff !important=
+; padding: 5px 10px !important;}    .ov-link { background: #53b0f6 !importa=
+nt; background-color: #53b0f6 !important; color: #fff !important; padding: =
+5px 10px !important;}    .seiscientos {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    </=
+style><![endif]-->
+      <!--[if gte mso 12]>
+    <style type=3D"text/css">    body {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    bo=
+dy.outlook {width: 600px !important; max-width: 600px !important; margin: 0=
+ auto;padding: 0 auto; text-align:center;}    .ov-link2 { background: #53b0=
+f6 !important; background-color: #53b0f6 !important; color: #fff !important=
+; padding: 5px 10px !important;}    .ov-link { background: #53b0f6 !importa=
+nt; background-color: #53b0f6 !important; color: #fff !important; padding: =
+5px 10px !important;}    .seiscientos {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    </=
+style><![endif]-->
+      <!--[if gte mso 13]>
+    <style type=3D"text/css">    body {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    bo=
+dy.outlook {width: 600px !important; max-width: 600px !important; margin: 0=
+ auto;padding: 0 auto; text-align:center;}    .ov-link2 { background: #53b0=
+f6 !important; background-color: #53b0f6 !important; color: #fff !important=
+; padding: 5px 10px !important;}    .ov-link { background: #53b0f6 !importa=
+nt; background-color: #53b0f6 !important; color: #fff !important; padding: =
+5px 10px !important;}    .seiscientos {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    </=
+style><![endif]-->
+      <!--[if gte mso 14]>
+    <style type=3D"text/css">    body {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    bo=
+dy.outlook {width: 600px !important; max-width: 600px !important; margin: 0=
+ auto;padding: 0 auto; text-align:center;}    .ov-link2 { background: #53b0=
+f6 !important; background-color: #53b0f6 !important; color: #fff !important=
+; padding: 5px 10px !important;}    .ov-link { background: #53b0f6 !importa=
+nt; background-color: #53b0f6 !important; color: #fff !important; padding: =
+5px 10px !important;}    .seiscientos {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    </=
+style><![endif]-->
+      <!--[if gte mso 15]>
+    <style type=3D"text/css">    body {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    bo=
+dy.outlook {width: 600px !important; max-width: 600px !important; margin: 0=
+ auto;padding: 0 auto; text-align:center;}    .ov-link2 { background: #53b0=
+f6 !important; background-color: #53b0f6 !important; color: #fff !important=
+; padding: 5px 10px !important;}    .ov-link { background: #53b0f6 !importa=
+nt; background-color: #53b0f6 !important; color: #fff !important; padding: =
+5px 10px !important;}    .seiscientos {width: 600px !important; max-width: =
+600px !important; margin: 0 auto;padding: 0 auto; text-align:center;}    </=
+style><![endif]-->
+      <!-- Ini Header FIJO -->
+
+
+
+
+      <div style=3D"background-color:#dde1e7 ;">
+        <!--[if gte mso 15]>
+          <table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" class=3D"=
+"
+            style=3D"height:30px; width:612px; border-collapse: collapse;  =
+margin: 0 auto;padding: 0;font-family: Arial, sans-serif !important; paddin=
+g-top: 0px;  "
+            bgcolor=3D"#ffffff">
+            <tbody>
+              <tr height=3D"30"
+                style=3D"margin: 0;padding: 0;font-family: Arial, sans-seri=
+f !important; height: 30px; padding-bottom: 0; padding-top: 0;">
+         =20
+            =20
+                <td
+                  style=3D"margin: 0 auto!important;padding: 0;font-family:=
+ Arial, sans-serif !important;display: block!important; max-width: 600px!im=
+portant;clear: both!important; padding-top: 20px; width:580px;   "
+                  valign=3D"middle" align=3D"center">
+         =20
+                  <table cellspacing=3D"0" cellpadding=3D"0" border=3D"0"
+                    style=3D"margin: 0;padding: 0;width: 100%;font-family: =
+Arial, sans-serif !important; padding-bottom: 0px;">
+                    <tbody>
+                      <tr style=3D"margin: 0;padding: 0;font-family: Arial,=
+ sans-serif !important;">
+         =20
+                        <td style=3D"margin: 0;padding: 0; padding-left: 20=
+px; font-family: Arial, sans-serif !important; " width=3D"40%" valign=3D"to=
+p"
+                          align=3D"left"><a href=3D"https://www.camuzzigas.=
+com.ar?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electroni=
+ca_pam&utm_term=3Dcomprobante&utm_content=3Dweb_institucional" style=3D"bor=
+der:none !important;"><img
+                              class=3D"logo-camuzzi" src=3D"http://www.camu=
+zzigas.com.ar/newsletters/gen/images/logo-camuzzi.jpg"
+                              alt=3D"Camuzzi Gas" style=3D"margin: 0;paddin=
+g: 0;" width=3D"155" height=3D"40"></a>
+                        </td>
+                        <td style=3D"margin: 0;padding: 0px 0px 0px 0px;fon=
+t-family: Arial, sans-serif !important; " width=3D"1%"
+                          valign=3D"top" align=3D"left">&nbsp;</td>
+                        <td
+                          style=3D"font-family: Arial, sans-serif !importan=
+t; padding: 0px 0px 0px 0px; padding-bottom: 25px; padding-right: 15px;"
+                          width=3D"35%" valign=3D"middle" align=3D"right">
+                          <a style=3D"display:block; font-size: 16px; color=
+: #fff !important; =20
+          														" href=3D"https://oficinavirtual.camuzzigas.com.ar/=
+signup?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electroni=
+ca_pam&utm_term=3Dcomprobante&utm_content=3Doficina_virtual">
+                            <table aling=3D"right" class=3D"mcnButtonConten=
+tContainer"
+                              style=3D"border-radius:4px; border-collapse: =
+separate !important;background-color: #7885A1; width:100%"
+                              cellspacing=3D"0" cellpadding=3D"0" border=3D=
+"0">
+                              <tbody>
+                                <tr>
+                                  <td class=3D"mcnButtonContent" style=3D"f=
+ont-size: 14px; padding: 10px;" width=3D"50" valign=3D"middle"
+                                    align=3D"center">
+                                    <a class=3D"mcnButton "
+                                      href=3D"https://oficinavirtual.camuzz=
+igas.com.ar/signup?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactu=
+ra_electronica_pam&utm_term=3Dcomprobante&utm_content=3Doficina_virtual"
+                                      target=3D"_blank"
+                                      style=3D"display:block; text-decorati=
+on: none; letter-spacing: normal;line-height: 140%;text-align: center;text-=
+decoration: none;color: #FFFFFF;"><span
+                                        class=3D"oculta">
+                                        Registrate en la</span> Oficina Vir=
+tual </a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+         =20
+         =20
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+    <![endif]-->
+
+        <!--[if !mso 15]><!-->
+        <table cellspacing=3D"0" cellpadding=3D"0" border=3D"0"
+          style=3D"height:30px; width:580px; border-collapse: collapse;  ma=
+rgin: 0 auto;padding: 0;font-family: Arial, sans-serif !important; padding-=
+top: 0px;  "
+          bgcolor=3D"#ffffff">
+          <tbody>
+            <tr height=3D"30"
+              style=3D"margin: 0;padding: 0;font-family: Arial, sans-serif =
+!important; height: 30px; padding-bottom: 0; padding-top: 0;">
+              <td>
+                <p style=3D"background-color: #00C2FF; height: 40px; width:=
+ 4px;  margin: 0; padding: 0; border: 0; ">
+                </p>
+              </td>
+              <td
+                style=3D"margin: 0 auto!important;padding: 0;font-family: A=
+rial, sans-serif !important;display: block!important; max-width: 600px!impo=
+rtant;clear: both!important; padding-top: 20px; width:576px;   "
+                valign=3D"middle" align=3D"center">
+
+                <table cellspacing=3D"10" cellpadding=3D"10" border=3D"0"
+                  style=3D"margin: 0;padding: 0;width: 100%;font-family: Ar=
+ial, sans-serif !important; padding-bottom: 0px;">
+                  <tbody>
+                    <tr style=3D"margin: 0;padding: 0;font-family: Arial, s=
+ans-serif !important;">
+
+                      <td
+                        style=3D"margin: 0;padding: 0;font-family: Arial, s=
+ans-serif !important; padding-left: 10px; padding-top: 10px; "
+                        width=3D"40%" valign=3D"top" align=3D"left"><a
+                          href=3D"https://www.camuzzigas.com.ar?utm_source=
+=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electronica_pam&utm_term=
+=3Dcomprobante&utm_content=3Dweb_institucional"
+                          style=3D"border:none !important; text-decoration:=
+none !important;"><img class=3D"logo-camuzzi"
+                            src=3D"https://www.camuzzigas.com/wp-content/up=
+loads/2024/06/logo-camuzzi-head-new.png"
+                            alt=3D"Camuzzi Gas" style=3D"margin: 0;padding:=
+ 0;" width=3D"155" height=3D"26"></a>
+                      </td>
+                      <td style=3D"margin: 0;padding: 0px 0px 0px 0px;font-=
+family: Arial, sans-serif !important; "
+                        width=3D"1%" valign=3D"top" align=3D"left"></td>
+                      <td
+                        style=3D"font-family: Arial, sans-serif !important;=
+ padding: 0px 0px 0px 0px; padding-bottom: 25px; padding-right: 15px; paddi=
+ng-top: 4px;"
+                        width=3D"35%" valign=3D"middle" align=3D"right">
+                        <a style=3D"display:block; font-size: 16px;text-dec=
+oration:none !important; color: #fff !important; =20
+														" href=3D"https://oficinavirtual.camuzzigas.com.ar/signup?utm=
+_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electronica_pam&utm=
+_term=3Dcomprobante&utm_content=3Doficina_virtual">
+                          <table aling=3D"right" class=3D"mcnButtonContentC=
+ontainer"
+                            style=3D"border-radius:4px; border-collapse: se=
+parate !important;background-color: #7885A1; width:100%"
+                            cellspacing=3D"0" cellpadding=3D"0" border=3D"0=
+">
+                            <tbody>
+                              <tr>
+                                <td class=3D"mcnButtonContent" style=3D"fon=
+t-size: 14px; padding: 10px;" width=3D"50"
+                                  valign=3D"middle" align=3D"center">
+                                  <a class=3D"mcnButton "
+                                    href=3D"https://oficinavirtual.camuzzig=
+as.com.ar/signup?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura=
+_electronica_pam&utm_term=3Dcomprobante&utm_content=3Doficina_virtual"
+                                    target=3D"_blank"
+                                    style=3D"display:block; text-decoration=
+: none; letter-spacing: normal;line-height: 140%;text-align: center;text-de=
+coration: none;color: #FFFFFF;">
+                                    <span style=3D"text-decoration: none;" =
+class=3D"oculta">
+                                      Registrate en la</span> Oficina Virtu=
+al </a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!--<![endif]-->
+
+        <!-- Fin Header FIJO -->
+        <!-- Ini Cuerpo -->
+        <!--[if mso]>
+	<center> <table><tr><td width=3D"580"; ><![endif]-->
+        <table class=3D"body-wrap seiscientos" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0"
+          style=3D"font-family: sans-serif;border-collapse: collapse;margin=
+: 0 auto;padding: 0; width:580px;">
+          <tbody>
+            <tr style=3D"margin: 0;padding: 0;font-family: Arial, sans-seri=
+f !important;">
+              <td class=3D"container"
+                style=3D"margin: 0 auto!important;padding: 0;font-family: A=
+rial, sans-serif !important;display: block!important;max-width: 580px!impor=
+tant;clear: both!important;"
+                valign=3D"top" bgcolor=3D"#FFFFFF">
+                <div class=3D"content"
+                  style=3D"margin: 0px auto 0px auto;max-width: 580px !impo=
+rtant;display: block;font-family: Arial, sans-serif !important;">
+                  <!--=20
+                  <table style=3D"margin: 0 auto;padding: 0;     padding-le=
+ft: 20px;
+    padding-right: 20px; padding-bottom:20px; font-family: Arial, sans-seri=
+f !important; width: 540px;     border-collapse: collapse;">
+                  <tbody>
+                    <tr style=3D"font-family: Arial, sans-serif !important;=
+">
+                      <td style=3D"margin: 0px 0px 0px 0px; width: 15%;    =
+ background-color: #E9F5F0;  border-top-left-radius: 4px;"
+                        align=3D"right"
+                        valign=3D"middle">
+                        <table style=3D"border-top-left-radius: 4px;" cells=
+pacing=3D"10"
+                          cellpadding=3D"0"
+                          border=3D"0"
+                          bgcolor=3D"#E9F5F0">
+                          <tbody>
+                            <tr>
+                              <th scope=3D"col" style=3D"height: 100px;" al=
+ign=3D"center"
+                                height=3D"100"
+                                width=3D"25%"
+                                valign=3D"middle">
+                                <img style=3D"display: block; width:50px; h=
+eight:45px !important;"
+                                  src=3D"https://www.camuzzigas.com/wp-cont=
+ent/uploads/2025/03/icon-aviso-verde.png"
+                                  alt=3D""
+                                  class=3D"qr-icono"
+                                  height=3D"45"
+                                  width=3D"50">
+                              </th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td style=3D"margin: 0px 0px 0px 0px; background-colo=
+r: #E9F5F0; border-top-right-radius: 4px;  padding-top: 16px; "
+                        align=3D"left"
+                        width=3D"50%"
+                        valign=3D"center">
+                        <h3 style=3D"color: #118050;;font-size: 18px; paddi=
+ng-top: 0; margin-top: 0; font-family: Arial, Helvetica, sans-serif !import=
+ant;line-height: 22px;font-weight: 300;padding: 5px 0px 0px 0px; margin-bot=
+tom:0px;padding-bottom:10px;">
+                          <font face=3D"Arial, Helvetica, sans-serif">
+                             <strong style=3D"color: #118050;;margin: 0;pad=
+ding: 0;font-family: Arial, sans-serif !important; font-weight: 600;">
+                              ACOMPA=C3=91AMOS A BAH=C3=8DA EN ESTE<br>
+                              MOMENTO DIF=C3=8DCIL </strong></font> </h3>
+                        <h6 style=3D"text-transform:none ;margin-bottom: 0;=
+ margin-top: 0 !important; padding-top: 0 !important; color: #7885A1; font-=
+weight: 100; font-size:14px; padding-bottom: 20px;">
+                            Debido a la situaci=C3=B3n de emergencia en tu =
+localidad,
+                            hemos decidido postergar el vencimiento de esta
+                            factura.
+                      </h6>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table>
+                  <tr>
+                    <td height=3D"10px" ></td>
+                  </tr>
+                </table>
+                 -->
+                  <table style=3D"margin: 0 auto;padding: 0;     padding-le=
+ft: 20px;
+    padding-right: 20px; font-family: Arial, sans-serif !important; width: =
+540px;     border-collapse: collapse;">
+                    <tbody>
+                      <tr style=3D"font-family: Arial, sans-serif !importan=
+t;">
+
+                        <td
+                          style=3D"margin: 0px 0px 0px 0px; width: 20%;    =
+ background-color: #0066b3;  border-top-left-radius: 4px;"
+                          valign=3D"middle" align=3D"right">
+                          <table cellspacing=3D"10" cellpadding=3D"0" borde=
+r=3D"0" bgcolor=3D"#0066B3"
+                            style=3D"border-top-left-radius: 4px;">
+                            <tbody>
+                              <tr>
+                                <th scope=3D"col" width=3D"25%" height=3D"1=
+00" valign=3D"middle" align=3D"center"
+                                  style=3D"height: 100px;">
+
+                                  <img style=3D"display: block; width:95px;=
+ height:100px !important;" width=3D"95"
+                                    height=3D"100"
+                                    src=3D"https://www.camuzzigas.com/wp-co=
+ntent/uploads/2024/05/icon-factura-electronica.jpg"
+                                    alt=3D"" class=3D"qr-icono">
+                                </th>
+
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td
+                          style=3D"margin: 0px 0px 0px 0px; background-colo=
+r: #0066B3; border-top-right-radius: 4px;  padding-top: 16px; "
+                          width=3D"50%" valign=3D"center" align=3D"left">
+                          <h6
+                            style=3D"margin-bottom: 0; margin-top: 0 !impor=
+tant; padding-top: 0 !important; color: #ffffff; font-weight: 200; font-siz=
+e:14px; ">
+                            AVISO
+                          </h6>
+                          <h3
+                            style=3D"color: #ffffff;font-size: 20px; paddin=
+g-top: 0; margin-top: 0; font-family: Arial, Helvetica, sans-serif !importa=
+nt;line-height: 24px;font-weight: 300;padding: 5px 0px 0px 0px;">
+                            <font face=3D"Arial, Helvetica, sans-serif">YA =
+EST&Aacute; DISPONIBLE TU <br><strong
+                                style=3D"color: #ffffff;margin: 0;padding: =
+0;font-family: Arial, sans-serif !important; font-weight: 600;">FACTURA
+                                DIGITAL</strong></font>
+                          </h3>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                  <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"
+                    style=3D"margin: 0 auto;padding: 0;width: 540px;font-fa=
+mily: Arial, sans-serif !important; background-color: #005BA0; border-botto=
+m-left-radius: 4px;border-bottom-right-radius: 4px;"
+                    bgcolor=3D"#005BA0">
+                    <tbody>
+                      <tr style=3D"margin: 0;padding: 0;font-family: Arial,=
+ sans-serif !important;">
+                        <td
+                          style=3D"margin: 0;padding: 0px 0px 0px 0px;font-=
+family: Arial, sans-serif !important; padding-left: 20px; "
+                          width=3D"3%" valign=3D"top" align=3D"left">&nbsp;=
+</td>
+                        <td
+                          style=3D"margin: 0;padding: 0;font-family: Arial,=
+ sans-serif !important;  padding-top: 15px; padding-bottom: 15px;  "
+                          width=3D"50%" valign=3D"middle" align=3D"left">
+
+                          <h3
+                            style=3D"color: #ffffff;font-size: 15px; margin=
+-bottom: 0; line-height:20px !important; padding: 15px 15px 15px 15px !impo=
+rtant;  text-align:left; font-weight: 300;">
+                            &#191;Sab&iacute;as que ahora pod&eacute;s abon=
+ar tu factura online
+                            ingresando a la Oficina Virtual?</h3>
+
+                        </td>
+                        <td style=3D"margin: 0;padding: 0px 0px 0px 0px;fon=
+t-family: Arial, sans-serif !important; "
+                          width=3D"3%" valign=3D"center" align=3D"left">&nb=
+sp;</td>
+                        <td style=3D"font-family: Arial, sans-serif !import=
+ant; padding: 0px 0px 0px 0px;" width=3D"22%"
+                          valign=3D"middle" align=3D"right">
+                          <a style=3D"display:block; font-size: 16px; color=
+: #fff !important;   text-decoration:none !important;
+														" href=3D"https://oficinavirtual.camuzzigas.com.ar/deep-link?=
+suministro=3D80000101202042924&origen=3D1&utm_source=3Ddms&utm_medium=3Dema=
+il&utm_campaign=3Dfactura_electronica_pam&utm_term=3Dcomprobante&utm_conten=
+t=3Dpagar">
+                            <table aling=3D"right" class=3D"mcnButtonConten=
+tContainer"
+                              style=3D"border-collapse: separate !important=
+; width:100%;  background-color: #00C2FF;border-radius: 2px; "
+                              cellspacing=3D"0" cellpadding=3D"0" border=3D=
+"0">
+                              <tbody>
+                                <tr>
+                                  <td ;=3D"" class=3D"mcnButtonContent" sty=
+le=3D"font-size: 14px; padding: 14px;" width=3D"50"
+                                    valign=3D"middle" align=3D"center">
+                                    <a class=3D"mcnButton "
+                                      href=3D"https://oficinavirtual.camuzz=
+igas.com.ar/deep-link?suministro=3D80000101202042924&origen=3D1&utm_source=
+=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electronica_pam&utm_term=
+=3Dcomprobante&utm_content=3Dpagar"
+                                      target=3D"_blank"
+                                      style=3D"display:block; text-decorati=
+on:none !important; letter-spacing: normal;line-height: 100%;text-align: ce=
+nter;text-decoration: none;color: #FFFFFF;">
+                                      <strong style=3D"text-decoration: non=
+e;">PAGAR AHORA</strong> </a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </a>
+                        </td>
+                        <td
+                          style=3D"margin: 0;padding: 0px 0px 0px 0px;font-=
+family: Arial, sans-serif !important; padding-right: 20px; "
+                          width=3D"2%" valign=3D"top" align=3D"left">&nbsp;=
+</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                  <p style=3D"text-align: center;"> <strong
+                      style=3D" display:inline-block ; color: #194d86;font-=
+size: 20px;    margin: 0px 30px 0px 0px;padding: 0;font-family: Arial, sans=
+-serif !important;line-height: 28px; padding-bottom: 10px !important;">
+                      Hola, <span style=3D"text-transform: uppercase;">
+                          FAPITALLE FRANCISCO
+                      </span>
+                       </strong>
+                    <!--[if mso]>
+                       <br><br><br><![endif]-->
+
+                    <span
+                      style=3D" display: block;  color: #7885A1;margin: 0;p=
+adding: 0;margin-bottom: 10px;padding-top: 16px;  ;font-weight: normal;font=
+-size: 18px;line-height: 24px;font-family: Arial, sans-serif !important;">
+                      Te acercamos la factura del suministro ubicado en: <b=
+r> <strong
+                        style=3D"color: #0066B3; text-transform: uppercase;=
+">
+                        <!-- Decision adress-->
+                          19 DE MAYO 551 P=C2=B0 002 D=C2=B0 A             =
+          =20
+                      </strong> </span>
+                  </p>
+                  <br>
+
+                  <table border=3D"0" cellspacing=3D"0" id=3D"tabla-factura=
+s-abonadas"
+                    style=3D"margin: 0 auto;padding: 0;width: 90%; font-fam=
+ily: Arial, sans-serif !important; ">
+                    <tbody>
+                      <tr
+                        style=3D"background-color: #f6f9ff;min-height: 55px=
+;margin: 0;padding: 10px 0px !important;font-family: Arial, sans-serif !imp=
+ortant; ">
+                        <th colspan=3D"3"
+                          style=3D"margin: 0;padding: 0px 0px 0px 10px;font=
+-family: Arial, sans-serif !important; border:1px solid #CFD8EC; border-bot=
+tom: 0; border-top-left-radius: 8px; border-top-right-radius: 8px; "
+                          width=3D"300" height=3D"40" align=3D"left">
+                          <h3
+                            style=3D"font-size: 14px; line-height:24px;colo=
+r: #3c4351;font-weight: initial;margin: 0;padding: 10px 0px;font-family: Ar=
+ial, sans-serif !important;"
+                            align=3D"left">
+
+                            <font face=3D"Arial, Helvetica, sans-serif">
+                              Factura
+                              <span
+                                style=3D" display: inline-block;  color: #1=
+E3462; font-size: 16px; padding-left: 8px; font-weight: 600;">70003-4709482=
+7/1</span>
+                            </font>
+                          </h3>
+                        </th>
+                      </tr>
+                      <!-- Decision with or without installments -->
+                      <!-- Decision with installment1 -->
+                      <!-- Decision without installment -->
+
+                        <!-- Decision with expirationDate & amount -->
+                          <tr
+                            style=3D"height: 35px;border-bottom: 1px solid =
+black;font-size: 14px;color: #003263;margin: 0;padding: 0;font-family: Aria=
+l, sans-serif !important;">
+                            <td
+                              style=3D"border: #CFD8EC 1px solid;margin: 0;=
+padding: 5px 0px 5px 10px; border-bottom-left-radius: 8px;"
+                              valign=3D"center" align=3D"center">
+                              <p style=3D"font-family: Arial, sans-serif !i=
+mportant;margin: 0px; text-align: center;">
+                                <font face=3D"Arial, Helvetica, sans-serif"=
+ style=3D"color: #7885a1;">Total:
+                                  <br class=3D"muestra">
+                                  <strong class=3D"precio2" style=3D"font-s=
+ize: 18px; color:#1E3462 ;">$
+                                    29.587,89</strong>
+                                </font>
+                              </p>
+                            </td>
+                            <td
+                              style=3D"width:50%;  border: #CFD8EC 1px soli=
+d;margin: 0;padding: 5px 0px 5px 10px; border-bottom-right-radius: 8px;"
+                              valign=3D"center" align=3D"center">
+                              <p
+                                style=3D"display: block; font-family: Arial=
+, sans-serif !important;margin: 0px; text-align: center;">
+                                <font face=3D"Arial, Helvetica, sans-serif"=
+ style=3D"color: #7885a1; margin-bottom: 0;">
+                                  Vencimiento:
+                                  <br class=3D"muestra">
+                                  <strong class=3D"precio2"
+                                    style=3D" display: block; font-size: 18=
+px; color:#1E3462 ;">06/10/2026</strong>
+                                </font>
+                              </p>
+                            </td>
+                          </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                </div>
+              </td>
+              <td style=3D"margin: 0;padding: 0;font-family: Arial, sans-se=
+rif !important; ">
+                <br>
+              </td>
+            </tr>
+            <!-- boton pagar en cuotas -->
+            <tr>
+              <td align=3D"center" colspan=3D"4"
+                style=3D"background-color:#ffffff; padding-top: 20px;  padd=
+ing-bottom: 30px;">
+                <table align=3D"center">
+                  <tr>
+                    <td align=3D"center">
+                      <a style=3D"display:block; font-size: 16px; color: #f=
+ff !important; =20
+                          														"
+                        href=3D"https://oficinavirtual.camuzzigas.com.ar/de=
+ep-link?suministro=3D80000101202042924&origen=3D1&utm_source=3Ddms&utm_medi=
+um=3Demail&utm_campaign=3Dfactura_electronica_pam&utm_term=3Dcomprobante&ut=
+m_content=3Dfinanciar">
+                        <table aling=3D"center" class=3D"mcnButtonContentCo=
+ntainer" bgcolor=3D"#43c3fc"
+                          style=3D"border-collapse: separate !important;bac=
+kground-color: #43c3fc; width: 320px; height:60px; margin: 0 auto; border-r=
+adius: 4px; padding-top: 0px; padding-bottom: 0px;; "
+                          cellspacing=3D"10" cellpadding=3D"0" border=3D"0"=
+ align=3D"center">
+                          <tbody>
+                            <tr>
+                              <td ;=3D"" class=3D"mcnButtonContent" style=
+=3D"font-size: 15px; padding-top: 0px; "
+                                valign=3D"middle" align=3D"center">
+                                <a class=3D"mcnButton "
+                                  href=3D"https://oficinavirtual.camuzzigas=
+=2Ecom.ar/deep-link?suministro=3D80000=
+101202042924&origen=3D1&utm_source=3Ddm=
+s&utm_medium=3Demail&utm_campaign=3Dfactura_electronica_pam&utm_term=3Dcomp=
+robante&utm_content=3Dfinanciar"
+                                  target=3D"_blank"
+                                  style=3D"display:inline-block;  width: 32=
+0px; font-weight:600; letter-spacing: normal;line-height: 100%;text-align: =
+center;text-decoration: none;color: #FFFFFF; margin: 0 auto;">
+                                  &#191;TE INTERESA FINANCIAR TU FACTURA ? =
+</a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+
+            </tr>
+            <!-- boton pagar en cuotas -->
+          </tbody>
+        </table>
+        <!-- END preFooter //////////////////////////////////
+/////////////////////////////////////////////////////-->
+        <!-- Fin Cuerpo -->
+        <!-- FOOTER FIJO -->
+        <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"fo=
+oter-wrap seiscientos" bgcolor=3D"#ffffff"
+          style=3D" width: 580px ; margin: 0 auto; border-collapse: collaps=
+e;font-family: Arial, sans-serif !important;clear: both!important;">
+          <tbody>
+            <tr style=3D"font-family: Arial, sans-serif !important;">
+              <td style=3D"font-family: Arial, sans-serif !important;"><br>
+              </td>
+              <td class=3D"container"
+                style=3D"margin: 0 auto!important;font-family: Arial, sans-=
+serif !important;display: block!important;max-width: 580px!important;clear:=
+ both!important;">
+                <div class=3D"content"
+                  style=3D"margin: 0px auto 20px auto;max-width: 580px !imp=
+ortant;display: block;font-family: Arial, sans-serif !important;">
+                  <!-- Tabla para desk y mob //////////////////////////////=
+////
+              /////////////////////////////////////////////////////-->
+                  <!--[if mso]>
+	      <br><br><br><br> <center> <table><tr><td width=3D"580"; ><![endif]--=
+>
+                  <table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" s=
+tyle=3D"width: 100%;
+    margin: 0 auto;">
+                    <tbody>
+                      <tr>
+                        <th scope=3D"col">
+                          <table cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"0" valign=3D"middle" style=3D"width: 94%;
+    margin: 0 auto;">
+                            <tbody valign=3D"middle">
+                              <tr valign=3D"middle">
+                                <th valign=3D"middle"
+                                  style=3D"background: #2466b3; width: 20%;=
+ text-align: center; border-top-left-radius: 6px; border-bottom-left-radius=
+: 6px; padding-top: 16px; padding-bottom: 16px; ">
+                                  <a href=3D"https://factura.camuzzigas.com=
+=2Ear/dms/public/document/xxLsEK1iycgD=
+4Uqtyecf/64859/invoice.pdf?tracking=3D8=
+ZRmcBw3qq&utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electr=
+onica_pam&utm_term=3Dcomprobante&utm_content=3Ddescargar"
+                                    target=3D"_blank" style=3D"text-decorat=
+ion:none !important;"
+                                    title=3D"Descarg&aacute; tu factura">
+                                    <img
+                                      src=3D"https://www.camuzzigas.com/wp-=
+content/uploads/2024/05/icon-descarga-fact-news.jpg"
+                                      alt=3D"Descarg&aacute; tu factura"
+                                      style=3D"margin:0px 0px 00px 0px; dis=
+play: inline-block; border-radius: 100%;"
+                                      class=3D"icon-new">
+
+                                  </a>
+                                </th>
+                                <th align=3D"left" valign=3D"middle"
+                                  style=3D"background: #2466b3; width: 30%;=
+ border-top-right-radius: 6px; border-bottom-right-radius: 6px; padding-top=
+: 16px; padding-bottom: 16px;">
+                                  <a href=3D"https://factura.camuzzigas.com=
+=2Ear/dms/public/document/xxLsEK1iycgD=
+4Uqtyecf/64859/invoice.pdf?tracking=3D8=
+ZRmcBw3qq&utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electr=
+onica_pam&utm_term=3Dcomprobante&utm_content=3Ddescargar"
+                                    target=3D"_blank" style=3D"text-decorat=
+ion: none;">
+                                    <p class=3D"icon-txt-mob"
+                                      style=3D"margin: 0px 0px 0px 0px; tex=
+t-decoration:none !important; padding:0px 0px;font-size:16px; padding-left:=
+ 0; line-height:16px; padding-top: 0; padding-bottom: 0;">
+                                      <span style=3D"color: #FFFFFF; font-w=
+eight: 600;">Descarg&aacute; tu factura</span>
+                                      <br>
+                                    </p>
+                                  </a>
+                                </th>
+                                <th style=3D"background: #ffffff; width: 2%=
+;"></th>
+                                <th scope=3D"col" valign=3D"middle"
+                                  style=3D"background: #184c85; width: 20%;=
+ text-align: center; border-top-left-radius: 6px; border-bottom-left-radius=
+: 6px; padding-top: 16px; padding-bottom: 16px;">
+                                  <a href=3D"https://oficinavirtual.camuzzi=
+gas.com.ar/formas-de-pago?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=
+=3Dfactura_electronica_pam&utm_term=3Dcomprobante&utm_content=3Dformas_de_p=
+ago"
+                                    target=3D"_blank" style=3D"text-decorat=
+ion:none !important;" title=3D"Medios de Pago"><img
+                                      src=3D"https://www.camuzzigas.com/wp-=
+content/uploads/2024/05/icon-medios-pago-news.jpg"
+                                      alt=3D"Medios de pago"
+                                      style=3D"margin:0px 0px 0px 0px;  dis=
+play: inline-block; border-radius: 100%;"
+                                      class=3D"icon-new">
+
+                                  </a>
+                                </th>
+                                <th align=3D"left" valign=3D"middle"
+                                  style=3D"background: #184c85; width: 30%;=
+ padding-top: 16px; padding-bottom: 16px; border-top-right-radius: 6px; bor=
+der-bottom-right-radius: 6px; ">
+                                  <a href=3D"https://oficinavirtual.camuzzi=
+gas.com.ar/formas-de-pago?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=
+=3Dfactura_electronica_pam&utm_term=3Dcomprobante&utm_content=3Dformas_de_p=
+ago"
+                                    target=3D"_blank"
+                                    style=3D"text-decoration:none !importan=
+t;padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; margin=
+-bottom: 0; "
+                                    title=3D"Medios de Pago">
+                                    <p
+                                      style=3D"margin: 0px 0px 0px 0px; col=
+or: #FFFFFF; font-weight: 600; text-decoration:none !important; padding:0px=
+ 0px;font-size:16px; line-height:16px; padding-left: 0; padding-top: 0; pad=
+ding-bottom: 0; margin-top: 0; margin-bottom: 0; ">
+                                      Medios de pago
+                                      <br>
+
+                                    </p>
+                                  </a>
+                                </th>
+                              </tr>
+                              <tr>
+                                <td style=3D"padding-top: 16px;"></td>
+                              </tr>
+                              <tr valign=3D"middle">
+
+                                <th scope=3D"col" colspan=3D"1" valign=3D"m=
+iddle"
+                                  style=3D"background: #f2fbfe; text-align:=
+ center; padding-top: 20px; padding-bottom: 20px; border-top-left-radius: 6=
+px; border-bottom-left-radius: 6px;">
+                                  <a href=3D"https://www.camuzzigas.com/sim=
+ulador-de-consumo/?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactu=
+ra_electronica_pam&utm_term=3Dcomprobante&utm_content=3Dsimulador_de_consum=
+o"
+                                    target=3D"_blank" style=3D"text-decorat=
+ion:none !important;"
+                                    title=3D"Simulador de Consumo"><img
+                                      src=3D"https://www.camuzzigas.com/wp-=
+content/uploads/2024/05/icon-simulador-consumo-new.jpg"
+                                      alt=3D"Simulador de Consumo" style=3D=
+"display: inline-block; margin:0px 0px 0px 0px;"
+                                      class=3D"icon-new">
+
+                                  </a>
+                                </th>
+                                <th colspan=3D"3" align=3D"left" valign=3D"=
+middle"
+                                  style=3D"background: #f2fbfe; padding-top=
+: 20px; padding-bottom: 20px;">
+                                  <a href=3D"https://www.camuzzigas.com/sim=
+ulador-de-consumo/?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactu=
+ra_electronica_pam&utm_term=3Dcomprobante&utm_content=3Dsimulador_de_consum=
+o"
+                                    target=3D"_blank" style=3D"text-decorat=
+ion:none !important;"
+                                    title=3D"Simulador de Consumo">
+                                    <p class=3D"icon-txt-mob"
+                                      style=3D"margin: 0px 0px 0px 0px; tex=
+t-decoration:none !important; padding:0px 0px;font-size:16px; line-height:1=
+6px; padding-top: 0; padding-bottom: 0; ">
+                                      <span style=3D"color: #0066B3; font-w=
+eight: 600;">Simulador de Consumo</span>
+                                      <br>
+                                    </p>
+                                  </a>
+                                </th>
+                                <th colspan=3D"1" valign=3D"middle"
+                                  style=3D"background: #f2fbfe; padding-rig=
+ht: 16px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; pa=
+dding-top: 20px; padding-bottom: 20px;"
+                                  align=3D"right">
+                                  <a href=3D"https://www.camuzzigas.com/sim=
+ulador-de-consumo/?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactu=
+ra_electronica_pam&utm_term=3Dcomprobante&utm_content=3Dsimulador_de_consum=
+o"
+                                    target=3D"_blank" style=3D"text-decorat=
+ion:none !important;"
+                                    title=3D"Simulador de Consumo">
+                                    <img
+                                      src=3D"https://www.camuzzigas.com/wp-=
+content/uploads/2024/05/icon-arrow-new-simulador.jpg"
+                                      alt=3D"">
+                                  </a>
+                                </th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- content -->
+                <div class=3D"content"
+                  style=3D"padding: 15px;max-width: 600px;display: block;fo=
+nt-family: Arial, sans-serif !important;padding-bottom: 0px !important; pad=
+ding-top: 10px !important;">
+
+                  <table
+                    style=3D"border-spacing: 0; background-color: #fafafc; =
+border-radius: 6px; padding-top: 30px;padding-bottom: 20px;padding-left: 20=
+px;padding-right: 20px;">
+                    <tbody>
+                      <tr>
+                        <td colspan=3D"2" valign=3D"middle" align=3D"center=
+"> <a
+                            style=3D"color: #033462 !important; text-decora=
+tion:none !important;"
+                            href=3D"https://oficinavirtual.camuzzigas.com.a=
+r/signup?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electro=
+nica_pam&utm_term=3Dcomprobante&utm_content=3Doficina_virtual">
+
+                            <p
+                              style=3D"color:#033462; text-decoration:none =
+!important; font-size:20px; text-decoration:none !important; line-height:22=
+px; margin-bottom:0px;font-weight:normal; padding-bottom: 20px; text-align:=
+center;">
+                              Adherite al <strong>D&eacute;bito Autom&aacut=
+e;tico</strong> y <strong>olvidate
+                                de&nbsp;los&nbsp;vencimientos</strong></p>
+                          </a> </td>
+                      </tr>
+                      <tr style=3D"height: 40px;;">
+                        <td width=3D"49%" valign=3D"top" align=3D"center" s=
+tyle=3D" height: 40px;">
+                          <table cellspacing=3D"00" cellpadding=3D"0" borde=
+r=3D"0" style=3D"height: 40px;">
+                            <tbody>
+                              <tr style=3D"height: 40px;">
+                                <th scope=3D" col" valign=3D"top" align=3D"=
+left">
+                                  <img
+                                    src=3D"https://www.camuzzigas.com/wp-co=
+ntent/uploads/2024/05/icon-cta-bancria-new.jpg"
+                                    alt=3D"D&eacute;bito Cuenta Bancaria"
+                                    style=3D"margin: 0;max-width: 55px; dis=
+play:block; padding-right: 8px; ">
+                                </th>
+                                <th scope=3D"col" valign=3D"top" align=3D"l=
+eft" style=3D"height: 40px; ">
+                                  <span
+                                    style=3D" color:#033462; font-size:14px=
+; line-height:18px; margin-bottom:0px !important; margin-top: 0 !important;=
+ padding-bottom: 0 !important; padding-top: 0 !important;">
+                                    D&eacute;bito
+                                    Cuenta Bancaria</span>
+                                  <p
+                                    style=3D"color:#556688; font-size:12px;=
+ line-height:16px; font-weight:normal; margin-bottom:0px !important; margin=
+-top: 0 !important; padding-bottom: 0 !important; padding-top: 0 !important=
+;">
+                                    Pod&eacute;s
+                                    pagar tu factura con tu cuenta bancaria=
+=2E</p>
+                                </th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td style=3D"padding: 0px; height: 40px;" width=3D"=
+">
+                          <table cellspacing=3D"00" cellpadding=3D"0" borde=
+r=3D"0" style=3D"height: 40px;">
+                            <tbody>
+                              <tr style=3D"height: 40px;">
+                                <th scope=3D"col" valign=3D"top" align=3D"l=
+eft"><img
+                                    src=3D"https://www.camuzzigas.com/wp-co=
+ntent/uploads/2024/05/icon-tdc-new.jpg"
+                                    alt=3D"D&eacute;bito Cuenta Bancaria"
+                                    style=3D"margin: 0;max-width: 55px; dis=
+play: block; padding-right: 8px;">
+                                </th>
+                                <th scope=3D"col" valign=3D"top" align=3D"l=
+eft" style=3D"height: 40px; ">
+                                  <span
+                                    style=3D"color:#033462; font-size:14px;=
+ line-height:18px; margin-bottom:0px; margin-bottom:0px !important; margin-=
+top: 0 !important; padding-bottom: 0 !important; padding-top: 0 !important;=
+">
+                                    D&eacute;bito
+                                    Tarjeta de Cr&eacute;dito</span>
+                                  <p
+                                    style=3D"color:#556688; font-size:12px;=
+ line-height:16px; font-weight:normal; margin-bottom:0px !important; margin=
+-top: 0 !important; padding-bottom: 0 !important; padding-top: 0 !important=
+;">
+                                    Pod&eacute;s
+                                    pagar tu factura con tu tarjeta de cr&e=
+acute;dito.</p>
+                                </th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <!--[if mso]>
+                  <center> <table><tr><td width=3D"600"; ><![endif]--> <a> =
+</a>
+                  <table
+                    style=3D"margin: 0;padding: 0;width: 100%;font-family: =
+Arial, sans-serif !important; padding-bottom: 30px; border-radius: 6px;"
+                    bgcolor=3D"#fafafc">
+                    <tbody>
+                      <tr style=3D"margin: 0;padding: 0;font-family: Arial,=
+ sans-serif !important;">
+                        <td
+                          style=3D"margin: 0;padding: 0px 0px 0px 0px;font-=
+family: Arial, sans-serif !important; padding-bottom: 30px; "
+                          width=3D"3%" valign=3D"top" align=3D"left">&nbsp;=
+</td>
+
+                        <!-- <td style=3D"margin: 0;padding: 0px 0px 0px 0p=
+x;font-family: Arial, sans-serif !important; " width=3D"5%"
+                    valign=3D"top" align=3D"left">&nbsp;</td> -->
+                        <td
+                          style=3D"font-family: Arial, sans-serif !importan=
+t; padding: 0px 0px 0px 0px; padding-bottom: 30px;"
+                          width=3D"30%" valign=3D"middle" align=3D"center">
+                          <p style=3D"color:#556688; padding-bottom: 12px; =
+">Ahora pod&eacute;s adherirte desde la
+                            opci&oacute;n
+                            Tr&aacute;mites de
+                            nuestra Oficina Virtual
+                          </p>
+                          <a style=3D"display:inline-block; font-size: 16px=
+; color: #fff !important;  text-decoration:none !important;  width: 300px;
+														" href=3D"https://oficinavirtual.camuzzigas.com.ar/signup?utm=
+_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electronica_pam&utm=
+_term=3Dcomprobante&utm_content=3Doficina_virtual">
+                            <table width=3D"300" bgcolor=3D"#43c3fc" align=
+=3D"center" valign=3D"middle"
+                              class=3D"mcnButtonContentContainer"
+                              style=3D"background-color: #43c3fc; width: 30=
+0px; max-width: 300px;  height: 40px; margin: 0 auto; border-radius: 4px; p=
+adding-top: 0px; padding-bottom: 0px; "
+                              cellspacing=3D"0" cellpadding=3D"0" border=3D=
+"0">
+                              <tbody>
+                                <tr style=3D"width: 300px;">
+                                  <td ;=3D"" width=3D"300" class=3D"mcnButt=
+onContent"
+                                    style=3D"font-size: 16px; padding-top: =
+8px; padding-bottom: 8px; width:300px; "
+                                    valign=3D"middle" align=3D"center">
+                                    <a class=3D"mcnButton "
+                                      href=3D"https://oficinavirtual.camuzz=
+igas.com.ar/signup?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactu=
+ra_electronica_pam&utm_term=3Dcomprobante&utm_content=3Doficina_virtual"
+                                      target=3D"_blank"
+                                      style=3D"display:inline-block; font-w=
+eight:200; letter-spacing: normal;line-height: 1.8;text-align: center;text-=
+decoration: none;color: #FFFFFF; width:300px; margin: 0 auto; padding-botto=
+m: 8px; padding-top: 8px;">
+                                      QUIERO ADHERIRME </a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </a>
+                        </td>
+                        <td
+                          style=3D"margin: 0;padding: 0px 0px 0px 0px;font-=
+family: Arial, sans-serif !important;padding-bottom: 30px; "
+                          width=3D"3%" valign=3D"top" align=3D"left">&nbsp;=
+</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <!--[if mso]>
+                <center> <table><tr><td width=3D"600"; ><![endif]-->
+                  <table
+                    style=3D"border-collapse: collapse;margin: 0;width: 100=
+%;font-family: Arial, sans-serif !important;border-top: 2px solid #f3f5f7;"=
+>
+                    <tbody>
+                      <tr style=3D"margin: 0;padding: 0;">
+                        <td
+                          style=3D"margin: 0;padding: 20px 10px 20px 10px;f=
+ont-family: Arial, sans-serif !important; max-width:300px; width: 30%; "
+                          align=3D"center"><img src=3D"http://www.camuzziga=
+s.com.ar/newsletters/gen/images/PPD-logo.jpg"
+                            alt=3D"PPD" style=3D"margin: 0;max-width: 100px=
+; max-height: 80px;" class=3D"ppd"></td>
+                        <td style=3D"margin: 0;padding: 20px 10px 20px 10px=
+;">
+                          <table
+                            style=3D"border-collapse: collapse;margin: 0;wi=
+dth: 100%;font-family: Arial, sans-serif !important;">
+                            <tbody>
+                              <tr style=3D"margin: 0;padding: 0;font-family=
+: Arial, sans-serif !important;">
+                                <td style=3D"text-transform: uppercase;colo=
+r: #FFFFFF;margin: 0;" align=3D"left">
+                                  <p style=3D"font-family: Arial, sans-seri=
+f !important;font-size: 13px;  padding-bottom: 10px;   color: #8994ad;
+    line-height: 1.3; margin: 0px; text-align: left; ">
+                                    Los
+                                    da&ntilde;os a las instalaciones de gas=
+ natural en la
+                                    v&iacute;a p&uacute;blica y los acciden=
+tes con mon&oacute;xido de
+                                    carbono pueden prevenirse </p>
+
+                                  <!--[if mso]>
+                                      <br> <br>
+                                        <![endif]-->
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style=3D"height:10px;">
+
+                                </td>
+                              </tr>
+                              <tr
+                                style=3D"margin: 0;padding: 0;font-family: =
+Arial, sans-serif !important;  margin-bottom: 0 !important; padding-bottom:=
+ 0 !important;">
+                                <td align=3D"left"
+                                  style=3D" color: #8994ad;padding-right: 1=
+0px;padding-bottom: 5px;margin: 0;padding: 0;">
+                                  <p
+                                    style=3D" margin-bottom: 0 !important; =
+padding-bottom: 0 !important; text-align: left;  font-family: Arial, sans-s=
+erif !important;font-size: 13px;margin: 0px; line-height: 1.2;">
+                                    Inf&oacute;rmese llamando al <strong st=
+yle=3D"color:#5a667e;">0810-555-3698 </strong>
+                                    o ingresando a
+
+                                    <a target=3D"_blank"
+                                      style=3D"color: #5a667e;text-decorati=
+on: none !important;padding-right: 10px;margin: 0;padding: 0;  margin-botto=
+m: 0 !important; padding-bottom: 0 !important;"
+                                      href=3D"https://www.camuzzigas.com.ar=
+?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_electronica_pam=
+&utm_term=3Dcomprobante&utm_content=3Dweb_institucional">
+                                      <p
+                                        style=3D" text-align: left; font-fa=
+mily: Arial, sans-serif !important;font-size: 13px;margin: 0px; text-decora=
+tion: none !important;  margin-bottom: 0 !important; padding-bottom: 0 !imp=
+ortant;">
+                                        <font face=3D"Arial, Helvetica, san=
+s-serif"
+                                          style=3D"text-decoration: none !i=
+mportant;">
+                                          <strong>www.camuzzigas.com.ar</st=
+rong>
+                                        </font>
+                                      </p>
+                                    </a>
+                                  </p>
+
+                                </td>
+                              </tr>
+                              <!-- <tr
+                                style=3D"margin: 0;padding: 0;font-family: =
+Arial, sans-serif !important;  margin-bottom: 0 !important; padding-bottom:=
+ 0 !important;">
+                                <td align=3D"left"
+                                  style=3D"margin: 0;padding: 0;font-family=
+: Arial, sans-serif !important; text-align: left;  margin-bottom: 0 !import=
+ant; padding-bottom: 0 !important;">
+                                 =20
+                                </td>
+                              </tr> -->
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+
+
+                </div>
+                <!-- /content -->
+              </td>
+              <td style=3D"margin: 0;padding: 0;font-family: Arial, sans-se=
+rif !important;"><br>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+
+
+        <table bgcolor=3D"#dde1e7" cellspacing=3D"0" cellpadding=3D"0" bord=
+er=3D"0" width=3D"580"
+          style=3D"margin: 0 auto; background-color: #dde1e7;  ">
+          <tr style=3D"background-color: #dde1e7;">
+            <td style=3D"background-color: #dde1e7; ">
+              <!--[if !mso]><!-->
+              <img width=3D"100%" style=3D"display: block;"
+                src=3D"https://www.camuzzigas.com/wp-content/uploads/2024/0=
+5/bottom-factura-news-1.jpg" alt=3D"">
+              <!--<![endif]-->
+            </td>
+          </tr>
+
+        </table>
+
+        <table border-spacing=3D"0" bgcolor=3D"#dde1e7"
+          style=3D" width: 580px; margin: 0 auto; font-family: Arial, sans-=
+serif !important; padding: 0; border-radius:6px; background-color: #dde1e7;=
+ "
+          cellpadding=3D"0" cellspacing=3D"0" border=3D"0">
+          <tbody>
+            <tr
+              style=3D"background-color: #1E3462;height:220px;margin: 0;pad=
+ding: 0;font-family: Arial, sans-serif !important;border-radius:6px;">
+              <td
+                style=3D"color: #002f64 !important; background-color: #1E34=
+62; padding: 0px 0px 0px 0px; padding-top: 30px;  padding-bottom: 20px;font=
+-size: 13px; font-family: Arial, sans-serif !important; border-top-left-rad=
+ius:6px; border-bottom-left-radius:6px;"
+                border=3D"0" width=3D"10%" align=3D"left">&nbsp;</td>
+              <td border=3D"0" align=3D"center" style=3D"padding-top: 30px;=
+ padding-bottom: 20px; ">
+                <table style=3D"width:300px;" cellpadding=3D"0" cellspacing=
+=3D"0" border=3D"0">
+                  <tr>
+                    <td
+                      style=3D"background-color:#00C2FF; width: 100%;  bord=
+er-radius: 2px; font-family: Arial, Helvetica, sans-serif; font-style: norm=
+al; font-weight: 200; padding-left:16px; padding-right:16px; padding-top: 0=
+px; padding-bottom:0px">
+                      <table style=3D"padding-top:10px;padding-bottom:10px;=
+ width: 100%;" align=3D"center">
+                        <tbody>
+                          <tr>
+                            <td align=3D"center" style=3D"text-align:center=
+; text-decoration: none !important;">
+                              <a href=3D"https://oficinavirtual.camuzzigas.=
+com.ar/signup?utm_source=3Ddms&utm_medium=3Demail&utm_campaign=3Dfactura_el=
+ectronica_pam&utm_term=3Dcomprobante&utm_content=3Doficina_virtual"
+                                target=3D"_blank"
+                                style=3D"color: #ffffff; font-weight: 300; =
+text-decoration: none !important; font-size:18px ; display: block; text-ali=
+gn: center;">
+                                Ir a la Oficina Virtual </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                <p
+                  style=3D"color: #FFFFFF !important; padding: 30px 20px 20=
+px 20px; font-size: 14px; font-family: Arial, sans-serif !important;">
+                  O descarg&aacute;
+                  la Aplicaci&oacute;n para iOS o Android.</p>
+                <table width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" b=
+order=3D"0">
+                  <tbody>
+                    <tr>
+                      <th scope=3D"col" width=3D"35%" height=3D"60" valign=
+=3D"top" align=3D"right"><a
+                          style=3D"border:none !important;max-height:60px;"
+                          href=3D"https://itunes.apple.com/ar/app/camuzzi-g=
+as/id1357307632?mt=3D8"><img
+                            src=3D"http://www.camuzzigas.com.ar/newsletters=
+/images/app-ios.png" alt=3D"Camuzzi en APP Store"
+                            class=3D"btn-store" width=3D"191" height=3D"60"
+                            style=3D" width: 191px;  height: 60px !importan=
+t; "></a></th>
+                      <th scope=3D"col" width=3D"2%" valign=3D"top">&nbsp;<=
+/th>
+                      <th scope=3D"col" width=3D"35%" height=3D"60" valign=
+=3D"top" align=3D"left"><a
+                          style=3D"border:none !important; max-height:60px;=
+"
+                          href=3D"https://play.google.com/store/apps/detail=
+s?id=3Dar.com.camuzzigas.oficinavirtual&amp;hl=3Des_AR"><img
+                            src=3D"http://www.camuzzigas.com.ar/newsletters=
+/images/app-android.png"
+                            alt=3D"Camuzzi en Google Play" class=3D"btn-sto=
+re" width=3D"191" height=3D"60"><br>
+                          <br>
+                        </a></th>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                style=3D"margin: 0;padding: 0; background-color: #1E3462; p=
+adding-top: 30px;  padding-bottom: 20px; font-family: Arial, sans-serif !im=
+portant; border-top-right-radius:6px;border-bottom-right-radius:6px;"
+                width=3D"10%">&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" width=3D"60=
+0" style=3D"margin: 0 auto;">
+          <tr>
+            <td height=3D"40" style=3D"height: 40px;">
+
+            </td>
+          </tr>
+
+        </table>
+
+        <table style=3D"text-align: center;padding: 0; margin: 0 auto; padd=
+ing-bottom:50px; padding-top:50px;"
+          width=3D" 600" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" b=
+gcolor=3D"#1E3462" align=3D"center">
+          <tbody>
+            <tr>
+              <td style=3D"width:30px; height:30px; padding-left:30px"> <a =
+href=3D"https://www.facebook.com/camuzzigas/"
+                  target=3D"_blank">
+                  <img width=3D"30" height=3D"30" style=3D"
+      width: 30px; height:30px; max-width: 30px;"
+                    src=3D"https://www.camuzzigas.com/wp-content/uploads/20=
+24/06/icon-fb-new-1.png">
+                </a> </td>
+              <td style=3D"width:30px; height:30px; padding-left:8px"> <a h=
+ref=3D"https://www.instagram.com/camuzzigas/"
+                  target=3D"_blank">
+                  <img width=3D"30" height=3D"30" style=3D"
+      width: 30px; height:30px; max-width: 30px;"
+                    src=3D"https://www.camuzzigas.com/wp-content/uploads/20=
+24/06/icon-insta-new-1.png">
+                </a> </td>
+              <td style=3D"width:30px; height:30px;padding-left:8px"> <a
+                  href=3D"https://www.linkedin.com/company/camuzzi-gas-pamp=
+eana-camuzzi-gas-del-sur/" target=3D"_blank">
+                  <img width=3D"30" height=3D"30" style=3D"
+      width: 30px; height:30px; max-width: 30px;"
+                    src=3D"https://www.camuzzigas.com/wp-content/uploads/20=
+24/06/icon-in-new.png">
+                </a> </td>
+              <td style=3D"width:30px; height:30px;padding-left:8px"> <a hr=
+ef=3D" https://www.youtube.com/@CamuzziOficial"
+                  target=3D"_blank">
+                  <img width=3D"30" height=3D"30" style=3D"
+      width: 30px;height:30px; max-width: 30px;"
+                    src=3D"https://www.camuzzigas.com/wp-content/uploads/20=
+24/06/icon-youtube-new.png">
+                </a> </td>
+              <td style=3D"padding-left:8px; text-align:left;  text-decorat=
+ion: none !important; " align=3D"left">
+                <a href=3D"https://www.camuzzigas.com.ar?utm_source=3Ddms&u=
+tm_medium=3Demail&utm_campaign=3Dfactura_electronica_pam&utm_term=3Dcomprob=
+ante&utm_content=3Dweb_institucional"
+                  target=3D"_blank"
+                  style=3D"font-size:14px; text-decoration:none !important;=
+ color:#ffffff;font-family: Arial, Helvetica, sans-serif; font-style: norma=
+l; font-weight: 600;">
+                  www.camuzzi.com </a>
+              </td>
+              <td style=3D"width: 140px; height: 40px; padding-right:30px; =
+text-align:right; " align=3D"right">
+                <img width=3D"140" height=3D"40"
+                  src=3D"https://www.camuzzigas.com/wp-content/uploads/2024=
+/06/logo-camuzzi-foo-new.png "
+                  style=3D"width: 140px; height: 40px;">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+        <table width=3D" 600" cellspacing=3D"0" cellpadding=3D"0" border=3D=
+"0" class=3D"footer-wrap"
+          style=3D" margin:0 auto;  border-collapse: collapse;width: 100%;f=
+ont-family: Arial, sans-serif !important;clear: both!important;">
+          <tbody>
+            <tr style=3D"font-family: Arial, sans-serif !important;">
+              <td style=3D"font-family: Arial, sans-serif !important;"><br>
+              </td>
+              <td class=3D"container"
+                style=3D"margin: 0 auto!important;font-family: Arial, sans-=
+serif !important;display: block!important;max-width: 600px!important;clear:=
+ both!important;">
+                <!-- content -->
+
+                <!--[if mso]>
+ <center> <table bgcolor=3D"#dde1e7" ><tr><td width=3D"600"; ><![endif]-->
+                <table align=3D"center" bgcolor=3D"#dde1e7" style=3D"border=
+-spacing: 0px;border-collapse: collapse;">
+                  <tbody>
+                    <tr>
+                      <td style=3D"padding: 0px;">
+                        <p
+                          style=3D"color: #a9a9a9;font-size: 11px;line-heig=
+ht: 15px;padding: 0px 0px 0px 0px;margin: 20px 0px 20px 0px; text-align: ju=
+stify; ">
+                          Este correo electr&oacute;nico y sus adjuntos est=
+&aacute; dirigido
+                          solamente a los destinatarios consignados en el m=
+ismo y
+                          debe ser considerado confidencial. Si Ud. no es e=
+l
+                          destinatario consignado o la persona responsable =
+de
+                          entregar/enviar el presente, no podr&aacute; copi=
+arlo o
+                          entregarlo/enviarlo a ninguna otra persona ni uti=
+lizar
+                          el mismo en forma no autorizada. Dichas acciones =
+est&aacute;n
+                          prohibidas y pueden ser consideradas ilegales. Le=
+y 25326
+                          - art.27. - inc. 3. El titular podr&aacute; en cu=
+alquier
+                          momento solicitar el retiro o bloqueo de su nombr=
+e de
+                          los bancos de datos a los que se refiere el prese=
+nte
+                          art&iacute;culo. Decreto 1558/01 - art. 27. - 3er=
+=2E p&aacute;rrafo. En
+                          toda comunicaci&oacute;n con fines de publicidad =
+que se realice
+                          por correo, tel&eacute;fono, correo electr&oacute=
+;nico, Internet u
+                          otro medio a distancia a conocer, se deber&aacute=
+; indicar, en
+                          forma expresa y destacada, la posibilidad del tit=
+ular
+                          del dato de solicitar el retiro o bloqueo, total =
+o
+                          parcial, de su nombre de la base de datos. A pedi=
+do del
+                          interesado, se deber&aacute; informar el nombre d=
+el responsable
+                          o usuario del banco de datos que provey&oacute; l=
+a informaci&oacute;n
+                          (Disposici&oacute;n 04/2009). El titular de los d=
+atos
+                          personales tiene la facultad de ejercer el derech=
+o de
+                          acceso a los mismos en forma gratuita a intervalo=
+s no
+                          inferiores a 6 meses, salvo que se acredite un in=
+ter&eacute;s
+                          leg&iacute;timo al efecto conforme lo establecido=
+ por el
+                          art&iacute;culo 14, inciso 3 de la ley 25326.- "L=
+A DIRECCION
+                          NACIONAL DE PROTECCION DE DATOS PERSONALES, &oacu=
+te;rgano de
+                          Control de la ley nro 25.326, tiene la atribuci&o=
+acute;n de
+                          atender las denuncias y reclamos que se interpong=
+an con
+                          relaci&oacute;n al incumplimiento de las normas s=
+obre
+                          protecci&oacute;n de datos personales (Disposici&=
+oacute;n 10/2008). </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- /content -->
+              </td>
+              <td style=3D"margin: 0;padding: 0;font-family: Arial, sans-se=
+rif !important;"><br>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+<img width=3D"1" height=3D"1" alt=3D"" src=3D"https://email.factura.camuzzi=
+gas.com.ar/o/eJwUyjtuxiAMAODThBEZF4wZOIxjQ4pEmiqPDjl99e-f1aItc3Kthswlh4iB3H=
+ftmpAgE3MELSWEzl2sIKvwara6URGQoAQGShDIJ2tfuSdiRVRLtkToovdzilfZn_cdm1xej93L6=
+c76M_SYcnX5HbfM2ZYI2y5jfoT7q_gfAAD__7PLLg4"></body>
+<!-- FOOTER FIJO --><!-- Incluye el cierre del body -->
+
+</html>

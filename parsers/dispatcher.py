@@ -3,6 +3,7 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from .absa import parse_absa_bill
+from .camuzzi import parse_camuzzi_bill
 from .edes import parse_edes_bill
 from .generic import parse_generic_provider_bill
 from .movistar import parse_movistar_bill
@@ -12,6 +13,7 @@ from .personal import parse_personal_bill
 
 PARSER_BY_PROVIDER = {
     "personal": parse_personal_bill,
+    "camuzzi": parse_camuzzi_bill,
     "edes": parse_edes_bill,
     "absa": parse_absa_bill,
     "movistar": parse_movistar_bill,

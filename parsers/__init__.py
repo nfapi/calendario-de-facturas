@@ -2,6 +2,7 @@
 
 from .dispatcher import parse_provider_bills, parse_providers_in_parallel
 from .absa import parse_absa_bill
+from .camuzzi import parse_camuzzi_bill
 from .edes import parse_edes_bill
 from .generic import parse_generic_provider_bill
 from .movistar import parse_movistar_bill
@@ -10,6 +11,7 @@ from .personal import parse_personal_bill
 
 __all__ = [
     "parse_absa_bill",
+    "parse_camuzzi_bill",
     "parse_edes_bill",
     "parse_generic_provider_bill",
     "parse_movistar_bill",

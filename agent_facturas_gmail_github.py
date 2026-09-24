@@ -14,6 +14,7 @@ import requests
 from datetime import datetime, timedelta, timezone
 from parsers import (
     parse_absa_bill,
+    parse_camuzzi_bill,
     parse_edes_bill,
     parse_generic_provider_bill,
     parse_movistar_bill,

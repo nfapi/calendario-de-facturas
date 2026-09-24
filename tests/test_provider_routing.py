@@ -6,6 +6,7 @@ from agent_facturas_gmail_github import (
     email_matches_provider,
     group_emails_by_provider,
     parse_absa_bill,
+    parse_camuzzi_bill,
     parse_edes_bill,
     parse_movistar_bill,
     parse_municipalidad_bill,
@@ -83,6 +84,23 @@ class ProviderRoutingTests(unittest.TestCase):
         self.assertEqual(result[0]["date"], "2026-09-25")
         self.assertEqual(result[0]["location"], "19 DE MAYO Nro 551 02/A BAHIA BLANCA")
         self.assertEqual(result[0]["extra"], "NIS 255211201")
+
+    def test_parse_camuzzi_bill_extracts_invoice_fields(self):
+        text = """
+        Camuzzi te acerca tu factura. Nro. Cuenta: 8000/0-1012-02042924 del periodo 04/26 — liquidación 2 de 2
+        Factura 70003-47094827/1
+        Total: $29.587,89
+        Vencimiento: 06/10/2026
+        """
+
+        result = parse_camuzzi_bill(text)
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["service"], "Camuzzi")
+        self.assertEqual(result[0]["amount"], 29587.89)
+        self.assertEqual(result[0]["date"], "2026-10-06")
+        self.assertEqual(result[0]["location"], "Cuenta 8000/0-1012-02042924")
+        self.assertEqual(result[0]["extra"], "Factura 70003-47094827/1")
 
     def test_parse_absa_bill_extracts_invoice_fields(self):
         result = parse_absa_bill(
