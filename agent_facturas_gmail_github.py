@@ -6,23 +6,31 @@ import json
 import base64
 import imaplib
 import email
+import html
 import unicodedata
 from decimal import Decimal, InvalidOperation
 from email.header import decode_header
 import requests
 from datetime import datetime, timedelta, timezone
-from google import genai
-from google.genai import types
+from parsers import (
+    parse_absa_bill,
+    parse_edes_bill,
+    parse_generic_provider_bill,
+    parse_movistar_bill,
+    parse_municipalidad_bill,
+    parse_personal_bill,
+    parse_provider_bills,
+)
 
 """
 ===============================================================================
-AGENTE AUTOMATIZADO: GMAIL -> GEMINI API -> CALENDARIO HTML -> GITHUB PAGES
+AGENTE AUTOMATIZADO: GMAIL -> PARSERS LOCALES -> CALENDARIO HTML -> GITHUB PAGES
 ===============================================================================
 
 Este script realiza el flujo completo:
 1. Conecta a Gmail vía IMAP / App Password para buscar correos recientes con facturas.
 2. Agrupa los correos por proveedor (Personal, Camuzzi/Gas, EDES, ABSA, ARCA, etc.).
-3. Utiliza Gemini API con Salida Estructurada (JSON Schema) para extraer:
+3. Utiliza parsers deterministas por proveedor para extraer:
    - Nombre del servicio
    - Monto a pagar
    - Fecha de vencimiento (YYYY-MM-DD)
@@ -33,7 +41,6 @@ Este script realiza el flujo completo:
 Variables de entorno requeridas:
   - GMAIL_USER: Tu dirección de correo (ej: 'ejemplo@gmail.com')
   - GMAIL_APP_PASSWORD: Contraseña de aplicación de Google (16 caracteres)
-  - GEMINI_API_KEY: Clave de Google AI Studio
   - GITHUB_TOKEN: Personal Access Token (PAT) con permisos de 'repo'
   - GITHUB_REPO: Tu repositorio en formato 'usuario/nombre-repo'
 ===============================================================================
@@ -76,19 +83,17 @@ PROVIDER_KEYWORDS = {
     "bvnet": ["bvnet", "bvnet.com.ar"],
 }
 
-PROVIDER_SYSTEM_INSTRUCTIONS = {
-    "personal": "Eres un asistente contable automatizado. Analiza solo facturas de Personal / cable e internet. Identifica el servicio, monto, fecha de vencimiento y detalle. Si aparecen varios conceptos en un mismo correo, separa cada factura individualmente.",
-    "camuzzi": "Eres un asistente contable automatizado. Analiza solo facturas de servicio de gas de Camuzzi. Busca vencimientos, deuda, NIS o cuenta, monto y fecha. Si un correo incluye varios consumos o facturas, extrae cada uno por separado.",
-    "edes": "Eres un asistente contable automatizado. Analiza facturas de EDES de servicio eléctrico. Extrae el monto, la fecha de vencimiento, la ubicación y cualquier detalle relevante del servicio.",
-    "absa": "Eres un asistente contable automatizado. Analiza facturas de ABSA y pagos asociados. Extrae servicio, monto, vencimiento y datos del cliente o domicilio si están presentes.",
-    "arca": "Eres un asistente contable automatizado. Analiza facturas y vencimientos de ARCA. Identifica cada factura individualmente y conserva detalle, monto y fecha.",
-    "movistar": "Eres un asistente contable automatizado. Analiza facturas de Movistar. Busca la fecha de vencimiento, monto y detalle del servicio.",
-    "brubank": "Eres un asistente contable automatizado. Analiza facturas emitidas desde Brubank o relacionadas con tarjetas o servicios vinculados. Extrae monto y vencimiento, y separa conceptos si aparecen varios.",
-    "municipalidad": "Eres un asistente contable automatizado. Analiza facturas de la Municipalidad de Bahía Blanca y servicios municipales. Identifica el concepto, monto y fecha de vencimiento.",
-    "bvnet": "Eres un asistente contable automatizado. Analiza facturas de BVNET. Busca vencimientos de internet o servicios de telecomunicaciones, monto, fecha y detalle.",
-    "general": "Eres un asistente contable automatizado. Analiza los correos electrónicos de facturas y extrae todas las facturas vigentes o recientes. Identifica el servicio y la fecha de vencimiento. Si hay varios servicios en un mismo correo, sepáralos.",
+PROVIDER_EMAILS = {
+    "personal": ["@personal.com.ar", "email.personal.com.ar"],
+    "camuzzi": ["@camuzzigas.com.ar", "factura.camuzzigas.com.ar"],
+    "edes": ["@edessa.com.ar", "@edes.com.ar", "edes"],
+    "absa": ["@absa.com.ar", "absa"],
+    "arca": ["@arca.com.ar", "arca"],
+    "movistar": ["@movistar.com.ar", "movistar"],
+    "brubank": ["@brubank.com", "brubank"],
+    "municipalidad": ["municipalidad", "bahia blanca"],
+    "bvnet": ["@bvnet.com.ar", "bvnet"],
 }
-
 
 def get_env(var_name: str, required: bool = True) -> str:
     """Obtiene y valida variables de entorno."""
@@ -98,12 +103,24 @@ def get_env(var_name: str, required: bool = True) -> str:
         sys.exit(1)
     return val or ""
 
-def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int = 15) -> list:
+def email_matches_provider(provider: str, from_email: str, subject: str = "", body: str = "") -> bool:
+    """Valida si un correo pertenece al remitente exacto o dominio del proveedor."""
+    if not provider or provider == "general":
+        return True
+
+    haystack = " ".join(part for part in [from_email, subject, body] if part).lower()
+    patterns = PROVIDER_EMAILS.get(provider, [])
+    if not patterns:
+        return True
+    return any(pattern.lower() in haystack for pattern in patterns)
+
+
+def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int = 15, provider: str | None = None) -> list:
     """
     Recorre las carpetas seleccionables de Gmail y recupera correos recientes
     relacionados con facturas y vencimientos.
     """
-    print("📧 Conectando a Gmail vía IMAP...")
+    print(f"📧 Conectando a Gmail vía IMAP{f' para {provider}' if provider else ''}...")
     try:
         mail = imaplib.IMAP4_SSL("imap.gmail.com")
         mail.login(username, app_password)
@@ -179,15 +196,27 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
                                     from_email = from_email.group(1).strip().lower()
 
                         body = ""
-                        if msg.is_multipart():
-                            for part in msg.walk():
-                                content_type = part.get_content_type()
-                                content_disposition = str(part.get("Content-Disposition"))
-                                if content_type == "text/plain" and "attachment" not in content_disposition:
-                                    body = part.get_payload(decode=True).decode("utf-8", errors="ignore")
-                                    break
-                        else:
-                            body = msg.get_payload(decode=True).decode("utf-8", errors="ignore")
+                        body_part = None
+                        for part in (msg.walk() if msg.is_multipart() else [msg]):
+                            content_type = part.get_content_type()
+                            content_disposition = str(part.get("Content-Disposition"))
+                            if "attachment" in content_disposition:
+                                continue
+                            if content_type == "text/plain":
+                                body_part = part
+                                break
+                            if content_type == "text/html" and body_part is None:
+                                body_part = part
+
+                        if body_part is not None:
+                            payload = body_part.get_payload(decode=True) or b""
+                            charset = body_part.get_content_charset() or "utf-8"
+                            body = payload.decode(charset, errors="ignore")
+                            if body_part.get_content_type() == "text/html" or re.search(r"<[^>]+>", body):
+                                body = re.sub(r"<[^>]+>", " ", html.unescape(body))
+
+                        if provider and not email_matches_provider(provider, from_email, decoded_subject, body):
+                            continue
 
                         email_contents.append({
                             "from": from_header,
@@ -228,58 +257,6 @@ def group_emails_by_provider(emails_data: list) -> dict:
 
     return {provider: mails for provider, mails in groups.items() if mails}
 
-
-def extract_bills_with_gemini(emails_data: list, api_key: str, provider: str = "general") -> list:
-    """
-    Envía los textos de los correos a Gemini utilizando Structured Outputs (JSON Schema)
-    para garantizar que la respuesta sea un arreglo estricto de objetos de factura.
-    """
-    if not emails_data:
-        return []
-
-    print(f"🤖 Analizando facturas de {provider.upper()} con Gemini API...")
-    client = genai.Client(api_key=api_key)
-
-    system_instruction = PROVIDER_SYSTEM_INSTRUCTIONS.get(provider, PROVIDER_SYSTEM_INSTRUCTIONS["general"])
-    prompt = f"Analiza los siguientes correos electrónicos y extrae el listado de facturas del proveedor {provider.upper()}:\n\n{json.dumps(emails_data, indent=2)}"
-
-    schema = {
-        "type": "ARRAY",
-        "items": {
-            "type": "OBJECT",
-            "properties": {
-                "id": {"type": "STRING"},
-                "service": {"type": "STRING", "description": "Nombre de la empresa o servicio (ej: EDES, ABSA, Camuzzi)"},
-                "detail": {"type": "STRING", "description": "Concepto o detalle del servicio"},
-                "location": {"type": "STRING", "description": "Dirección, NIS o número de cuenta/unidad"},
-                "date": {"type": "STRING", "description": "Fecha de vencimiento en formato YYYY-MM-DD"},
-                "amount": {"type": "NUMBER", "description": "Monto total a pagar en ARS u otra moneda local"},
-                "extra": {"type": "STRING", "description": "Información adicional relevante"}
-            },
-            "required": ["id", "service", "date", "amount"]
-        }
-    }
-
-    try:
-        response = client.models.generate_content(
-            model='models/gemini-3.6-flash',
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=system_instruction,
-                response_mime_type="application/json",
-                response_schema=schema,
-                temperature=0.1
-            )
-        )
-
-        extracted_bills = json.loads(response.text)
-        for bill in extracted_bills:
-            bill.setdefault("service", provider.upper())
-        print(f"✅ Gemini identificó {len(extracted_bills)} facturas de {provider.upper()}.")
-        return extracted_bills
-
-    except Exception as e:
-        raise RuntimeError(f"Error al procesar datos con Gemini para {provider}: {e}") from e
 
 def load_bill_database(file_path: str) -> list:
     """Lee la base JSON existente sin modificar su histórico."""
@@ -416,18 +393,17 @@ def main():
 
     gmail_user = get_env("GMAIL_USER")
     gmail_pass = get_env("GMAIL_APP_PASSWORD")
-    gemini_key = get_env("GEMINI_API_KEY")
     github_token = get_env("GITHUB_TOKEN")
     github_repo = get_env("GITHUB_REPO")
 
-    raw_emails = fetch_recent_bill_emails(gmail_user, gmail_pass)
+    provider_filter = args.provider if args.provider else None
+    raw_emails = fetch_recent_bill_emails(gmail_user, gmail_pass, provider=provider_filter)
 
     if not raw_emails:
-        print("ℹ️ No se encontraron facturas recientes. Finalizando ejecución.")
+        print(f"ℹ️ No se encontraron facturas recientes para {provider_filter or 'todos los proveedores'}. Finalizando ejecución.")
         return
 
     grouped = group_emails_by_provider(raw_emails)
-    provider_filter = args.provider if args.provider else None
     providers_to_process = [provider_filter] if provider_filter else list(grouped.keys())
 
     bills_data = []
@@ -435,11 +411,16 @@ def main():
         provider_emails = grouped.get(provider, [])
         if not provider_emails:
             continue
-        provider_bills = extract_bills_with_gemini(provider_emails, gemini_key, provider=provider)
+
+        provider_bills = parse_provider_bills(provider, provider_emails)
+        if not provider_bills:
+            raise RuntimeError(
+                f"El parser local de {provider.upper()} no pudo extraer ninguna factura."
+            )
         bills_data.extend(provider_bills)
 
     if not bills_data:
-        raise RuntimeError("Gemini no devolvió datos válidos de facturas para los proveedores seleccionados.")
+        raise RuntimeError("Los parsers locales no devolvieron datos válidos de facturas.")
 
     database_path = os.path.join("data", "bills.json")
     existing_bills = load_bill_database(database_path)

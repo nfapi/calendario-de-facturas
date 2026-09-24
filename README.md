@@ -1,10 +1,10 @@
 # Calendario de facturas
 
-Agente que lee correos de Gmail, extrae facturas con Gemini y mantiene un calendario publicado en GitHub Pages.
+Agente que lee correos de Gmail, extrae facturas con parsers locales y mantiene un calendario publicado en GitHub Pages.
 
 ## Arquitectura
 
-- `agent_facturas_gmail_github.py`: integración Gmail + Gemini y actualización de datos.
+- `agent_facturas_gmail_github.py`: integración Gmail + parsers locales y actualización de datos.
 - `data/bills.json`: base de datos JSON versionada con el histórico de facturas.
 - `data/sync.json`: fecha y hora UTC de la última sincronización completada correctamente.
 - `index.html`: calendario estático que carga `data/bills.json` desde el navegador.
@@ -28,7 +28,7 @@ El agente no genera ni modifica el HTML. Busca correos de los últimos 30 días 
 }
 ```
 
-El agente agrega facturas nuevas y conserva el histórico. La identidad se determina por servicio normalizado, fecha de vencimiento y monto; el detalle, la ubicación y el `id` recibido desde Gemini no se usan porque pueden variar entre correos. Los `id` se asignan como números consecutivos al guardar la lista.
+El agente agrega facturas nuevas y conserva el histórico. La identidad se determina por servicio normalizado, fecha de vencimiento y monto; el detalle, la ubicación y el `id` recibido desde el correo no se usan porque pueden variar entre avisos. Los `id` se asignan como números consecutivos al guardar la lista.
 
 El estado no se guarda en JSON: `index.html` lo calcula según la fecha actual. Las facturas futuras o de hoy aparecen como próximas y las anteriores como vencidas. El día actual se resalta en el calendario.
 
@@ -38,13 +38,12 @@ Requisitos:
 
 - Python 3.10 o superior.
 - Una cuenta Gmail con IMAP habilitado y una contraseña de aplicación.
-- Una clave de Gemini API.
 - Un token de GitHub con permiso para escribir contenidos del repositorio.
 
 Instala las dependencias:
 
 ```powershell
-pip install google-genai requests
+pip install requests
 ```
 
 Define estas variables de entorno:
@@ -52,7 +51,6 @@ Define estas variables de entorno:
 ```text
 GMAIL_USER=tu-correo@gmail.com
 GMAIL_APP_PASSWORD=contraseña-de-aplicación
-GEMINI_API_KEY=clave-de-gemini
 GITHUB_TOKEN=token-de-github
 GITHUB_REPO=usuario/nombre-repositorio
 ```
@@ -71,7 +69,6 @@ El workflow se ejecuta todos los días y también puede iniciarse manualmente de
 
 - `GMAIL_USER`
 - `GMAIL_APP_PASSWORD`
-- `GEMINI_API_KEY`
 - `PAT_GITHUB_TOKEN`
 
 El workflow deriva `GITHUB_REPO` de `${{ github.repository }}` y usa `actions/checkout@v5` y `actions/setup-python@v6`.

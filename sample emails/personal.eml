@@ -1,0 +1,1472 @@
+Delivered-To: nicolasfapitalle@gmail.com
+Received: by 2002:a05:7010:ab49:b0:538:faf9:e793 with SMTP id dn9csp13549948mdb;
+        Tue, 22 Sep 2026 11:04:56 -0700 (PDT)
+X-Received: by 2002:a05:6102:50a6:b0:7a1:4799:33eb with SMTP id ada2fe7eead31-7ac1a8b4512mr186476137.5.1790100295980;
+        Tue, 22 Sep 2026 11:04:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790100295; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fUMTpaoOciuR692X2Ut50hW/zwsXj9/LSr1rvYe6H+uarTbYGYiUk1db4fgkchTrTL
+         1gID4vDTTxP+NdPdwgxmFVz7YfH2RtSb/NPqY67R/kzbz5uw0zqpF7LCZ6qmeo9Z1Glp
+         Xz13zEwPFeYttB2YnXmdhT89RavRXRm89CaCKEn3J4BMDDtpb/13wjRUyaRbLEJfLIgc
+         5KAJI2eFxXnoDPIjeaL8umndAaHyMGwSyA/4UY8I8Un3D8aBWdMrmJbS6rwizW/FKNVf
+         VcVhwmdUAufnfLusW9dO9FIY8vMJYlm+gZBZyd/MPd4RiLe5CWe8qGDC5GVjrZWOB1Ly
+         DAnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:message-id:mime-version:list-help:date:subject:to:from
+         :dkim-signature:dkim-signature;
+        bh=I829RSfvmseNweyuLiHM16/udTD1b4wMDDKxtXHDgBU=;
+        fh=RSsD89fBC0qlGAgJBn9IuVlq7AP+Qxxz6EYPE0O1BzI=;
+        b=Wcqp9J2KgWeYwcYY5JJbCOY7h9nhiTTzodOkEZATTkvc/oem6+gSRZOcq2WK928L6/
+         kmUqf9YhSAs4D6grY0679q9G+bW9hrEDVn2sK1rDYTosoV7CgSHlxIyhK1+7XnVrm+Ng
+         SmxI/1U9Y+JG4n6CpnutHRajEdNTjrOrC0IhzcHSUZJeKHa7Y247mrUHI4U+USsVOWLI
+         0pGSuY/oUsOBACEoxEmcyuPMeR63xHY4VwxwtL9naa9zRUvD5KDJuRYQASo0frUgPZwJ
+         iwZIgZlmcIXq1bOjLCDnoYqvCtSVobTAU/EVdFFpUQLr170V9oSKPqzQNClpnOjhLTV2
+         HXvw==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@email.personal.com.ar header.s=13dkim1 header.b=hqSjlNmu;
+       dkim=pass header.i=@s13.y.mc.salesforce.com header.s=fbldkim13 header.b=oShcIwbA;
+       spf=pass (google.com: domain of bounce-2j3ir7srxqtubjvda6ubhb56je.130028@bounce.email.personal.com.ar designates 136.147.225.232 as permitted sender) smtp.mailfrom=bounce-2J3IR7SRXQTUBJVDA6UBHB56JE.130028@bounce.email.personal.com.ar;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=email.personal.com.ar
+Return-Path: <bounce-2J3IR7SRXQTUBJVDA6UBHB56JE.130028@bounce.email.personal.com.ar>
+Received: from mta2.info.personalflow.com.ar (mta2.info.personalflow.com.ar. [136.147.225.232])
+        by mx.google.com with ESMTPS id 6a1803df08f44-9140c6145easi3535196d6.619.2026.09.22.11.04.55
+        for <nicolasfapitalle@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 11:04:55 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-2j3ir7srxqtubjvda6ubhb56je.130028@bounce.email.personal.com.ar designates 136.147.225.232 as permitted sender) client-ip=136.147.225.232;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@email.personal.com.ar header.s=13dkim1 header.b=hqSjlNmu;
+       dkim=pass header.i=@s13.y.mc.salesforce.com header.s=fbldkim13 header.b=oShcIwbA;
+       spf=pass (google.com: domain of bounce-2j3ir7srxqtubjvda6ubhb56je.130028@bounce.email.personal.com.ar designates 136.147.225.232 as permitted sender) smtp.mailfrom=bounce-2J3IR7SRXQTUBJVDA6UBHB56JE.130028@bounce.email.personal.com.ar;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=email.personal.com.ar
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=13dkim1; d=email.personal.com.ar;
+ h=From:To:Subject:Date:List-Help:MIME-Version:Message-ID:Content-Type;
+ i=facturacion@email.personal.com.ar;
+ bh=I829RSfvmseNweyuLiHM16/udTD1b4wMDDKxtXHDgBU=;
+ b=hqSjlNmuvQIQbZrPnKF0Fu34JV+gBQ1oT1O/9r9HwHMG//ghZXQ2l7J52P/lCz2v+UvIw8Yw0068
+   YMWRkj97SkspaoxmlAUk7BxpZBLqGwrQNoSwemNkTXUW4UI15AZXSg2Bz6NSnlAgHoWuV48AaumN
+   u4ltGNddcJpPFhFaxr+Sg4u89ObNjNZfcQxLFWvj7lmSlSyTc7qm3TInrrq/x/ZaOvpng3nSYcV7
+   ieellKFYuhtv8t8wjL7z0J+Nx6NTq/1tvGzI0lAZseq13xZJCMVWQubtunq+wu242UCeSCqQfkTu
+   Pqac8KOclMZgxCT+oOhP+4XxpHxA6wXmoJ/dNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=fbldkim13; d=s13.y.mc.salesforce.com;
+ h=From:To:Subject:Date:List-Help:MIME-Version:Message-ID:Content-Type;
+ bh=I829RSfvmseNweyuLiHM16/udTD1b4wMDDKxtXHDgBU=;
+ b=oShcIwbAx1bbvcxSA1tMVAoQvrb9nf5RJkE1M8wutwrI9ft3vSd6vrpIta2/ytedrR/ehGAcxr9e
+   ivQZjwPt/ESoT/quHEioxLbV1+WDErqaHArEtcBk4++oDSISeJ8u8ixs7XBzVWPAtt2yBksUfrcn
+   SZIBvfewB+cCk14BYdzdevfLVuAjRg4qY1BryoIVoxdr8CrlrjKo7K5cs2C6j+tr4hJbXN59DO9J
+   WWnyFg+ALUU/UedfuSSab1i18CYpFrGTc8P8U5O1aIEuI/tUIliq5+gxQClfKOXyfdLaTTQWHpkK
+   oE1YLlqR7jHEsZdPxnkycaohgzL+Lf6UAmOKBg==
+Received: by mta2.info.personalflow.com.ar id hmb1ke39mjck for <nicolasfapitalle@gmail.com>; Tue, 22 Sep 2026 18:04:52 +0000 (envelope-from <bounce-2J3IR7SRXQTUBJVDA6UBHB56JE.130028@bounce.email.personal.com.ar>)
+From: "Tu Factura Personal" <facturacion@email.personal.com.ar>
+To: <nicolasfapitalle@gmail.com>
+Subject: El saldo total es $93.552,09 y vence el 05/10/2026
+Date: Tue, 22 Sep 2026 12:04:52 -0600
+List-Help: <https://click.info.personal.com.ar/subscription_center.aspx?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtaWQiOiI1NDYwMDY0NDMiLCJzIjoiNTgzODM3NTAiLCJsaWQiOiIxMTk0IiwiaiI6IjE0Mjg0NSIsImpiIjoiODYxIiwiZCI6IjEzMDAyOCJ9.pAkrn0ofosu2LTAbBBjBHnNktDVVOwAVg3uqLCWvePI>
+MIME-Version: 1.0
+X-SFMC-Stack: 13
+x-job: 546006443_142845
+Message-ID: <70f6fc2a-bf2b-4aa7-96de-a67dc86b4b44@iad4s13mta0401.xt.local>
+Feedback-ID: 546006443:142845:136.147.225.232:sfmktgcld
+Content-Type: multipart/alternative;
+	boundary="0sItbYDF9Og1=_?:"
+
+This is a multi-part message in MIME format.
+
+--0sItbYDF9Og1=_?:
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+
+ 
+
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsj2SFAx4YDQBnwOCtq315ujnhQzFZ3hN_c7327UHgrsgI4IbVk14CcHMCwT1YN8Arf6K-TjlhEcoMChAlJEfn_L8sX5sFI0_0 
+VER ONLINE  
+
+
+ 
+
+ 
+body {margin: 0;}
+    /* Estilos Específicos del Hero */
+    .hero-text {
+ 
+font-family: 'Roboto', Arial, sans-serif;
+ 
+font-size: 36px;
+ 
+line-height: 44px;
+ 
+font-weight: 400;
+ 
+color: #ffffff;
+ 
+margin: 0;
+ 
+text-align: center; /* Cambio: centrado para mejor flow */
+ 
+word-wrap: break-word;
+    }
+    /* Mobile Styles */
+    @media screen and (max-width: 599px) {
+ 
+.wrapper-hero-tienda {
+ 
+width: 100% !important;
+ 
+max-width: 100% !important;
+ 
+height: 230px !important; /* Subí un toque para breathing room */
+ 
+}
+ 
+.mobile-padding {
+ 
+padding-left: 15px !important;
+ 
+padding-right: 15px !important;
+ 
+}
+ 
+.hero-text {
+ 
+font-size: 28px !important;
+ 
+line-height: 36px !important; /* Mantengo, pero si querés más aire, baja a 32px */
+ 
+padding: 0 20px !important; /* Simétrico y menos padding para mobile */
+ 
+}
+    }
+ 
+Este es el detalle de tu factura
+ 
+@media only screen and (max-width: 599px) {
+    .servicios-title {
+ font-size: 14px !important;
+ line-height: 22px !important;
+    }
+    .servicio-text {
+ font-size: 12px !important;
+ line-height: 18px !important;
+ line-height: 22px !important;
+    }
+    .servicio-item-container {
+ max-width: 360px !important;
+ padding: 0 12px 12px !important;
+ text-align: center !important;
+    }
+    .servicio-item-table {
+ margin: 0 auto !important;
+    }
+  }
+ 
+
+ 
+Tus servicios:
+ 
+
+ 
+Línea móvil
+ 
+
+ 
+
+ 
+Internet
+ 
+
+ 
+
+ 
+TV y Streaming
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+Total a pagar
+
+93.552,09
+
+
+Vencimiento
+
+05/10/2026
+
+
+Referente de pago
+
+1002892082210002
+
+
+
+
+
+
+ !Record&aacute; que cuantos m&aacute;s servicios sum&aacute;s, m&aacute;s beneficios tenes!
+
+
+
+
+
+ 
+/* mobile */
+  @media only screen and (max-width: 599px) {
+    .container {
+ max-width: 328px !important;
+    }
+    .mobile-container {
+ padding: 16px !important;
+    }
+    .mobile-reference-number {
+ font-size: 14px !important;
+ line-height: 24px !important;
+ width: 299px;
+ text-align: center !important;
+    }
+  }
+ 
+Desde tu próxima factura, el precio de lista de todos tus servicios aumentará hasta un 2,5%.
+ 
+
+/* Mobile */
+  @media only screen and (max-width: 599px) {
+ 
+    .mobile-button-container {
+ width: 151px !important;
+ height: 40px !important;
+ padding: 8px 16px !important;
+    }
+
+    .copy-button-padding {
+ padding: 0 !important;
+    }
+
+    .mobile-button-text {
+ font-size: 14px !important;
+ line-height: 24px !important;
+    }
+
+    .mobile-icon {
+ width: 24px !important;
+ height: 24px !important;
+    }
+  }
+ 
+(*) Si contás con servicios contratados por cuenta y orden de terceros los valores pueden variar en otros porcentajes.
+ 
+Para más info consultá en la hoja N°2 de tu factura:
+ 
+Ver factura
+https://tufactura.personal.com.ar/facdigital-web/Consulta?q=VOtR5U7r4ybddocOUWVk6GmegvYjf9zc%2BUFYxULKEeOdhHMDS0%2BGNefnzuHVIiAXDw847voQBQVf7t6bx9JzLjvN0wj0CTkbs9TYLfe11acrcY1hBr%2FgPe%2F%2FZxGWSfzTQFW6003mTuPlVDSKTOB5zy4r82%2BlK27gdAVwZWQZLaDwH8C4z6kzUNuaZ6CDlQTY31tk7iPGnFehy91uGwmyNqoQ5ANSPhu1U8wA842eGl9wumxwfbp3Xym%2BnCwu4b6z
+ 
+
+
+Detalles de facturacion:
+Cargos del mes: $93.552,09
+
+ 
+Metodo de pago: EFECTIVO
+
+ 
+Numero de linea: 2915026789
+
+
+
+
+
+
+
+Podes pagar con tarjeta de debito o credito en nuestro sitio web:
+
+https://pagos.telecom.com.ar/payment/phone/payment-reference/1002892082210002 
+Pagar factura 
+
+
+ 
+
+
+
+
+
+
+ 
+
+?Como puedo pagar mi factura?
+
+Podes pagar desde: 
+
+Nuestra 
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegskHcIhZJxUS-WcMaUaACUC-kWrG2A0Mg5rOGNeiErc5B7pU9wXDEhSHlNNmIWSt7rS3CX1aeETh9rcm640E7Sm9FkdRCPvwKg 
+App Mi Personal  seccion &ldquo;Facturas&rdquo;
+
+A traves de la app 
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegslsOczh3UqwzWhY9XXUUbac-IXLW5Vj9PzPLtsheFPLgHr63Djh9eJclcyVumZiFoAr9bxcobSAtaZY2FbcLSPd7dlL1ayECM 
+Personal Pay y ahorr&aacute; en el pago de tu factura*
+
+Tambien podes pagar con el QR que est&aacute; en tu factura digital o fisica
+
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsmTQQG9GVaIsNmHIwcmYPdUuYHD5MkDMg6qmuaCy4oUH00TJ20R4zkYjHrik1c1qFtDoHfKVrhhDKuCzApHAACa2xkbrV4G5g 
+Ver otros medios de pago 
+
+
+
+
+
+
+Tambien podes ver tu factura en la 
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsnpfPPx7uxqNrFAmztZCsKtd41NJ1uyrn9yvqS4oDfjOL6DlNUPA5TEls3Y5fWAftmVP9W4qjyB1SvOP8TAHSR50y8TUUy7o4 
+web  y/o en la 
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsotkBf3cQYZ761DoyZq-w84CRpzIDgeKqCrGYKMHzMikhDRBPouDh4doCx2q0Q2FYAwl9tXCbdVk6tRQILExgEjt5Y5V4-3ws 
+App Mi Personal 
+
+
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegspWznk-37Hke5ThTQsZ-uL7Pq1zhi0F3gHyz1ze_ljOX9Hc-CHAsONbDTYriM-QfgWxANn7ilN78VFUfioX_onDapTaKjD8CI 
+
+ Conocer m&aacute;s sobre mi factura.
+  
+
+
+Enacom 0800 333 3344
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsqPZ60SYlHyZ1E0ltGolBI-gdsl4N5CoDQ9kifhUFnpRdlkYHLCxkCPy5UjUBAJ4YaXYm6GOJj3OAXifJBqtlyFlEUFDOJkHg 
+Terminos y condiciones  | 
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsrC9I2mYW0WStQhWaTfSCWHjCCVQmLER5lRQLpVZpIrCXj2oPKVx0nxrKzverkEbsElA1LLvhb_CEwPssP1hDdpra13qEuJc0 
+Politica de Privacidad  | 
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegssptMhaDhD5kaPV63ngTpjiS0RyVIU3iRSYxuxbB-RKIqOSuf-tJRHlN4pNEbqOxi8Qg_R5OjpLQNPSUkYsqS8MgH7PpXVVtg 
+Nuevo reglamento TICS 
+
+
+
+
+
+*BENEFICIO DE ALCANCE NACIONAL, VALIDO DESDE EL 01/05/2025 HASTA EL 30/09/2026 PARA PAGOS DE FACTURA DE SERVICIOS PERSONAL COMO TELEFONIA MOVIL, TELEFONIA FIJA, TV O FIBRA, REALIZADO CON LA FUNCIONALIDAD DE LA APP "PAGO DE SERVICIOS" DE PERSONAL PAY, A TRAVES DE LA APP "MI PERSONAL" O MEDIANTE UN DEBITO AUTOMATICO. VALIDO UNICAMENTE PARA LA PRIMERA FACTURA ABONADA POR MES CALENDARIO.
+
+CONSISTE EN UN 10% (DIEZ POR CIENTO) DE REINTEGRO CON UN TOPE POR TITULAR DE CUENTA DE PAGO PERSONAL PAY DE HASTA $750.- (PESOS SETECIENTOS CINCUENTA) POR TRANSACCION, PARA QUIENES TENGAN NIVEL 1 EN EL PROGRAMA DE NIVELES PERSONAL PAY.
+
+CONSISTE EN UN 15% (QUINCE POR CIENTO) DE REINTEGRO CON UN TOPE POR TITULAR DE CUENTA DE PAGO PERSONAL PAY DE HASTA $2000.- (PESOS DOS MIL) POR TRANSACCION PARA AQUELLOS QUE TENGAN NIVEL 2 EN EL PROGRAMA DE NIVELES PERSONAL PAY.
+
+CONSISTE EN UN 20% (VEINTE POR CIENTO) DE REINTEGRO CON UN TOPE DE REINTEGRO POR TITULAR DE CUENTA DE PAGO PERSONAL PAY DE HASTA $3500.- (PESOS TRES MIL QUINIENTOS) PARA AQUELLOS QUE TENGAN NIVEL 3 EN EL PROGRAMA DE NIVELES PERSONAL PAY.
+
+CONSISTE EN UN 25% (VEINTICINCO POR CIENTO) DE REINTEGRO CON UN TOPE POR TITULAR DE CUENTA DE PAGO PERSONAL PAY DE HASTA $7000.- (PESOS SIETE MIL) PARA AQUELLOS QUE TENGAN NIVEL 4 EN EL PROGRAMA DE NIVELES PERSONAL PAY. MAXIMO DE 1 (UNA) FACTURA DE TELECOM POR PERSONA TITULAR DE CUENTA DE PAGO PERSONAL PAY POR MES CALENDARIO.
+
+EL REINTEGRO SE VERA REFLEJADO EN LA CUENTA DE PAGO PERSONAL PAY HASTA DENTRO DE LAS 72HS DE AUTORIZADO EL PAGO. EL BENEFICIO APLICARA SOBRE EL PRECIO CONTADO EN CONCORDANCIA CON RESOLUCION 51 Y 240 /2017 MINISTERIO DE PRODUCCION DE LA NACION SECRETARIA DE COMERCIO. PARA MAS INFORMACION Y CONDICIONES O LIMITACIONES APLICABLES, CONSULTE EN 
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegstSYTJtr8eX9PRncbkOgXj9y1XYzCqz5XO8L0R3M4xKHXMKyIcQ3DzOnzzzZ6uiugrvaiighyLOevs0Jqv6EcewNuXjVXYKQo 
+https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsuIqaurz9WiR6Ri-DuS6YsqIiEwvIvtVbnqGrpRQpB5JolRHBwAexJ4QhTiQwjSD2fHtluoo3y6f_cSDrRa2K2QOMGsfLTsSY . MICROSISTEMAS SE LIMITA A OFRECER SERVICIOS DE PAGO Y NO SE ENCUENTRA AUTORIZADA A OPERAR COMO ENTIDAD FINANCIERA POR EL BANCO CENTRAL DE LA REPUBLICA ARGENTINA. LOS FONDOS DEPOSITADOS EN CUENTAS DE PAGO NO CONSTITUYEN DEPOSITOS EN UNA ENTIDAD FINANCIERA, NI CUENTAN CON NINGUNA DE LAS GARANTIAS QUE TALES DEPOSITOS PUEDAN GOZAR DE ACUERDO CON LA LEGISLACION Y REGLAMENTACION APLICABLES EN MATERIA DE DEPOSITOS EN ENTIDADES FINANCIERAS. MICRO SISTEMAS S.A. GENERAL HORNOS 690, CABA, CUIT 30-57297583-1.
+
+
+TELECOM ARGENTINA S.A., CUIT 30-63945373-8, GENERAL HORNOS 690, CABA. 
+
+
+
+
+ 
+
+
+--0sItbYDF9Og1=_?:
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      ReadMsgBody{ width: 100%;}
+      .ExternalClass {width: 100%;}
+      .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+      body {-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;margin:0 !important;}
+      p { margin: 1em 0;}
+      table td { border-collapse: collapse;}
+      img {outline:0;}
+      a img {border:none;}
+      @-ms-viewport{ width: device-width;}
+    </style>
+    <style type="text/css">
+      @media only screen and (max-width: 480px) {
+        .container {width: 100% !important;}
+        .footer { width:auto !important; margin-left:0; }
+        .mobile-hidden { display:none !important; }
+        .logo { display:block !important; padding:0 !important; }
+        img { max-width:100% !important; height:auto !important; max-height:auto !important;}
+        .header img{max-width:100% !important;height:auto !important; max-height:auto !important;}
+        .photo img { width:100% !important; max-width:100% !important; height:auto !important;}
+        .drop { display:block !important; width: 100% !important; float:left; clear:both;}
+        .footerlogo { display:block !important; width: 100% !important; padding-top:15px; float:left; clear:both;}
+        .nav4, .nav5, .nav6 { display: none !important; }
+        .tableBlock {width:100% !important;}
+        .responsive-td {width:100% !important; display:block !important; padding:0 !important; }
+        .fluid, .fluid-centered {
+          width: 100% !important;
+          max-width: 100% !important;
+          height: auto !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        .fluid-centered {
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        /* MOBILE GLOBAL STYLES - DO NOT CHANGE */
+        body { padding: 0px !important; font-size: 16px !important; line-height: 150% !important;}
+        h1 { font-size: 22px !important; line-height: normal !important;}
+        h2 { font-size: 20px !important; line-height: normal !important;}
+        h3 { font-size: 18px !important; line-height: normal !important;}
+        .buttonstyles {
+          font-family:arial,helvetica,sans-serif !important;
+          font-size: 16px !important;
+          color: #FFFFFF !important;
+          padding: 10px !important;
+        }
+        /* END OF MOBILE GLOBAL STYLES - DO NOT CHANGE */
+      }
+      @media only screen and (max-width: 640px) {
+        .container { width:100% !important; }
+        .mobile-hidden { display:none !important; }
+        .logo { display:block !important; padding:0 !important; }
+        .photo img { width:100% !important; height:auto !important;}
+        .nav5, .nav6 { display: none !important;}
+        .fluid, .fluid-centered {
+          width: 100% !important;
+          max-width: 100% !important;
+          height: auto !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        .fluid-centered {
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+      }
+    </style>
+    <!--[if mso]>       <style type="text/css">           /* Begin Outlook Font Fix */           body, table, td {               font-family: Arial, Helvetica, sans-serif ;               font-size:16px;               color:#000000;               line-height:1;           }           /* End Outlook Font Fix */       </style>     <![endif]-->
+  </head>
+  <body bgcolor="#ffffff" text="#000000" style="background-color: #ffffff; color: #000000; padding: 0px; -webkit-text-size-adjust:none; font-size: 16px; font-family:arial,helvetica,sans-serif;">
+    <div style="font-size:0; line-height:0;"><img src="https://click.info.personal.com.ar/open.aspx?JDGPXOMPPGFUTNXUVP4W3DR2KU.130028&d=130028&bmt=0" width="1" height="1" alt=""></div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+      <tr>
+        <td align="center" valign="top">
+          
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <table cellspacing="0" cellpadding="0" border="0" width="600" class="container" align="center">
+            <tr>
+              <td>
+                <table class="tb_properties border_style" style="background-color:#FFFFFF;" cellspacing="0" cellpadding="0" bgcolor="#ffffff" width="100%">
+                  <tr>
+                    <td align="center" valign="top">
+                      <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                          <!-- added padding here -->
+                          <td class="content_padding" style="">
+                            <!-- end of comment -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                              <tr> <!-- top slot -->
+                                <td align="center" class="header" valign="top">
+                                  <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                          <td align="left" valign="top">
+                                            <table cellspacing="0" cellpadding="0" style="width:100%">
+                                              <tbody>
+                                              <tr>
+                                                <td class="responsive-td" valign="top" style="width: 100%;">
+                                                  <!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><style type="text/css">
+  body {
+    margin: 0}
+</style>
+<table align="center" bgcolor="#efefef" border="0" cellpadding="0" cellspacing="0" style="                                                                                           background-color: #efefef;                                                                                           max-width: 600px;                                                                                           border-collapse: collapse;                                                                                           -webkit-text-size-adjust: 100%;                                                                                           -ms-text-size-adjust: 100%;                                                                                           mso-table-lspace: 0pt;              
+                                                                             mso-table-rspace: 0pt;                                                                                           border-spacing: 0;                                                                                           border: none !important;                                                                                           height: 50px !important;                                                                                           " width="100%">
+  <tr>
+    <td align="center" style="padding: 0px; border: 0px; margin: 0px">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="100%">
+        <tr>
+          <td align="center" height="50" style="padding: 0px; margin: 0px; border: 0px" valign="middle">
+            <a  href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsR3Uz7ri2MutH5FZn626Avi21fzf93-AP2F4qtO88temW6SKZ6dhMtBfg5X9eH1_KtBQ7Z0lLH1k32hXxnU7_xsabLkPjxKUI" style="                                                                    color: #666666;                                                                    font-size: 11px;                                                                    font-family: 'Segoe UI', Verdana, sans-serif;                                                                    text-decoration: none !important;                                                                    ">VER ONLINE </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="x-apple-disable-message-reformatting"><title>
+</title><style type="text/css">
+body{
+    margin:0;
+    padding:0;
+    -webkit-text-size-adjust:100%;
+    -ms-text-size-adjust:100%;
+  }
+  table{
+    border-spacing:0;
+    mso-table-lspace:0pt;
+    mso-table-rspace:0pt;
+  }
+  td{
+    padding:0;
+  }
+  img{
+    border:0;
+    outline:none;
+    text-decoration:none;
+    -ms-interpolation-mode:bicubic;
+    display:block;
+  }
+  @media only screen and (max-width:599px){
+    .container-hdr{
+      width:100% !important;
+      max-width:360px !important;
+    }
+    .header-pad{
+      padding:16px 24px !important;
+    }
+  }</style><center>
+	<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;" width="100%">
+		
+			<tr>
+				<td align="center">
+					<!-- HEADER PERSONAL GCC - Fondo: #FFFFFF (blanco) - Logo: LEFT-aligned - Padding: 16px 32px (desktop) / 16px 24px (mobile) - Logo: 112x32 (asset edcecd41) - Altura total: 16+32+16 = 64px - TAMBIÉN se usa como FOOTER (mismo bloque) --><table align="center" border="0" cellpadding="0" cellspacing="0" class="container-hdr" role="presentation" style="max-width:600px;background-color:#FFFFFF;" width="100%">
+						
+							<tr>
+								<td align="left" class="header-pad" style="padding:16px 32px;">
+									<a href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsSNLvFDdHkjc331Kulp1moe7kjBFlxCw8cOD9GYhdJdnA7_Zi2qx4lhqTcgEijkMM6YTKofe1MOPFPeVfmAS5YtfH5hwrRWMc" style="text-decoration:none;" target="_blank"><img alt="personal" border="0" height="32" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/edcecd41-699c-4bb2-b2ca-b2c5ecc5e786.png" style="display:block;width:112px;height:32px;border:0;outline:none;text-decoration:none;" width="112"> </a></td></tr></table></td></tr></table></center></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><table width="100%" cellspacing="0" cellpadding="0" role="presentation"><tr><td align="center">
+<img data-assetid="59322" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/183c9a20-87aa-4134-89f1-56946ae99061.png" alt="" height="172" width="600" style="display: block; padding: 0px; text-align: center; height: 172px; width: 600px; border: 0px transparent;"></td></tr></table></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>
+</title><style type="text/css">
+@media only screen and (max-width: 599px) {
+      .servicios-title {
+        font-size: 14px !important;
+        line-height: 22px !important;
+      }
+      .servicio-text {
+        font-size: 12px !important;
+        line-height: 18px !important;
+        /* Hacemos que la línea sea más compacta en mobile */
+        line-height: 22px !important;
+      }
+      .servicio-item-container {
+        /* Hacemos que cada servicio ocupe su propia línea en mobile */
+        /* display: block !important; */
+        /* width: 100% !important; */
+        max-width: 360px !important;
+        padding: 0 12px 12px !important;
+        text-align: center !important;
+      }
+      .servicio-item-table {
+        /* Centramos la tabla del ícono y texto */
+        margin: 0 auto !important;
+      }
+    }</style><!--[if mso | IE]>   <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">   <tr>   <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">   <![endif]--><div style="max-width:600px; margin: 0 auto;">
+	<table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;" width="100%">
+		
+			<tr>
+				<td style="padding: 0 16px;">
+					<!-- INICIO DEL COMPONENTE DETALLE_SERVICIOS --><table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+						<!-- Fila del Título -->
+							<tr>
+								<td align="center" class="servicios-title" style="                     color: #0076c7;                     font-family: Roboto, Arial, sans-serif;                     font-size: 16px;                     font-weight: 600;                     line-height: 22px;                     padding-top: 16px;                   ">
+									Tus servicios:</td></tr><!-- Fila de los Servicios --><tr>
+							</tr></table><!-- FIN DEL COMPONENTE DETALLE_SERVICIOS --></td></tr></table></div><!--[if mso | IE]>   </td>   </tr>   </table>   <![endif]--></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>
+</title><style type="text/css">
+@media only screen and (max-width: 599px) {
+        .servicios-title {
+            font-size: 14px !important;
+            line-height: 22px !important;
+        }
+
+        .servicio-text {
+            font-size: 12px !important;
+            line-height: 18px !important;
+            /* Hacemos que la línea sea más compacta en mobile */
+            line-height: 22px !important;
+        }
+
+        .servicio-item-container {
+            /* Hacemos que cada servicio ocupe su propia línea en mobile */
+            /* display: block !important; */
+            /* width: 100% !important; */
+            max-width: 360px !important;
+            padding: 0 12px 12px !important;
+            text-align: center !important;
+        }
+
+        .servicio-item-table {
+            /* Centramos la tabla del ícono y texto */
+            margin: 0 auto !important;
+        }
+    }</style><!--[if mso | IE]>   <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">   <tr>   <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">   <![endif]--><div style="max-width:600px; margin: 0 auto;">
+ <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;" width="100%">
+  
+   <tr>
+    <td style="padding: 0 16px;">
+     <!-- INICIO DEL COMPONENTE DETALLE_SERVICIOS --><table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+      <!-- Fila de los Servicios -->
+       <tr>
+        <td align="center">
+         <!--[if mso | IE]>                   <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center">                   <tr>                   <![endif]--><!-- Wrapper para los items --><div class="servicio-item-container" style="display: inline-block; vertical-align: top; padding: 0 6px;">
+          <!--[if mso | IE]>                     <td style="padding:0 6px;">                     <![endif]--><table border="0" cellpadding="0" cellspacing="0" class="servicio-item-table" role="presentation">
+           
+            <tr>
+             <td style="padding-right: 4px; vertical-align: middle;">
+              <img alt="" height="22" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/3e2e6b0e-b4cb-44ae-a1be-a574bf6294fa.png" style="display: block;" width="22"></td><td class="servicio-text" style="                             color: #303033;                             font-family: Roboto, Arial, sans-serif;                             font-size: 15px;                             font-weight: 400;                             line-height: 18px;                             white-space: nowrap;                             vertical-align: middle;                           ">
+              Fibra</td><td style="padding-left: 12px; padding-right: 4px; vertical-align: middle;">
+              <img alt="" height="22" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/e7cdf0f5-7847-4ae4-a7f9-9dd9aefe0f91.png" style="display: block;" width="22"></td><td class="servicio-text" style="                             color: #303033;                             font-family: Roboto, Arial, sans-serif;                             font-size: 15px;                             font-weight: 400;                             line-height: 18px;                             white-space: nowrap;                             vertical-align: middle;                           ">
+              Flow</td><td style="padding-left: 12px; padding-right: 4px; vertical-align: middle;">
+              <img alt="" height="22" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/f3a22efe-f666-4f85-af25-693279d03471.png" style="display: block;" width="22"></td><td class="servicio-text" style="                             color: #303033;                             font-family: Roboto, Arial, sans-serif;                             font-size: 15px;                             font-weight: 400;                             line-height: 18px;                             white-space: nowrap;                             vertical-align: middle;                           ">
+              M&oacute;vil</td><!--[endif]----><!--[if mso | IE]>                   </tr>                   </table>                   <![endif]--></tr></table><!-- FIN DEL COMPONENTE DETALLE_SERVICIOS --></div></td></tr></table><!--[if mso | IE]>   </td>   </tr>   </table>   <![endif]--></td></tr></table></div></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>
+</title><style type="text/css">
+body { margin: 0; }
+
+  /* CLASES UTILITARIAS */
+  .fallback-font { font-family: Arial, Helvetica, sans-serif !important; }
+  .rounded-card { border-radius: 8px !important; border: 1px solid #e3e1e6 !important; }
+
+  /* MEDIA QUERIES (Solo afectan a Móviles) */
+  @media only screen and (max-width: 599px) {
+    .wrapper {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 16px !important;
+      box-sizing: border-box !important;
+    }
+
+    .mobile-card {
+      width: 100% !important;
+      max-width: 328px !important;
+      margin: 0 auto !important;
+    }
+
+    /* ESTILO CRÍTICO PARA EL APILADO EN MÓVIL */
+    .stack-column {
+      display: block !important;
+      width: 100% !important;
+      max-width: 328px !important;
+      /* Margen inferior de 8px para separar las cajas verticalmente en móvil */
+      margin: 0 auto 8px auto !important; 
+      padding-right: 0 !important;
+    }
+    
+    /* Quitamos margen al último elemento para que quede limpio */
+    .stack-column:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    .text-label {
+      font-size: 14px !important;
+      line-height: 20px !important;
+      text-align: center !important;
+      width: 100% !important;
+      display: block !important;
+    }
+
+    .text-value {
+      font-size: 16px !important;
+      line-height: 24px !important;
+      text-align: center !important;
+      width: 100% !important;
+      display: block !important;
+    }
+    
+    /* Ocultamos el separador de escritorio en móvil */
+    .desktop-gap {
+        display: none !important;
+    }
+  }</style><center>
+	<table border="0" cellpadding="0" cellspacing="0" class="wrapper" style="width: 100%; max-width: 504px; margin: 0 auto" width="100%">
+		
+			<tr>
+				<td align="center">
+					&nbsp;<table border="0" cellpadding="0" cellspacing="0" class="mobile-card" style="width: 336px; margin: 0 auto" width="336">
+						
+							<tr>
+								<td align="center" bgcolor="#C8EEFF" style="background-color: #c8eeff; border-radius: 8px; padding: 12px;">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%">
+										
+											<tr>
+												<td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #46464a; line-height: 26px; padding-bottom: 4px;">
+													Total a pagar</td></tr><tr>
+												<td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; font-weight: 700; color: #015fb2; line-height: 32px;">
+													$93.552,09</td></tr></table></td></tr></table></td></tr><tr>
+				<td height="8" style="font-size: 8px; line-height: 8px">
+					&nbsp;</td></tr><tr>
+				<td align="center" style="text-align: center; font-size: 0;">
+					<div class="stack-column" style="display: inline-block; vertical-align: top; width: 100%; max-width: 248px;">
+						<table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #e3e1e6; border-radius: 8px; border-collapse: separate;" width="100%">
+							
+								<tr>
+									<td align="center" style="padding: 12px 8px;">
+										<table border="0" cellpadding="0" cellspacing="0" width="100%">
+											
+												<tr>
+													<td align="center" class="text-label" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #46464a; line-height: 26px; padding-bottom: 4px;">
+														Vencimiento</td></tr><tr>
+													<td align="center" class="text-value" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 700; color: #015fb2; line-height: 24px;">
+														05/10/2026</td></tr></table></td></tr></table></div><div class="desktop-gap" style="display: inline-block; width: 8px; height: 1px; overflow: hidden;">
+					</div><div class="stack-column" style="display: inline-block; vertical-align: top; width: 100%; max-width: 248px;">
+						<table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #e3e1e6; border-radius: 8px; border-collapse: separate;" width="100%">
+							
+								<tr>
+									<td align="center" style="padding: 12px 8px;">
+										<table border="0" cellpadding="0" cellspacing="0" width="100%">
+											
+												<tr>
+													<td align="center" class="text-label" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #46464a; line-height: 26px; padding-bottom: 4px;">
+														Referente de pago</td></tr><tr>
+													<td align="center" class="text-value" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 700; color: #015fb2; line-height: 24px;">
+														1002892082210002</td></tr></table></td></tr></table></div></td></tr></table></center></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><style type="text/css">
+/* mobile */
+  @media only screen and (max-width: 599px) {
+    .container {
+      max-width: 500px !important;
+      width: 70% !important;
+    }
+    .mobile-container {
+      padding: 16px !important;
+    }
+    .mobile-reference-number {
+      font-size: 14px !important;
+      line-height: 24px !important;
+      width: 70% !important; /* Ajustado para 100% para evitar quebra */
+      text-align: center !important;
+    }
+  }</style><table align="center" role="presentation" style="width: 500; max-width: 500; border: none; border-spacing: 0;">
+ 
+  <tr>
+   <td align="center">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" class="container" style="max-width: 500; width: 500; font-family: Arial, sans-serif; padding-top: 16px;" width="500">
+     
+      <tr>
+       <td bgcolor="#e8f8ff" class="mobile-container" style="padding: 16px; background-color: #e8f8ff; border: 1px solid #94deff; border-radius: 12px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="450">
+         
+          <tr>
+           <td class="mobile-reference-number" style="color: #121212; font-size: 16px; font-weight: normal; line-height: 26px;">
+            &iexcl;Record&aacute; que cuantos m&aacute;s servicios sum&aacute;s, m&aacute;s beneficios ten&eacute;s!</td></tr></table></td></tr></table></td></tr></table></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="background-color: transparent; min-width: 100%; " class="stylingblock-content-wrapper"><tr><td style="padding: 0px; " class="stylingblock-content-wrapper camarker-inner"><table align="center" role="presentation" style="width: 500; max-width: 500; border: none; border-spacing: 0;">
+	
+		<tr>
+			<td align="center">
+				<table align="center" border="0" cellpadding="0" cellspacing="0" class="container" style="max-width: 500; width: 500; font-family: Arial, sans-serif; padding-top: 16px;" width="500">
+					
+						<tr>
+							<td bgcolor="#e8f8ff" class="mobile-container" style="padding: 16px; background-color: #e8f8ff; border: 1px solid #94deff; border-radius: 12px;">
+								<table border="0" cellpadding="0" cellspacing="0" width="450">
+									
+										<tr>
+											<td class="mobile-reference-number" style="color: #121212; font-size: 16px; font-weight: normal; line-height: 26px; ">
+												<table border="0" cellpadding="0" cellspacing="0" width="450">
+													
+														<tr>
+															<td class="mobile-reference-number" style="color: #121212; font-size: 16px; font-weight: normal; line-height: 26px; ">
+																<table border="0" cellpadding="0" cellspacing="0" width="450">
+																	
+																		<tr>
+																			<td class="mobile-reference-number" style="color: #121212; font-size: 16px; font-weight: normal; line-height: 26px; ">
+																				<table border="0" cellpadding="0" cellspacing="0" width="450">
+																					
+																						<tr>
+																							<td class="mobile-reference-number" style="color: #121212; font-size: 16px; font-weight: normal; line-height: 26px; ">
+																								Te informamos que, a partir de tu pr&oacute;xima factura, tendr&aacute;s un aumento de hasta un 2.5% en el precio de lista de todos tus servicios. (*)</td></tr></table></td></tr></table></td></tr></table></td></tr></table></td></tr></table></td></tr></table><style type="text/css">
+/ mobile / @media only screen and (max-width: 599px) { .container { max-width: 328px !important; width: 100% !important; } .mobile-container { padding: 16px !important; } .mobile-reference-number { font-size: 14px !important; line-height: 24px !important; width: 100% !important; text-align: center !important; } }</style></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><style type="text/css">
+/* Mobile */
+  @media only screen and (max-width: 599px) {
+ 
+    .mobile-button-container {
+      width: 151px !important;
+      height: 40px !important;
+      padding: 8px 16px !important;
+    }
+
+    .copy-button-padding {
+      padding: 0 !important;
+    }
+
+    .mobile-button-text {
+      font-size: 14px !important;
+      line-height: 24px !important;
+    }
+
+    .mobile-icon {
+      width: 24px !important;
+      height: 24px !important;
+    }
+  }</style><table align="center" role="presentation" style="width: 100%; max-width: 600px; border: none; border-spacing: 0">
+	
+		<tr>
+			<td style="background-color: #ffffff">
+				<table align="center" border="0" cellpadding="0" cellspacing="0" class="copy-table-content" style="           max-width: 568px;           height: auto;           font-family: Roboto, Arial, sans-serif;         " width="100%">
+					<!-- Mensaje secundario -->
+						<tr>
+							<td class="mobile-message" style="               color: #303033;               font-size: 14px;               line-height: 22px;             ">
+								<p style="text-align: center; line-height: 100%;">
+									<span style="font-size:10px;">(*) Si cont&aacute;s con servicios contratados por cuenta y orden de terceros los valores pueden variar en otros porcentajes.</span></p><p style="text-align: center;">
+									Para m&aacute;s info consult&aacute; en la hoja N&deg;2 de tu factura:</p></td></tr><!-- Botón --><tr>
+							<td align="center">
+								<table border="0" cellpadding="0" cellspacing="0" class="mobile-button-container" style="background-color: #0076c7; border-radius: 4px">
+									
+										<tr>
+											<td align="center" class="copy-button-padding" style="padding: 12px 24px">
+												<table border="0" cellpadding="0" cellspacing="0">
+													
+														<tr>
+															<!-- Ícono --><td align="center" style="width: 24px; height: 24px; padding-right: 8px">
+																<img alt="Icono" class="mobile-icon" src="https://image.info.personalflow.com.ar/lib/fe2f11747364047b711073/m/1/ebd27dd0-c562-4517-b7ac-9369bd265465.png" style="display: inline-block; vertical-align: middle;" width="24"></td><!-- Texto del botón --><td align="center" class="mobile-button-text" style="                           color: #ffffff;                           font-size: 16px;                           font-weight: 400;                           line-height: 24px;                         ">
+																<a   data-linkto="other" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsTQb317dUTTfoiqGp21BsJailzTpc7XLyIx9IVI_fjJIdEtM1CF61QB5ziWzSO98tCCLGfCt5Bo9NzuYbGrFinGzAKNhWPun0" style="color:#FFFFFF;text-decoration:none;" title="Ver factura">Ver factura</a></td></tr></table></td></tr></table></td></tr></table></td></tr></table></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta charset="UTF-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="IE=edge" http-equiv="X-UA-Compatible"><title>
+</title><style type="text/css">
+html, body {
+         margin: 0;
+         font-family: 'Roboto', 'Trebuchet MS', Arial, Helvetica, sans-serif !important;
+      }
+      
+      .desktop-row {
+         display: table-row;
+      }
+      
+      .mobile-row {
+         display: none;
+      }
+      
+      @media screen and (max-device-width: 599px), screen and (max-width: 599px) {
+         .wrapper {
+            width: 100% !important;
+            max-width: 360px !important;
+            padding: 0 !important;
+         }
+         
+         .deviceWidth {
+            width: 100% !important;
+            display: block !important;
+            padding: 0 !important;
+         }
+         
+         .titular {
+            font-size: 14px !important;
+            line-height: 22px !important;
+            padding-top: 12px !important;
+            padding-bottom: 4px !important;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+         }
+         
+         .copy {
+            font-size: 14px !important;
+            line-height: 22px !important;
+         }
+         
+         .veint {
+            width: 328px !important;
+            padding: 0 16px 12px 16px !important;
+         }
+         
+         .desktop-row {
+            display: none !important;
+         }
+         
+         .mobile-row {
+            display: table-row !important;
+         }
+      }</style><center>
+	<table border="0" cellpadding="0" cellspacing="0" class="wrapper" style="border-collapse:collapse; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0; border:none!important;" width="100%">
+		
+			<tr>
+				<td align="center" style="margin:0; border:0; padding-top:32px;" width="100%">
+					<!--[if (gte mso 9)|(IE)]>                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="max-width:600px; border-collapse:collapse;" class="deviceWidth" bgcolor="#FAF9FB">                <tr>                <td align="center" valign="top" width="600">                <![endif]--><table align="center" bgcolor="#FAF9FB" border="0" cellpadding="0" cellspacing="0" class="deviceWidth" style="border-collapse:collapse; max-width:600px;" width="100%">
+						<!-- Spacer superior --><!--<tr>                         <td colspan="3" align="center" style="font-size:0px; border:none!important; padding-top: 16px;" valign="top" width="100%">                            <img src="images/spacer600.png" alt="" width="600" style="padding: 0; margin: 0 auto; display:block; width:100%; max-width: 600px !important; height: auto;">                         </td>                      </tr>--><!-- Título Desktop/Mobile -->
+							<tr>
+								<!-- <td class="veint" width="8%" align="center" style="font-size:0px; border:none!important; padding: 0; margin: 0;"></td> --><td align="left" class="titular" style="padding: 0; margin: 0; padding-top: 12px; padding-bottom: 4px; padding-left: 48px; padding-right: 48px; font-size:18px; font-weight: 700; line-height: 26px; text-align: left; font-family: 'Roboto', Arial, 'Helvetica Neue', Helvetica, sans-serif; border:none !important; color: #052C50;" valign="top" width="100%">
+									Detalles de facturaci&oacute;n:</td><!-- <td class="veint" width="8%" align="center" style="font-size:0px; border:none!important; padding: 0; margin: 0;"></td> --></tr><!-- Contenedor con borde --><tr>
+								<!-- <td class="veint" width="8%" align="center" style="font-size:0px; border:none!important; padding: 0; margin: 0;"></td> --><td align="center" class="veint" style="margin:0; border:0; padding: 12px 0 16px 0;" width="100%">
+									<!--[if (gte mso 9)|(IE)]>                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="504" style="max-width:504px; border-collapse:collapse;" bgcolor="#FFFFFF">                            <tr>                            <td align="center" valign="top" width="504">                            <![endif]--><table align="center" bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate; max-width:504px; border-radius: 8px; border: 1px solid #E3E1E6;" width="100%">
+										<!-- Fila 1: Cargos del mes (Desktop) / Vencimiento (Mobile) -->
+											<tr>
+												<td align="left" class="copy" colspan="3" style="padding: 16px 16px 8px 16px; margin: 0; font-size:16px; font-weight: 400; line-height: 24px; text-align: left; font-family: 'Roboto', Arial, sans-serif; border:none !important; color: #5E5E62;" valign="top">
+													<span style="font-weight: 700;">Cargos del mes:</span>&nbsp;$93.552,09</td></tr><!-- <tr class="mobile-row">                                     <td colspan="3" align="left" valign="top"                                         style="padding: 16px 16px 8px 16px; margin: 0; font-size:14px; font-weight: 400; line-height: 22px; text-align: left; font-family: 'Roboto', Arial, sans-serif; border:none !important; color: #5E5E62;"                                         class="copy">                                        <span style="font-weight: 700;">Vencimiento:</span> 17/03/2025                                     </td>                                  </tr> --><!-- Divider --><tr>
+												<td align="center" colspan="3" style="padding: 4px 16px; margin: 0;">
+													<div style="height: 1px; background-color: #E3E1E6; width: 100%; line-height: 1px; font-size: 1px;">
+														&nbsp;</div></td></tr><!-- Fila 2: Método de pago --><tr>
+												<td align="left" class="copy" colspan="3" style="padding: 8px 16px; margin: 0; font-size:16px; font-weight: 400; line-height: 24px; text-align: left; font-family: 'Roboto', Arial, sans-serif; border:none !important; color: #5E5E62;" valign="top">
+													<span style="font-weight: 700;">M&eacute;todo de pago:</span> EFECTIVO</td></tr><!-- Divider --><tr>
+												<td align="center" colspan="3" style="padding: 4px 16px; margin: 0;">
+													<div style="height: 1px; background-color: #E3E1E6; width: 100%; line-height: 1px; font-size: 1px;">
+														&nbsp;</div></td></tr><!-- Fila 3: Número de línea --><tr>
+												<td align="left" class="copy" colspan="3" style="padding: 8px 16px 16px 16px; margin: 0; font-size:16px; font-weight: 400; line-height: 24px; text-align: left; font-family: 'Roboto', Arial, sans-serif; border:none !important; color: #5E5E62;" valign="top">
+													<span style="font-weight: 700;">N&uacute;mero de l&iacute;nea:</span> 2915026789</td></tr></table><!--[if (gte mso 9)|(IE)]>                            </td>                            </tr>                            </table>                            <![endif]--></td><!-- <td class="veint" width="8%" align="center" style="font-size:0px; border:none!important; padding: 0; margin: 0;"></td> --></tr><!-- Spacer inferior --><!--<tr>                         <td colspan="3" align="center" style="font-size:0px; border:none!important; padding-bottom: 16px;" valign="top" width="100%">                            
+<img src="images/spacer600.png" alt="" width="600" style="padding: 0; margin: 0 auto; display:block; width:100%; max-width: 600px !important; height: auto;">                         </td>                      </tr>--></table><!--[if (gte mso 9)|(IE)]>                </td>                </tr>                </table>                <![endif]--></td></tr></table></center></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><style type="text/css">
+/* Mobile */
+  @media only screen and (max-width: 599px) {
+    .factura_container {
+      width: 100% !important;
+      max-width: 328px !important;
+    }
+    .mobile-title {
+      font-size: 14px !important;
+      line-height: 24px !important;
+      padding-bottom: 16px !important;
+    }
+
+    .mobile-button-container {
+      width: 137px;
+      height: 40px;
+      padding: 8px 16px !important;
+    }
+
+    .copy-button-padding {
+      padding: 0 !important;
+    }
+
+    .mobile-button-text {
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .mobile-icon {
+      width: 24px;
+      height: 24px;
+    }
+  }</style><table align="center" class="factura_container" role="presentation" style="width: 100%; max-width: 600px; border: none; border-spacing: 0">
+	
+		<tr>
+			<td style="background-color: #ffffff">
+				<table align="center" border="0" cellpadding="0" cellspacing="0" class="copy-table-content" style="           max-width: 568px;           font-family: Roboto, Arial, sans-serif;           padding-top: 16px;         " width="100%">
+					<!-- Título -->
+						<tr>
+							<td class="mobile-title" style="               text-align: center;               font-size: 18px;               font-weight: 700;               line-height: 26px;               color: #303033;               padding-bottom: 12px;             ">
+								<br>
+								Pod&eacute;s pagar con tarjeta de d&eacute;bito o cr&eacute;dito en nuestro sitio web:</td></tr><!-- Botón --><tr>
+							<td align="center">
+								<table border="0" cellpadding="0" cellspacing="0" class="mobile-button-container" style="background-color: #0076c7; border-radius: 4px;">
+									
+										<tr>
+											<td align="center" class="copy-button-padding" style="padding: 12px 24px">
+												<table border="0" cellpadding="0" cellspacing="0">
+													
+														<tr>
+															<!-- Ícono --><!--<td align="center" style="width: 24px; height: 24px; padding-right: 8px">                     <img src="https://image.info.personalflow.com.ar/lib/fe2d11747364047b711075/m/1/383a8e78-981d-4da2-aa64-b4ad2a823a35.png" alt="Icono" class="mobile-icon" style="display: inline-block; vertical-align: middle;" width="24">                   </td> --><!-- Texto del botón --><td align="center" class="mobile-button-text" style="                           color: #ffffff;                           font-size: 16px;                           font-weight: 400;                           line-height: 24px;                         ">
+																<a   data-linkto="other" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsUQcqWe_CsLXyxLcndty1iW7CgXfK-hNcBPTUz4KJc2t5PoPWxcyAhohF3OX9hwH9sDFd4fiXr1Ccz9i6bwCO_3rkCYmoGGEA" style="color:#FFFFFF;text-decoration:none;" title="Pagar factura">Pagar factura</a></td></tr></table></td></tr></table><br>
+								&nbsp;</td></tr></table></td></tr></table></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="supported-color-schemes" content="light dark"><style type="text/css">
+.main-container-con-icon,
+  .title-con-icon,
+  .question-con-icon,
+  .answer-con-icon,
+  .link-con-icon {
+    font-family: Roboto, Arial, sans-serif;
+  }
+
+  .title-con-icon {
+    color: #303033;
+  }
+
+  .question-con-icon,
+  .answer-con-icon {
+    color: #5e5e62;
+  }
+
+  .link-con-icon {
+    color: #0076c7;
+  }
+
+  .main-container-con-icon {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+  }
+
+  .content-row-con-icon {
+    padding: 0px;
+  }
+
+  .title-con-icon {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 30px;
+    padding-bottom: 20px;
+  }
+
+  .question-con-icon {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+  }
+
+  .answer-con-icon {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+  }
+
+  .link-con-icon {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    text-decoration: underline;
+  }
+
+  .icon-img-con-icon {
+    width: 30px;
+    height: 30px;
+    padding-bottom: 20px;
+  }
+
+  @media only screen and (max-width: 599px) {
+    .main-container-con-icon {
+      width: 100% !important;
+      max-width: 360px !important;
+    }
+
+    .content-row-con-icon {
+      padding: 20px !important;
+    }
+
+    .title-con-icon {
+      font-size: 18px !important;
+      line-height: 26px !important;
+      padding-bottom: 0 !important;
+    }
+
+    .question-con-icon {
+      font-size: 14px !important;
+      line-height: 22px !important;
+    }
+
+    .answer-con-icon {
+      font-size: 14px !important;
+      line-height: 22px !important;
+    }
+
+    .link-con-icon {
+      font-size: 14px !important;
+      line-height: 22px !important;
+    }
+
+    .icon-img-con-icon {
+      width: 24px !important;
+      height: 24px !important;
+      padding-bottom: 0 !important;
+    }
+  }
+
+  /*
+    @media (prefers-color-scheme: dark) {
+      .main-container { background-color: #2A2A3A !important; }
+      .title, .question, .answer { color: #E6E6E6 !important; }
+      .link { color: #4A90E2 !important; }
+    }*/</style><!--[if mso]> <style type="text/css">   table {     border-collapse: collapse;   }    td {     font-family: Arial, sans-serif;   }    .outlook-width {     width: 600px !important;   } </style> <![endif]--><table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+	
+		<tr>
+			<td height="16" style="font-size: 16px; line-height: 16px; mso-line-height-rule: exactly">
+				&nbsp;</td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="main-container-con-icon" style="max-width: 600px; background-color: #ffffff" width="100%">
+	
+		<tr>
+			<td>
+				<!--[if mso]>       <table width="600" cellpadding="0" cellspacing="0" border="0" class="outlook-width">         <tr>           <td style="padding: 8px;">       <![endif]--><table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+					<!-- Title Row -->
+						<tr>
+							<td style="padding: 0px 16px">
+								<table border="0" cellpadding="0" cellspacing="0" role="presentation">
+								</table></td></tr><!-- Content Row --><tr>
+							<td class="content-row-con-icon" style="padding: 0 24px">
+								<table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+									
+										<tr>
+											<td>
+												<p>
+													<span class="question-con-icon" style="                       font-size: 16px;                       font-weight: 700;                       line-height: 22px;                       color: #5e5e62;                     ">&iquest;C&oacute;mo puedo pagar mi factura?</span><br>
+													<!-- Payment Methods --></p><table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+													<!-- Personal Flow -->
+														<tr>
+															<td>
+																<table border="0" cellpadding="0" cellspacing="0" role="presentation">
+																	
+																		<tr>
+																			<td style="                                 width: 30px;                                 padding-right: 8px;                                 vertical-align: middle;                               ">
+																				<img alt="Personal Flow Icon" class="payment-icon-con-icon" height="30" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/02d05a6c-7e60-4771-829c-c355d9422839.png" style="                                   width: 30px;                                   height: 30px;                                   display: block;                                   border-radius: 5.82px;                                 " width="30"></td><td style="vertical-align: middle">
+																				<span class="answer-con-icon" style="                                   font-size: 16px;                                   font-weight: 400;                                   line-height: 22px;                                   color: #5e5e62;                                 ">En nuestra app App <u><a   data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsVhm6NI2en04sdgxy_hE2Qq4QBb1Jw7e47ujecCWlRUKk5bi655zuaLvXshFBUHZERSw1-du7sML6AD2rIRvieYqm53krzzHs" style="text-decoration:none;" title="App MIPersonal">App MI Personal</a></u>&nbsp;(con tarjeta de d&eacute;bito o cr&eacute;dito)</span></td></tr></table></td></tr><!-- Personal Pay --><tr>
+															<td style="padding: 12px 0 0 0">
+																<table border="0" cellpadding="0" cellspacing="0" role="presentation">
+																	
+																		<tr>
+																			<td style="                                 width: 30px;                                 padding-right: 8px;                                 vertical-align: middle;                               ">
+																				<img alt="Personal Pay Icon" class="payment-icon-con-icon" height="25" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/c9e7038d-63d5-4eab-8d04-fd4db0023323.png" style="padding-left: 3px;                                   width: 25px;                                   height: 25px;                                   display: block;                                   border-radius: 5.82px;                                 " width="25"></td><td style="vertical-align: middle">
+																				<span class="answer-con-icon" style="                                   font-size: 16px;                                   font-weight: 400;                                   line-height: 22px;                                   color: #5e5e62;                                 ">A trav&eacute;s de la app </span> <span class="link-con-icon" style="                                   font-size: 16px;                                   font-weight: 400;                                   line-height: 22px;                                   color: #0076c7;                                   text-decoration: underline;                                 ">
+<a   data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsWjsrD8JWExuVetY8yjbG7GDpQ4Se6NT6kGA-W3I-zwPghfeQ7oHZL2nUudKwzjs_b8X49xqOwrdZ2GNyLFGaTOivX5UESpEw" style="text-decoration:none;" title="Personal Pay">Personal Pay</a></span><span class="answer-con-icon" style="                                   font-size: 16px;                                   font-weight: 400;                                   line-height: 22px;                                   color: #5e5e62;                                 ">&nbsp;y ahorr&aacute; en el pago de tu factura*</span></td></tr></table>&nbsp;&nbsp;</td></tr><!-- Personal Pay --><tr>
+															<td style="padding: 12px 0 0 0">
+																<table border="0" cellpadding="0" cellspacing="0" role="presentation">
+																	
+																		<tr>
+																			<td style="                                 width: 30px;                                 padding-right: 8px;                                 vertical-align: middle;                               ">
+																				<img alt="Personal Pay Icon" class="payment-icon-con-icon" height="25" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/f460feee-6fa1-46a3-a0d9-2e86b5027649.png" style="padding-left: 3px;                                   width: 25px;                                   height: 25px;                                   display: block;                                   border-radius: 5.82px;                                 " width="25"></td><td style="vertical-align: middle">
+																				<span class="answer-con-icon" style="                                   font-size: 16px;                                   font-weight: 400;                                   line-height: 22px;                                   color: #5e5e62;                                 ">Pod&eacute;s pagar con el QR que est&aacute; en tu factura digital o f&iacute;sica </span></td></tr></table></td></tr><!-- WiFi Zone --><tr>
+															<td style="padding: 12px 0 0 0">
+																<p>
+																	<span class="link-con-icon" style="                             font-size: 16px;                             font-weight: 400;                             line-height: 22px;                             color: #0076c7;                             text-decoration: underline;                             display: block;                           "><a   data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsXxboDpOenxcDxpxVIF4uPRc77KVe_jBdNXr1MyYU_TRfYS5LbZtBkXP1Dxo7_U6LFfrjGs2xWsp55RCfx4NKtaepKzu3S6ww" style="text-decoration:none;" title="Conocé todos los medios de pago disponibles">Conocer otros medios de pago</a></span></p><p>
+																</p></td></tr></table></td></tr></table></td></tr><!--[if mso]>           </td>         </tr>       </table>       <![endif]--></table></td></tr></table></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><style type="text/css">
+body {margin: 0}
+    /* Mobile */
+    @media only screen and (max-width: 599px) {
+        .mobile-width-fix {
+            width: 100% !important;
+            max-width: 360px !important;
+        }
+        
+        .mobile-text-recordatorio {
+            font-size: 14px !important;
+            line-height: 22px !important;
+            padding: 12px 16px !important; /* Mantiene tu ajuste mobile */
+        }
+    }</style><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+	
+		<tr>
+			<td align="center">
+				<table border="0" cellpadding="0" cellspacing="0" class="mobile-width-fix" style="max-width: 600px; background-color: #e4d7ff;" width="100%">
+					
+						<tr>
+							<td align="left" class="mobile-text-recordatorio" style="                         font-family: Roboto, Arial, sans-serif;                         font-size: 16px;                         font-weight: normal;                         line-height: 24px;                         color: #303033;                         padding: 12px 32px;                         word-wrap: break-word;                         margin: 0;                     ">
+								Tambi&eacute;n pod&eacute;s ver tu factura en la <span style="color: #0076c7;"> <u><a   data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsYJRiNEXnz_Ph8NZMoNSL0f1hsMSvx3BhV_eN6vpcvSp3W9GNU6Ggm6H7jds_VNxB64PVDXpsiEX9yFQrerEAbrgYPzW-GQso" style="text-decoration:none;" title="web&nbsp;">web</a></u></span>&nbsp;y/o en la <span style="color: #0076c7;"> <u><a   data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsZVZnKIWfZ-tqJstiSP5HzkNDs1IMJVavFk1wD1--Wz4MA5ACPa_pqZ777FPEWnpsJFmfkafcX9ST3l_BHknh-FBi4XnFxWa8" style="color:#0076c7;text-decoration:none;" target="_blank" title="App Mi Personal">App&nbsp;Mi Personal</a></u> </span></td></tr></table></td></tr></table></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr>
+<td class="stylingblock-content-wrapper camarker-inner"><style type="text/css">
+  /* Mobile styles */
+  @media only screen and (max-width: 599px) {
+    .divider-l-container {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    .divider-l-text {
+      padding: 12px 16px !important; /* Ajuste de padding para mobile */
+      font-size: 14px !important;
+      line-height: 22px !important;
+    }
+  }
+</style>
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation">
+  <tr>
+    <td align="center">
+      
+      <table align="center" class="divider-l-container" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #0076C7;" bgcolor="#0076C7">
+        <tr>
+          <td class="divider-l-text" align="left" valign="middle" style="               text-align: left;               vertical-align: middle;               color: #ffffff;               font-size: 16px;               font-family: Roboto, Arial, sans-serif;               font-weight: 500;               line-height: 24px;               padding: 12px 32px; /* Padding movido para cá */             ">
+            <a   data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsaic11BCGSEkUr2zU4nI-1itDGGoYHNPprfsZLZJ5uDsP9EUJjDWL6ANdEDhKniwdkR-WydnUXzlZLzoH1Sc2vvvXbG2HFPlc" style="color:#FFFFFF; text-decoration:underline; font-weight: bold;" title="Conocer más sobre mi factura.">
+              Conocer m&aacute;s sobre mi factura.
+            </a>
+          </td>
+        </tr>
+      </table>
+
+      </td>
+  </tr>
+</table></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="x-apple-disable-message-reformatting"><meta name="supported-color-schemes" content="light dark"><title>
+</title><style type="text/css">
+/* General Resets */
+      body {
+        margin: 0;
+      }
+
+      /* Outer wrapper table for max-width, centering, and background */
+      /* Estilos inline se aplican directamente en la etiqueta table */
+      .outer-wrapper {
+        max-width: 600px; /* Desktop max width */
+        margin: 0 auto; /* Center table */
+        color: #121212; /* Color de texto por defecto para herencia */
+      }
+
+      /* Cell for vertical padding (top/bottom) */
+      /* Estilos inline se aplican directamente en la etiqueta td */
+      .v-padding-cell {
+        padding-top: 20px; /* Desktop Top Padding */
+        padding-bottom: 20px; /* Desktop Bottom Padding */
+        text-align: left; /* Alineación a la izquierda */
+      }
+
+      /* Inner table for content width control and horizontal centering */
+      /* Estilos inline se aplican directamente en la etiqueta table */
+      .content-table {
+        width: 100%; /* Ensure it takes full width up to max-width */
+        max-width: 472px; /* Desktop content width */
+        margin: 0 auto; /* Center content table (el bloque de contenido) */
+      }
+
+      /* Cell for horizontal padding (left/right) and content */
+      /* Estilos inline se aplican directamente en la etiqueta td */
+      .h-padding-cell {
+        /*padding-left: 64px;  Desktop Left Padding 
+        padding-right: 64px;  Desktop Right Padding */
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 16px; /* Desktop Font Size */
+        line-height: 24px; /* Desktop Line Height */
+        font-weight: 400;
+        color: #121212; /* Text color para separadores y herencia */
+        text-align: left; /* Alineación a la izquierda */
+      }
+
+      /* Styles for the links */
+      /* Estilos inline se aplican directamente en la etiqueta a */
+      .enacom-link {
+        color: #121212; /* Link color */
+        text-decoration: underline; /* Underline */
+        /*display: inline-block;  Para control de line-height/spacing */
+        line-height: 24px; /* Match desktop line height */
+        font-size: 16px; /* Match desktop font size */
+      }
+
+      /* Hide the mobile break element by default on desktop */
+      .mobile-break {
+        display: none;
+        mso-hide: all; /* Hide from Outlook */
+      }
+
+      /* Mobile Responsiveness - ESTOS ESTILOS SOLO VAN AQUÍ */
+      @media only screen and (max-width: 599px) {
+        /* Adjust outer wrapper width */
+        .outer-wrapper {
+          width: 100% !important; /* Take full width on mobile */
+          max-width: 360px !important; /* Mobile max width */
+        }
+
+        /* Adjust vertical padding for mobile */
+        .v-padding-cell {
+          padding: 8px 16px !important; /* Mobile Bottom Padding */
+        }
+
+        /* Adjust content table max-width for mobile */
+        .content-table {
+          max-width: 328px !important; /* Mobile content width */
+        }
+
+        /* Adjust horizontal padding for mobile */
+        .h-padding-cell {
+          padding-left: 16px !important; /* Mobile Left Padding */
+          padding-right: 16px !important; /* Mobile Right Padding */
+          font-size: 14px !important; /* Mobile Font Size */
+          line-height: 22px !important; /* Mobile Line Height */
+          /* text-align can remain left */
+        }
+
+        /* Adjust link styles for mobile if needed (match parent cell or inline) */
+        .enacom-link {
+          font-size: 14px !important; /* Mobile Font Size */
+          line-height: 22px !important; /* Mobile Line Height */
+        }
+
+        /* Show the mobile break element on mobile */
+        .mobile-break {
+          display: inline !important; /* Make it visible */
+          mso-hide: none !important; /* Ensure visible in Outlook on mobile (less reliable, but worth trying) */
+        }
+      }
+
+      /* Dark Mode (Optional) */
+      /* @media (prefers-color-scheme: dark) {
+    // Dark mode styles here if needed, overriding base dark background
+  } */</style><table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+</table><table border="0" cellpadding="0" cellspacing="0" class="outer-wrapper" role="presentation" style="         max-width: 600px;         margin: 0 auto;         color: 121212;       " width="100%">
+	
+		<tr>
+			<td align="left" class="v-padding-cell" style="padding: 20px 32px;">
+				<table border="0" cellpadding="0" cellspacing="0" class="content-table" role="presentation" style="width: 100%; max-width: 600px; margin: 0 auto" width="100%">
+					
+						<tr>
+							<td align="left" class="h-padding-cell" style="                   font-family: Roboto, Arial, sans-serif;                   font-size: 16px;                   line-height: 24px;                   font-weight: 400;                   color: #121212;                 ">
+								<div style="text-align: center;">
+									Enacom 0800 333 3344</div><a  class="enacom-link"  data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsbvJt3hgJ6bNiZwFUU9Zf-Bq1XTDw0loaWAo65oq3bDKpQimXvpxSKGUZ3nib63AjWCLBxLAnJHrGTZ_oYqoI8Y20hYrk0SCs" style="color:#121212;text-decoration:underline;                     line-height: 24px;                     font-size: 16px;                   " target="_blank" title="">T&eacute;rminos y condiciones</a> <span style="                     color: #121212;                     font-size: 16px;                     line-height: 24px;                     font-weight: 400;                     font-family: Roboto, Arial, sans-serif;                   "> | 
+<a  class="enacom-link"  data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegscW2l2scCjroZmPAW5MbYFUOj0uCoshUqLS8JHf2Vyw_NLuj4ZssxaE_O7yXi51HD7G9Dfi0_id6-H0aGwka-I8nQO-1u1YTk" style="color:#121212;text-decoration:underline;                     line-height: 24px;                     font-size: 16px;                   " target="_blank" title="">Pol&iacute;tica de Privacidad</a></span> <span style="                     color: #121212;                     font-size: 16px;                     line-height: 24px;                     font-weight: 400;                     font-family: Roboto, Arial, sans-serif;                   "> | 
+<a  class="enacom-link"  data-linkto="https://" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsdrFh84I5SXeTrObFF1F8K6LX0eKoQI5FbhxH56WHi_rDvRrGBJ-eLJuDNwTCBM__nFGXZtTYp4tjjYWa77wAeyK7GHCfDrMo" style="color:#121212;text-decoration:underline;                     line-height: 24px;                     font-size: 16px;                   " target="_blank" title="">Nuevo reglamento TICS</a></span></td></tr></table></td></tr></table></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="x-apple-disable-message-reformatting">
+<meta name="color-scheme" content="light dark"><meta name="supported-color-schemes" content="light dark"><title>
+</title><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style type="text/css">
+body{margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#ffffff;}
+table{border-spacing:0;mso-table-lspace:0pt;mso-table-rspace:0pt;}
+td{padding:0;}
+img{border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;display:block;}
+
+/* Dark mode overrides */
+:root{color-scheme:light dark;supported-color-schemes:light dark;}
+@media (prefers-color-scheme:dark){
+[data-ogsc] .redes-icon-redes-personal,
+.redes-icon-redes-personal{filter:none !important;}
+.redes-bg-dark{background-color:#222222 !important;}
+}
+
+@media only screen and (max-width:599px){
+.container-redes-personal{max-width:360px !important;}
+.redes-pad-redes-personal{padding:16px !important;}
+.redes-gap-redes-personal{padding-bottom:8px !important;}
+.redes-icon-redes-personal{width:24px !important;height:24px !important;}
+}</style><center>
+	<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;background-color:#ffffff;" width="100%">
+		
+			<tr>
+				<td align="center">
+					<!--   REDES SOCIALES — Personal   - Fondo: #222222   - Título: "Seguinos en nuestras redes" 14px/22px 500 white, LEFT   - Desktop: pad 16px 32px, gap title→icons 16px, icons 32x32, gap 8px   - Mobile: pad 16px, gap title→icons 8px, icons 24x24   - 3 iconos: Facebook, X, YouTube   - Dark mode: bg explícito + border sólido para evitar inversión de iconos --><table align="center" border="0" cellpadding="0" cellspacing="0" class="container-redes-personal redes-bg-dark" style="max-width:600px;background-color:#222222;" width="100%">
+						
+							<tr>
+								<td class="redes-pad-redes-personal" style="padding:16px 32px;">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%">
+										
+											<tr>
+												<td align="left" class="redes-gap-redes-personal" style="font-family:'Roboto',Arial,sans-serif;font-size:14px;font-weight:500;line-height:22px;color:#FFFFFF;padding-bottom:16px;">
+													Seguinos en nuestras redes</td></tr><tr>
+												<td align="left">
+													<table border="0" cellpadding="0" cellspacing="0">
+														
+															<tr>
+																<td class="redes-bg-dark" style="padding-right:8px;background-color:#222222;">
+																	<a href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsee423Hy65v6b2eYruVonRuF0QkWEUMaHRidQ7LfqlOqxsuFPFhfCnaqEkE2y11VVwrvRrxr9IhbN2FWAOvLxXbBV0KmYoaFA" style="text-decoration:none;" target="_blank"><img alt="Facebook" class="redes-icon-redes-personal" height="32" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/c97a50b4-44fb-4a1f-b117-a299e3b87ed7.png" style="display:block;width:32px;height:32px;border-radius:9999px;" width="32"></a></td><td class="redes-bg-dark" style="padding-right:8px;background-color:#222222;">
+																	<a href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsfJBrE77NqNanFgH0H3rtxYLPY-024Dre55ME_ckKs7pzVr3-6x3eVXW0uzHSwBpYYl2MqQOOUi3EEG8NxdVpa5KoVCLaxGR4" style="text-decoration:none;" target="_blank"><img alt="X" class="redes-icon-redes-personal" height="32" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/cd5d373b-7022-48dc-862b-f85d21df7846.png" style="display:block;width:32px;height:32px;border-radius:9999px;" width="32"></a></td><td class="redes-bg-dark" style="background-color:#222222;">
+																	<a href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsgPMALxAFkI5SeRMGVScoMmm8V0oCWEzuzQf8cfhm8CLSf2UtB0U0Rmy_MxvIv8-woODpG5SYlNxZW8Rvl_Hk1vh_r6BAvybw" style="text-decoration:none;" target="_blank"><img alt="YouTube" class="redes-icon-redes-personal" height="32" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/d20a1783-3feb-4708-8ff4-ec4ca524bdbd.png" style="display:block;width:32px;height:32px;border-radius:9999px;" width="32"></a></td></tr></table></td></tr></table></td></tr></table></td></tr></table></center></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="x-apple-disable-message-reformatting"><title>
+</title><style type="text/css">
+body{
+    margin:0;
+    padding:0;
+    -webkit-text-size-adjust:100%;
+    -ms-text-size-adjust:100%;
+  }
+  table{
+    border-spacing:0;
+    mso-table-lspace:0pt;
+    mso-table-rspace:0pt;
+  }
+  td{
+    padding:0;
+  }
+  img{
+    border:0;
+    outline:none;
+    text-decoration:none;
+    -ms-interpolation-mode:bicubic;
+    display:block;
+  }
+  @media only screen and (max-width:599px){
+    .container-hdr{
+      width:100% !important;
+      max-width:360px !important;
+    }
+    .header-pad{
+      padding:16px 24px !important;
+    }
+  }</style><center>
+	<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;" width="100%">
+		
+			<tr>
+				<td align="center">
+					<!-- HEADER PERSONAL GCC - Fondo: #FFFFFF (blanco) - Logo: LEFT-aligned - Padding: 16px 32px (desktop) / 16px 24px (mobile) - Logo: 112x32 (asset edcecd41) - Altura total: 16+32+16 = 64px - TAMBIÉN se usa como FOOTER (mismo bloque) --><table align="center" border="0" cellpadding="0" cellspacing="0" class="container-hdr" role="presentation" style="max-width:600px;background-color:#FFFFFF;" width="100%">
+						
+							<tr>
+								<td align="left" class="header-pad" style="padding:16px 32px;">
+									<a href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegshvq82g4_4s_QolwNNfro84hFuM1Yd-zejltWFF8u4x5dwoVUFQyXt4wAuiKwEDUlfgMkBZooVvTs2wb6VlVs7A7YkN6JDYQM" style="text-decoration:none;" target="_blank"><img alt="personal" border="0" height="32" src="https://image.info.personal.com.ar/lib/fe2f11747364047b711073/m/1/edcecd41-699c-4bb2-b2ca-b2c5ecc5e786.png" style="display:block;width:112px;height:32px;border:0;outline:none;text-decoration:none;" width="112"> </a></td></tr></table></td></tr></table></center></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><style type="text/css">
+/* Mobile */
+  @media only screen and (max-width: 599px) {
+    .legales-table {
+      max-width: 360px !important;
+    }
+
+    .legales-padding {
+      padding: 16px !important;
+    }
+
+    .legales-cft {
+      font-size: 22px !important;
+      line-height: 30px !important;
+    }
+
+    .legales-text {
+      font-size: 12px !important;
+      line-height: 16px !important;
+    }
+
+    .legales-link {
+      font-size: 12px !important;
+      line-height: 16px !important;
+      text-decoration: underline !important;
+    }
+  }</style><table align="center" cellpadding="0" cellspacing="0" class="legales-table" style="     max-width: 600px;     padding: 0 32px;     font-family: Roboto, Arial, sans-serif;   " width="100%">
+	
+		<tr>
+			<td align="center" class="legales-padding" style="padding: 16px">
+				<table cellpadding="0" cellspacing="0" style="max-width: 536px" width="100%">
+					<!-- C.F.T. -->
+						<tr>
+							<td align="left" class="legales-cft" style="               color: #5e5e62;               font-size: 22px;               font-weight: 400;               line-height: 30px;             ">
+							</td></tr><tr>
+							<td align="left" class="legales-text" style="               color: #5e5e62;               font-size: 12px;               font-weight: 400;               line-height: 16px;               padding-top: 8px;             ">
+								<p>
+									*BENEFICIO DE ALCANCE NACIONAL, V&Aacute;LIDO DESDE EL 01/05/2025 HASTA EL 30/09/2026 PARA PAGOS DE FACTURA DE SERVICIOS PERSONAL COMO TELEFON&Iacute;A M&Oacute;VIL, TELEFON&Iacute;A FIJA, TV O FIBRA, REALIZADO CON LA FUNCIONALIDAD DE LA APP &quot;PAGO DE SERVICIOS&quot; DE PERSONAL PAY, A TRAV&Eacute;S DE LA APP &quot;MI PERSONAL&quot; O MEDIANTE UN D&Eacute;BITO AUTOM&Aacute;TICO. V&Aacute;LIDO &Uacute;NICAMENTE PARA LA PRIMERA FACTURA ABONADA POR MES CALENDARIO.<br>
+									CONSISTE EN UN 10% (DIEZ POR CIENTO) DE REINTEGRO CON UN TOPE POR TITULAR DE CUENTA DE PAGO PERSONAL PAY DE HASTA $750.- (PESOS SETECIENTOS CINCUENTA) POR TRANSACCI&Oacute;N, PARA QUIENES TENGAN NIVEL 1 EN EL PROGRAMA DE NIVELES PERSONAL PAY.<br>
+									CONSISTE EN UN 15% (QUINCE POR CIENTO) DE REINTEGRO CON UN TOPE POR TITULAR DE CUENTA DE PAGO PERSONAL PAY DE HASTA $2000.- (PESOS DOS MIL) POR TRANSACCI&Oacute;N PARA AQUELLOS QUE TENGAN NIVEL 2 EN EL PROGRAMA DE NIVELES PERSONAL PAY.<br>
+									CONSISTE EN UN 20% (VEINTE POR CIENTO) DE REINTEGRO CON UN TOPE DE REINTEGRO POR TITULAR DE CUENTA DE PAGO PERSONAL PAY DE HASTA $3500.- (PESOS TRES MIL QUINIENTOS) PARA AQUELLOS QUE TENGAN NIVEL 3 EN EL PROGRAMA DE NIVELES PERSONAL PAY.<br>
+									CONSISTE EN UN 25% (VEINTICINCO POR CIENTO) DE REINTEGRO CON UN TOPE POR TITULAR DE CUENTA DE PAGO PERSONAL PAY DE HASTA $7000.- (PESOS SIETE MIL) PARA AQUELLOS QUE TENGAN NIVEL 4 EN EL PROGRAMA DE NIVELES PERSONAL PAY. M&Aacute;XIMO DE 1 (UNA) FACTURA DE TELECOM POR PERSONA TITULAR DE CUENTA DE PAGO PERSONAL PAY POR MES CALENDARIO.<br>
+									EL REINTEGRO SE VER&Aacute; REFLEJADO EN LA CUENTA DE PAGO PERSONAL PAY HASTA DENTRO DE LAS 72HS DE AUTORIZADO EL PAGO. EL BENEFICIO APLICAR&Aacute; SOBRE EL PRECIO CONTADO EN CONCORDANCIA CON RESOLUCI&Oacute;N 51 Y 240 /2017 MINISTERIO DE PRODUCCI&Oacute;N DE LA NACI&Oacute;N SECRETAR&Iacute;A DE COMERCIO. PARA M&Aacute;S INFORMACI&Oacute;N Y CONDICIONES O LIMITACIONES APLICABLES, CONSULTE EN&nbsp;
+<a aria-label="Vínculo HTTPS://WWW.PERSONALPAY.COM.AR/" href="https://click.info.personal.com.ar/?qs=ABB7InYiOjEsImQiOjUwMDd9AA0AAAAAATglegsi6Eb06PL7yDa54txTHW_N97uluqMi46DTqfTI_gdnWn4PpUKyeLTEeA5nm1uRpHhV60A907F-K3JJ4m191LdhIurH1Hc9RwY" id="menur2vf2" rel="noreferrer noopener" target="_blank" title="https://cliente.personal.flow.com.ar/pub/cc?_ri_=x0gzc2x%3dbqjkpksscqgw63lcy4hxkngucdlblgjzeqhh3zboumtscczd57nycfchb7yiwd4nqbfniqgkmyxr3mwaak0vhorvxtpkx%3dysycwyrt&amp;_ei_=ew2tf9zs59idfpo1sc_9bblpk9oy4mhjfgriurzchmq2kj_ckn5rtygirstyha6kk2oksa7gld1xzmsl1ez1ndk6mtjcfvq.&amp;_di_=s8lt8979mmh4cvd7slig68o674valk4ggd39bcajlvf75shi3tkg">HTTPS://WWW.PERSONALPAY.COM.AR/
+</a>.&nbsp;MICROSISTEMAS SE LIMITA A OFRECER SERVICIOS DE PAGO Y NO SE ENCUENTRA AUTORIZADA A OPERAR COMO ENTIDAD FINANCIERA POR EL BANCO CENTRAL DE LA REP&Uacute;BLICA ARGENTINA. LOS FONDOS DEPOSITADOS EN CUENTAS DE PAGO NO CONSTITUYEN DEP&Oacute;SITOS EN UNA ENTIDAD FINANCIERA, NI CUENTAN CON NINGUNA DE LAS GARANT&Iacute;AS QUE TALES DEP&Oacute;SITOS PUEDAN GOZAR DE ACUERDO CON LA LEGISLACI&Oacute;N Y REGLAMENTACI&Oacute;N APLICABLES EN MATERIA DE DEP&Oacute;SITOS EN ENTIDADES FINANCIERAS. MICRO SISTEMAS S.A. GENERAL HORNOS 690, CABA, CUIT 30-57297583-1.</p><p>
+									TELECOM ARGENTINA S.A., CUIT 30-63945373-8, GENERAL HORNOS 690, CABA.&nbsp;</p></td></tr></table></td></tr></table></td></tr></table>
+
+</td></tr></table><!---->
+												  
+                                                </td>
+                                              </tr>
+                                              </tbody>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+--0sItbYDF9Og1=_?:--
+

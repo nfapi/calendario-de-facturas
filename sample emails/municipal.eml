@@ -1,0 +1,573 @@
+Delivered-To: nicolasfapitalle@gmail.com
+Received: by 2002:a05:7010:7306:b0:538:faf9:e793 with SMTP id h6csp3993262mdc;
+        Mon, 31 Aug 2026 23:06:44 -0700 (PDT)
+X-Received: by 2002:a05:6000:4609:b0:482:e451:6810 with SMTP id ffacd0b85a97d-482f7976116mr54313819f8f.1.1788242804013;
+        Mon, 31 Aug 2026 23:06:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788242804; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fCB9a8apeTMoWJ6KpoXgLnyrvmEg/liJ08ZuG9z6lE6CjFL85Ex01DDhNLCviMtQt0
+         CRNthIDbG7cJs8SCq9ET7EQTW5EUXqO981YANAO38Mn+04IWWXW8/0zmDCH+/++L5F1W
+         S0gPY6+kyy6UqXW8y/X/SfdRI2I6aSPlDBo/e5pTWhpYpP0Lk74+t8ikvuBnV0PWX730
+         1++quQlcHF/UNGemDXt1WjIjVQHvCw4B7DwdOW348SyCujCmarvPP53eaZdj0RlM4MUf
+         X2mpuCx6W4KAxGllkaGln4XYcoAkRiLUm6ygj9NwgWgADk3dD+b+5c63kns2PlOq++N4
+         Pnhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=mime-version:list-unsubscribe-post:message-id:date:from
+         :origin-messageid:list-unsubscribe:feedback-id:reply-to:subject:to
+         :dkim-signature;
+        bh=5F/g5vuCQjLc7tGBy4qowBpxOKSBI2hecPyCNOI4irU=;
+        fh=RSsD89fBC0qlGAgJBn9IuVlq7AP+Qxxz6EYPE0O1BzI=;
+        b=dLLTMVp7APFQDFeAU+7FHburnYoeW2nn0YILRSCKprpSJbM7P9S8+4J0nhcO7K+AOQ
+         mLUuzSlx85OlnN1L6btXfpUdTkLaeRoBH2hiYw0yyaJl1EQLlL/nPJ6CwygmWXjpF4tq
+         AozKuk2eMymkJoiwKcOuPsb9On10FIvcGbkKtkknYXNGqSzAds5db2YgI/f22V7n3A7c
+         4EaKQj8k9+XRj7t9BOLG6P8zSiSydAOT91QZJil2dVDZ4qL3JePzoxeeiw6oSff1TRs+
+         P4YSs+y+apkTmX00kDy1ZNW2VJlIH1XXaA5nhMh/JyIIoyh8THidgEhIDj9ul7WX81Uj
+         kZ6Q==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@notificacionesbahia.gob.ar header.s=mail header.b=xCxEc0Ai;
+       spf=pass (google.com: domain of bounces-179272282-669591139@hb.d.sender-sib.com designates 77.32.148.28 as permitted sender) smtp.mailfrom=bounces-179272282-669591139@hb.d.sender-sib.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=notificacionesbahia.gob.ar
+Return-Path: <bounces-179272282-669591139@hb.d.sender-sib.com>
+Received: from hb.d.sender-sib.com (hb.d.sender-sib.com. [77.32.148.28])
+        by mx.google.com with ESMTPS id ffacd0b85a97d-48442d80013si2159985f8f.313.2026.08.31.23.06.43
+        for <nicolasfapitalle@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 23:06:43 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces-179272282-669591139@hb.d.sender-sib.com designates 77.32.148.28 as permitted sender) client-ip=77.32.148.28;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@notificacionesbahia.gob.ar header.s=mail header.b=xCxEc0Ai;
+       spf=pass (google.com: domain of bounces-179272282-669591139@hb.d.sender-sib.com designates 77.32.148.28 as permitted sender) smtp.mailfrom=bounces-179272282-669591139@hb.d.sender-sib.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=notificacionesbahia.gob.ar
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=notificacionesbahia.gob.ar;
+ q=dns/txt; s=mail; bh=5F/g5vuCQjLc7tGBy4qowBpxOKSBI2hecPyCNOI4irU=;
+ h=from:reply-to:subject:date:to:mime-version:content-type:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
+        b=xCxEc0Aikn69x0iYo2Gylk1TyHbycU6DhPjoBtr1ThRgOA3TulMItyTn4IIkXpBgZE5BDtTINUtc
+        syrkSuZmL9PdGcobOAtLDe1EM+RsoI6SS2Lbo+IwB1m5MvqPMZE97J34Q3H3P4dMax2mz2vSHBpU
+        QOVHpayCSQrCjgkg4/g=
+To: <nicolasfapitalle@gmail.com>
+Subject: MBB - TasaXmail - Inmuebles
+Reply-To: =?utf-8?q?Municipalidad_de_Bah=C3=ADa_Blanca?= <tasaxmail@notificacionesbahia.gob.ar>
+Feedback-ID: 77.32.148.28:5005564_-1:5005564:Sendinblue
+List-Unsubscribe: <https://faaffge.r.bh.d.sendibt3.com/tr/un/li/NVvfS7rTSgz7DosGAxObzZPyS43G3u1Z0nFvGmJWcMnD2hZ_fN3v2531-IJRDMC8rugDdTfBaE8pvWkDLEDDSlpokyy-rW0PrlY4Yopw_oGszHsBE023KzkXopl8swGs5U0gcO1aexnM1u5urwbMMxULPcBxoPxBHb1OZHQGdmoM8EaLgvZpLGBSRJI7s-sw3piBWeSOxq4DoMnUtWkSP3HBzHGnJf9jxWaT6Ri4P-4I0N437nFsofJn9KEPP2cC17zhifGXiKqi>
+X-CSA-Complaints: csa-complaints@eco.de
+X-sib-id: zih4t_Cn4rpJBS_K43-6scJjj39e2cuGTWMlrhj2NB0PiO97MSwVjuZFsGh5VrYDHAIXn9hmqs4B2aMZz8xF68ZgwlekVjZo4Xh5C1EQLezo6hlv1SouKbbHytzE64Wq91vN1U4JjU2JRf90sHYIRFGeut-DuaCM18Xi4MnfVs1iBSiDOdJf7Q
+Origin-messageId: <202609010606.64278500964@smtp-relay.mailin.fr>
+From: =?utf-8?q?Municipalidad_de_Bah=C3=ADa_Blanca?= <tasaxmail@notificacionesbahia.gob.ar>
+Date: Tue, 01 Sep 2026 06:06:43 +0000
+Message-Id: <202609010606.64278500964@smtp-relay.mailin.fr>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+X-Mailin-EID: MTc5MjcyMjgyfm5pY29sYXNmYXBpdGFsbGVAZ21haWwuY29tfjwyMDI2MDkwMTA2MDYuNjQyNzg1MDA5NjRAc210cC1yZWxheS5tYWlsaW4uZnI%2BfmhiLmQuc2VuZGVyLXNpYi5jb20%3D
+Mime-Version: 1.0
+X-Api-Version: v3
+Content-Type: multipart/alternative; boundary=812a3c211a4597d0405513ff6c66f033774cbe13f072507d0d888c75c2c5
+
+--812a3c211a4597d0405513ff6c66f033774cbe13f072507d0d888c75c2c5
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+<html>
+<head>
+  <meta http-equiv=3D"Content-Type" />
+  <title>Tasas INM</title>
+  <style type=3D"text/css">
+  body {
+   padding-top: 0 !important;
+   padding-bottom: 0 !important;
+   padding-top: 0 !important;
+   padding-bottom: 0 !important;
+   margin:0 !important;
+   width: 100% !important;
+   -webkit-text-size-adjust: 100% !important;
+   -ms-text-size-adjust: 100% !important;
+   -webkit-font-smoothing: antialiased !important;
+ }
+ .tableContent img {
+   border: 0 !important;
+   display: block !important;
+   outline: none !important;
+ }
+p, h1,h2,h3,ul,ol,li,div{
+  margin:0;
+  padding:0;
+}
+</style>
+</head>
+<body paddingwidth=3D"0" paddingheight=3D"0" class=3D'bgBody' style=3D"padd=
+ing-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; backgroun=
+d-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -=
+ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset=3D"=
+0" toppadding=3D"0" leftpadding=3D"0">
+  <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"  a=
+lign=3D"center"  style=3D'font-family:Helvetica, sans-serif;'>
+  <tr>
+    <td align=3D'center'>
+      <div class=3D'movableContent'>
+        <table width=3D"90%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
+0" align=3D"center">
+          <tr><td height=3D'20'></td></tr>
+          <tr>
+            <td width=3D'320' align=3D"left">
+              <div class=3D"contentEditableContainer contentImageEditable">
+                <div class=3D"contentEditable">
+                  <!-- <img src=3D"cid:20260901.060643.1@mail.0" alt=3D"Log=
+o" data-default=3D"placeholder" data-max-width=3D"300" data-max-height=3D"1=
+00" width=3D"157" height=3D"120"> -->
+                  <img src=3D"https://bahia.gob.ar/apex/ws/r/204/files/stat=
+ic/v38/logo-bahia-azul.png" alt=3D"Logo Tasa x Mail" data-default=3D"placeh=
+older" data-max-width=3D"300" data-max-height=3D"100" width=3D"280">
+                </div>
+              </div>
+            </td>
+            <td width=3D'320' align=3D"center" valign=3D"bottom" style=3D'v=
+ertical-align: bottom;'><h1>Tasas de INMUEBLES</h1></td>
+            <td width=3D'320' align=3D"right" >
+              <div class=3D"contentEditableContainer contentImageEditable">
+                <div class=3D"contentEditable">
+                  <!-- <img src=3D"cid:20260901.060643.1@mail.0" alt=3D"Log=
+o Tasa x Mail" data-default=3D"placeholder" data-max-width=3D"300" data-max=
+-height=3D"100" width=3D"209" height=3D"65"> -->
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class=3D'movableContent'>
+        <table width=3D"90%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
+0" align=3D"center">
+          <tr><td height=3D'10'></td></tr>
+            <tr><td height=3D'10' bgcolor=3D"#000051"></td></tr>
+          <tr>
+            <td>
+              <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadd=
+ing=3D"0" align=3D"center" class=3D'bgItem' style=3D'background-color: #CFE=
+AFC'>
+                <tr><td colspan=3D"5" height=3D'20'></td></tr>
+                <tr>
+                  <td width=3D'7%'></td>
+                  <td width=3D'86%'>
+                    <div class=3D"contentEditableContainer contentTextEdita=
+ble">
+                      <div class=3D"contentEditable">
+                        <h3 style=3D'font-size: 15px;'>CURINO, ROXANA ANABE=
+L</h3> <br>
+                        <p style=3D'font-size: 14px;'>De acuerdo a lo solic=
+itado, te enviamos el link para que descargues la Tasa por Servicios Urbano=
+s, correspondiente a la <b>Partida 201378-</b>, Cuota <b>09-2026</b>, con V=
+encimiento el <b>15/09/2026</b>.<br><br></p>
+                          <p style=3D"font-size: 14px;"><b>=C2=A1BONIFICACI=
+&Oacute;N ADICIONAL!</b> Si est=C3=A1s adherido a la Tasa por Mail y/o est&=
+aacute;s registrado en Mi Bahia, ten&eacute;s una bonificaci=C3=B3n adicion=
+al del 5% en tu boleta.<br/><br/>
+											Si a&uacute;n no est&aacute;s registrado en Mi Bahia, pod&eacute=
+;s informarte en <a href=3D"https://mibahia.gob.ar/">mibahia.gob.ar</a>.<br=
+></p>
+                      </div>
+                        <br><br>
+                        <div class=3D"contentEditable" align=3D"center">
+                            <table width=3D"100%">
+                                <tr style=3D'color:white; border-radius:5px=
+;-moz-border-radius:5px;-webkit-border-radius:5px; background-color: #00005=
+1; font-size: 13px;'>
+                                    <th width=3D"15%" height=3D"40px">Parti=
+da</th>
+                                    <th width=3D"15%">Cuota</th>
+                                    <th width=3D"15%">Vencimiento</th>
+                                    <th width=3D"15%">Importe</th> =20
+                                    <th width=3D"20%">Descargar</th> =20
+                                    <th width=3D"20%">Pagar</th> =20
+                                </tr>       =20
+                                <tr style=3D'border-radius:5px;-moz-border-=
+radius:5px;-webkit-border-radius:5px; background-color: #d9d9d9; font-size:=
+ 13px;'>
+                                    <th width=3D"15%" height=3D"40px">20137=
+8-</th>
+                                    <th width=3D"15%">09-2026</th>
+                                    <th width=3D"15%">15/09/2026</th>
+                                    <th width=3D"15%">               $50.80=
+0,00</th>
+                                    <th width=3D"20%"> <a href=3D"https://b=
+ahia.gob.ar/apex/ws/a2i/binariopdf/QzI3M0EzNDIyOEEwRjVEQTY2NDk1RkUyNkI5N0Qw=
+QkZCMURCNjk5QzNCRDE3QjdDODkxRjY5RDI1NDY5OTA0QzNEMzNGNkEwM0M0Q0IwQjkyNzA5OTE=
+0RjBEMzQ4NThCRkVDODMwNTExMjY2MEJGNTE0OUM5MjVERTAwODVBNjY1MDg5NUJFOUQ1M0RFQT=
+kyNkVBRjU4NDJFMTU5NDAzNzg3RjI0MDBBRjA1RDM4RkM3QUQ5NkYwMzNBODJGNzhENEE3NzM4N=
+TE5RjVEMUZBM0I2ODExM0Q2NEVFQUI4ODg0OEVCN0FCN0RCNkRBQUZGMDNBMEJEOEZGNDNGQ0RG=
+MQ=3D=3D">Hac=C3=A9 clic aqu=C3=AD</a> </th>=20
+                                    <th width=3D"20%"> <span>Adherido a Deb=
+.Autom=C3=A1tico</span></th>=20
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                  </td>
+                  <td width=3D'7%'></td>
+                </tr>
+                <tr><td colspan=3D"5" height=3D'40'></td></tr>
+              </table>
+            </td>
+          </tr>
+             <tr><td height=3D'10'></td></tr>
+            <tr><td height=3D'5' bgcolor=3D"bfbfbf"></td></tr>
+        </table>
+      </div>
+       <div class=3D'movableContent'>
+        <table width=3D"90%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
+0" align=3D"center">
+          <tr><td height=3D'10'></td></tr>
+          <tr>
+            <td>
+              <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadd=
+ing=3D"0" align=3D"center" class=3D'bgItem' style=3D'background-color: #439=
+2C7'>
+                <tr><td colspan=3D"5" height=3D'10'></td></tr>
+                <tr>
+                  <td width=3D'10'></td>
+                  <td width=3D'480'>
+                    <div class=3D"contentEditableContainer contentTextEdita=
+ble">
+                        <div class=3D"contentEditable" align=3D"center">
+                            <h3 style=3D'font-size: 15px; color:white'>MEDI=
+OS DE PAGO</h3> =20
+                        </div>
+                        <br>
+                      <div class=3D"contentEditable" align=3D"center">
+                        <p style=3D"font-size: 12px; text-align:center"><st=
+rong>Electr=C3=B3nico: Interbanking | Link Pagos | Mercado Pago | PagoMisCu=
+entas | Pago F=C3=A1cil | Rapipago</strong></p>
+                        <p style=3D"font-size: 12px; text-align:center"><st=
+rong>D=C3=A9bito Autom=C3=A1tico Tarjetas:</strong> Mercado Pago - BBPS - C=
+arta Autom=C3=A1tica - Coopeplus - Favacard - MasterCard - Naranja - Visa</=
+p>
+                        <p style=3D"font-size: 12px; text-align:center"><st=
+rong>D=C3=A9bito Autom=C3=A1tico Cuentas:</strong> Banco Credicoop - Banco =
+Provincia</p>
+                        <p style=3D"font-size: 12px; text-align:center"><st=
+rong>Otros Medios de Pago: </strong> <a href=3D"https://www.bahia.gob.ar/re=
+ntas#dondepagar">Hac=C3=A9 clic aqu=C3=AD</a></p>
+                      </div>
+                    </div>
+                  </td>
+                  <td width=3D'10'></td>
+                </tr>
+                <tr><td colspan=3D"5" height=3D'20'></td></tr>
+              </table>
+            </td>
+          </tr>
+             <tr><td height=3D'10'></td></tr>
+        </table>
+      </div>
+ <div class=3D'movableContent'>
+        <table width=3D"90%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
+0" align=3D"center">
+          <tr>
+            <td>
+              <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadd=
+ing=3D"0" align=3D"center" class=3D'bgItem' style=3D'border-radius:5px;-moz=
+-border-radius:5px;-webkit-border-radius:5px;'>
+                <tr><td colspan=3D"5" height=3D'10'></td></tr>
+                <tr>
+                  <td width=3D'480'>
+                    <div class=3D"contentEditableContainer contentTextEdita=
+ble">
+                      <div class=3D"contentEditable">
+                          <p style=3D'font-size: 10px; color:#000051'><stro=
+ng>Por favor, no respondas este correo ya que el remitente es una casilla a=
+utom=C3=A1tica no habilitada para recibir mensajes.</strong> </p>
+                        <p style=3D'font-size: 10px; color:#000051'><strong=
+>Por dudas, consultas y/o reclamos referidos a tasas municipales, envianos =
+un mail a <u><a href=3D"mailto:rentas@bahiablanca.gov.ar" style=3D'color:#4=
+392C7'>rentas@bahiablanca.gov.ar</a></u>, o dirigite al Dto. de Recaudaci=
+=C3=B3n, Alsina 43 Bah=C3=ADa Blanca, Tel: (0291) 459 4000.</p>
+                          <p style=3D'font-size: 10px; color:#000051'><stro=
+ng>Por cualquier otro tipo de consultas no relacionadas a la Dir. de Rentas=
+ Municipales, por favor contactate al <b>0800 BAHIA ATENCI&Oacute;N AL VECI=
+NO</b> (0800 666 2244).</strong></p>
+                        <br/>
+                      </div>
+                    </div>
+                  </td>
+                  <td width=3D'10'></td>
+                </tr>
+                <tr><td colspan=3D"5" height=3D'30'></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+
+
+--812a3c211a4597d0405513ff6c66f033774cbe13f072507d0d888c75c2c5
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+
+<html><head>
+  <meta http-equiv=3D"Content-Type"/>
+  <title>Tasas INM</title>
+  <style type=3D"text/css">
+  body {
+   padding-top: 0 !important;
+   padding-bottom: 0 !important;
+   padding-top: 0 !important;
+   padding-bottom: 0 !important;
+   margin:0 !important;
+   width: 100% !important;
+   -webkit-text-size-adjust: 100% !important;
+   -ms-text-size-adjust: 100% !important;
+   -webkit-font-smoothing: antialiased !important;
+ }
+ .tableContent img {
+   border: 0 !important;
+   display: block !important;
+   outline: none !important;
+ }
+p, h1,h2,h3,ul,ol,li,div{
+  margin:0;
+  padding:0;
+}
+</style>
+</head>
+<body paddingwidth=3D"0" paddingheight=3D"0" class=3D"bgBody" style=3D"padd=
+ing-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; backgroun=
+d-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -=
+ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset=3D"=
+0" toppadding=3D"0" leftpadding=3D"0">
+  <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" al=
+ign=3D"center" style=3D"font-family:Helvetica, sans-serif;">
+  <tbody><tr>
+    <td align=3D"center"><!--[if mso]> <img width=3D"1" height=3D"1" src=3D=
+"https://faaffge.r.bh.d.sendibt3.com/tr/op/UuOnhNC-ehg-Z5zigjaoA-MvNTzuUvXG=
+Hlvelo50Rkx716eC3pHkuVCjWuWfDY661mP4xEX-Nqv3sVX1pIOZ3jpOXaGw27m1tCLp6foNiqZ=
+CGdLzKxf6f3mKGmVSFCZqjG635DvP9SI3jr1SCIGwW7tu9I5SVP3dooC-x4WcPkRcYxoJTxNRul=
+Bd7zCJPJn2HdR52B6MPNVUY_bAYz17szFN4kRETUeAK3c" /> <![endif]--><!--[if !mso]=
+><!--> <img style=3D"display:none" src=3D"https://faaffge.r.bh.d.sendibt3.c=
+om/tr/op/UuOnhNC-ehg-Z5zigjaoA-MvNTzuUvXGHlvelo50Rkx716eC3pHkuVCjWuWfDY661m=
+P4xEX-Nqv3sVX1pIOZ3jpOXaGw27m1tCLp6foNiqZCGdLzKxf6f3mKGmVSFCZqjG635DvP9SI3j=
+r1SCIGwW7tu9I5SVP3dooC-x4WcPkRcYxoJTxNRulBd7zCJPJn2HdR52B6MPNVUY_bAYz17szFN=
+4kRETUeAK3c" /> <!--<![endif]-->
+      <div class=3D"movableContent">
+        <table width=3D"90%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
+0" align=3D"center">
+          <tbody><tr><td height=3D"20"></td></tr>
+          <tr>
+            <td width=3D"320" align=3D"left">
+              <div class=3D"contentEditableContainer contentImageEditable">
+                <div class=3D"contentEditable">
+                  <!-- <img src=3D"cid:20260901.060643.1@mail.0" alt=3D"Log=
+o" data-default=3D"placeholder" data-max-width=3D"300" data-max-height=3D"1=
+00" width=3D"157" height=3D"120"> -->
+                  <img src=3D"https://faaffge.r.bh.d.sendibt3.com/im/500556=
+4/9dbbe2f2137eedfd8218401bde1b193cd22cbc65f5c2069a9e1d789a39345d40.png?e=3D=
+xFhfZcoycEXzPPZZrr-Cr9hRHxIjsJF20U32FIY4dkZZv9n3rKmsDZ1YIWAjn75oPM220SinKET=
+o4WQouZ00_EGXXjsy1OQm3l4XqhSYupgxKkFW3Si9uhu6Fym946jFTWqJT9o939lI9fe5UFO7B0=
+gwxrAjck9oeqhP4Ah_QSuHZvww5JmfYsBKpoAtPPN9p7azYkcSs6RMry-GGGOPAt9N4iTPtm8PD=
+a3WV0_e1N3qxJ3gM8lCidmJIotP5bR-PzxGY3SSdc_WEdR-jYgYkrhNMKrGiB3HB0fS5nYX" al=
+t=3D"Logo Tasa x Mail" data-default=3D"placeholder" data-max-width=3D"300" =
+data-max-height=3D"100" width=3D"280"/>
+                </div>
+              </div>
+            </td>
+            <td width=3D"320" align=3D"center" valign=3D"bottom" style=3D"v=
+ertical-align: bottom;"><h1>Tasas de INMUEBLES</h1></td>
+            <td width=3D"320" align=3D"right">
+              <div class=3D"contentEditableContainer contentImageEditable">
+                <div class=3D"contentEditable">
+                  <!-- <img src=3D"cid:20260901.060643.1@mail.0" alt=3D"Log=
+o Tasa x Mail" data-default=3D"placeholder" data-max-width=3D"300" data-max=
+-height=3D"100" width=3D"209" height=3D"65"> -->
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+      <div class=3D"movableContent">
+        <table width=3D"90%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
+0" align=3D"center">
+          <tbody><tr><td height=3D"10"></td></tr>
+            <tr><td height=3D"10" bgcolor=3D"#000051"></td></tr>
+          <tr>
+            <td>
+              <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadd=
+ing=3D"0" align=3D"center" class=3D"bgItem" style=3D"background-color: #CFE=
+AFC">
+                <tbody><tr><td colspan=3D"5" height=3D"20"></td></tr>
+                <tr>
+                  <td width=3D"7%"></td>
+                  <td width=3D"86%">
+                    <div class=3D"contentEditableContainer contentTextEdita=
+ble">
+                      <div class=3D"contentEditable">
+                        <h3 style=3D"font-size: 15px;">CURINO, ROXANA ANABE=
+L</h3> <br/>
+                        <p style=3D"font-size: 14px;">De acuerdo a lo solic=
+itado, te enviamos el link para que descargues la Tasa por Servicios Urbano=
+s, correspondiente a la <b>Partida 201378-</b>, Cuota <b>09-2026</b>, con V=
+encimiento el <b>15/09/2026</b>.<br/><br/></p>
+                          <p style=3D"font-size: 14px;"><b>=C2=A1BONIFICACI=
+=C3=93N ADICIONAL!</b> Si est=C3=A1s adherido a la Tasa por Mail y/o est=C3=
+=A1s registrado en Mi Bahia, ten=C3=A9s una bonificaci=C3=B3n adicional del=
+ 5% en tu boleta.<br/><br/>
+											Si a=C3=BAn no est=C3=A1s registrado en Mi Bahia, pod=C3=A9s inf=
+ormarte en <a href=3D"https://faaffge.r.bh.d.sendibt3.com/tr/cl/R-j7r5cGZUC=
+AG1K_LU6USS17THQtbKmu0vD_MGQpM9-ZecPcB27rAsQ6edRoYyst3TkKwZXCT7sNQaRb4ssDb0=
+WQV0huIS5qLHJ9cxm87jorqth6CRnpCoBYoie_Rni2yJdp5LdpvlAs0qJVwHkeRuvMh_NDul5SE=
+-zkIx2q8z_EzsBU3C2RKlnIaQVtngfcAuwdZn1Zr0jbKvE2FFcP0skfT5Ns_bTA7A27iAAIFj3b=
+I8yjCQ6UYJ9NPuL4lFsxV_Nub-2_WNPsdka1xxHcsfk">mibahia.gob.ar</a>.<br/></p>
+                      </div>
+                        <br/><br/>
+                        <div class=3D"contentEditable" align=3D"center">
+                            <table width=3D"100%">
+                                <tbody><tr style=3D"color:white; border-rad=
+ius:5px;-moz-border-radius:5px;-webkit-border-radius:5px; background-color:=
+ #000051; font-size: 13px;">
+                                    <th width=3D"15%" height=3D"40px">Parti=
+da</th>
+                                    <th width=3D"15%">Cuota</th>
+                                    <th width=3D"15%">Vencimiento</th>
+                                    <th width=3D"15%">Importe</th> =20
+                                    <th width=3D"20%">Descargar</th> =20
+                                    <th width=3D"20%">Pagar</th> =20
+                                </tr>       =20
+                                <tr style=3D"border-radius:5px;-moz-border-=
+radius:5px;-webkit-border-radius:5px; background-color: #d9d9d9; font-size:=
+ 13px;">
+                                    <th width=3D"15%" height=3D"40px">20137=
+8-</th>
+                                    <th width=3D"15%">09-2026</th>
+                                    <th width=3D"15%">15/09/2026</th>
+                                    <th width=3D"15%">               $50.80=
+0,00</th>
+                                    <th width=3D"20%"> <a href=3D"https://f=
+aaffge.r.bh.d.sendibt3.com/tr/cl/3p1xjphWhT1gNsiXwIpK5NTnEVby4v_VLf_YUDLUJP=
+QBPQ8li6oA1ebnoEdPGyWJcRdiomgFAka0g0mCG_axQyDoZ7rvOJScr943Ed6293Pd6iVfNJySv=
+NFw7H_1dAmqPxEZH_eGuH8QGtvy2uhKHqz7CQQAVrPigO4OIPeoAIzl4iJHSFKXmpW5AbKMLJ6J=
+GzXctFaFbmSztKnw34huKBo0tT5-J8lpsVevruP66yxq5t6_Qzzp9Lp4GF8m0bin4L5MtBfXpEb=
+bgWQsa7DjfHOAxPqbGzYKoJ_-qK4FkVUIs6QXj9S2yEV6nwpvfXOdVpTWWOfP-FdTICuC_vuvMU=
+FVY-lKVSgiIoxi0VmgAk3pu_iFLSg8rTOtBeK3-b91b9CLKr3nojx4LOoA8w8yc_jC6x7LZslG0=
+oJD5B9MTWtD849GYEtwxpf7-zy7pi_028n3ytkoa3G7tkWmgwKwAcHrggjYpAGrQ38BhnTNNbvc=
+3Di3zoXK2gCnWUGUiD5aI8Ef8vjUNNP3n_HrxVvWVB4Ih0KAGzVckoScKd73rDwZHZ0k6mXA4ui=
+kF2Y8H5IZPCUSgXxwh1TjhsFwj6HsEWIyvSGd1hv_NqJiifGHAQ-NsLiW3y_jUKcMNjvKdC0GKg=
+F9_wwp945WAB8rkFFLJYrQXD58UvLP9Htfi-kxgtORcFC5KfZsNBuqLlKgYRFTJMNpCMnfIyMKy=
+3aBN0nk_DOdufVoGp0XY3VBw355vE4loEq2UR1Un4nfVzsU5aqFKFt5kZozfxjq7A">Hac=C3=
+=A9 clic aqu=C3=AD</a> </th>=20
+                                    <th width=3D"20%"> <span>Adherido a Deb=
+.Autom=C3=A1tico</span></th>=20
+                                </tr>
+                            </tbody></table>
+                        </div>
+                    </div>
+                  </td>
+                  <td width=3D"7%"></td>
+                </tr>
+                <tr><td colspan=3D"5" height=3D"40"></td></tr>
+              </tbody></table>
+            </td>
+          </tr>
+             <tr><td height=3D"10"></td></tr>
+            <tr><td height=3D"5" bgcolor=3D"bfbfbf"></td></tr>
+        </tbody></table>
+      </div>
+       <div class=3D"movableContent">
+        <table width=3D"90%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
+0" align=3D"center">
+          <tbody><tr><td height=3D"10"></td></tr>
+          <tr>
+            <td>
+              <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadd=
+ing=3D"0" align=3D"center" class=3D"bgItem" style=3D"background-color: #439=
+2C7">
+                <tbody><tr><td colspan=3D"5" height=3D"10"></td></tr>
+                <tr>
+                  <td width=3D"10"></td>
+                  <td width=3D"480">
+                    <div class=3D"contentEditableContainer contentTextEdita=
+ble">
+                        <div class=3D"contentEditable" align=3D"center">
+                            <h3 style=3D"font-size: 15px; color:white">MEDI=
+OS DE PAGO</h3> =20
+                        </div>
+                        <br/>
+                      <div class=3D"contentEditable" align=3D"center">
+                        <p style=3D"font-size: 12px; text-align:center"><st=
+rong>Electr=C3=B3nico: Interbanking | Link Pagos | Mercado Pago | PagoMisCu=
+entas | Pago F=C3=A1cil | Rapipago</strong></p>
+                        <p style=3D"font-size: 12px; text-align:center"><st=
+rong>D=C3=A9bito Autom=C3=A1tico Tarjetas:</strong> Mercado Pago - BBPS - C=
+arta Autom=C3=A1tica - Coopeplus - Favacard - MasterCard - Naranja - Visa</=
+p>
+                        <p style=3D"font-size: 12px; text-align:center"><st=
+rong>D=C3=A9bito Autom=C3=A1tico Cuentas:</strong> Banco Credicoop - Banco =
+Provincia</p>
+                        <p style=3D"font-size: 12px; text-align:center"><st=
+rong>Otros Medios de Pago: </strong> <a href=3D"https://faaffge.r.bh.d.send=
+ibt3.com/tr/cl/bDdgm0i7uzKP2s7dS7zwKtd4cou86p7FSkUtvlzNcFIP010eJGQScIBhMzEl=
+D2o9TgU0SCuOCTBnkgcCfsFkhM_TU-wA-NUfC6RS9f69OM0pTSjF2R6cw9fEvppoxyQUPDhqokO=
+vvCBagHkpZvyUIiGAgZ4bvY6JvJSJnAZmD0zV13qljQkAI5vFwIMpbFwjaRr0IVgfcXf_1RO6f5=
+FkxHbmfrAWfMCQqDVrp-OfVsbvdyVlpdYjlde4AhUaWDjL3H3NMSpF_HWd94ZC9KtUnUk5CJ7YY=
+KWk-T5LTT4t583cI9n9XO4">Hac=C3=A9 clic aqu=C3=AD</a></p>
+                      </div>
+                    </div>
+                  </td>
+                  <td width=3D"10"></td>
+                </tr>
+                <tr><td colspan=3D"5" height=3D"20"></td></tr>
+              </tbody></table>
+            </td>
+          </tr>
+             <tr><td height=3D"10"></td></tr>
+        </tbody></table>
+      </div>
+ <div class=3D"movableContent">
+        <table width=3D"90%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
+0" align=3D"center">
+          <tbody><tr>
+            <td>
+              <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadd=
+ing=3D"0" align=3D"center" class=3D"bgItem" style=3D"border-radius:5px;-moz=
+-border-radius:5px;-webkit-border-radius:5px;">
+                <tbody><tr><td colspan=3D"5" height=3D"10"></td></tr>
+                <tr>
+                  <td width=3D"480">
+                    <div class=3D"contentEditableContainer contentTextEdita=
+ble">
+                      <div class=3D"contentEditable">
+                          <p style=3D"font-size: 10px; color:#000051"><stro=
+ng>Por favor, no respondas este correo ya que el remitente es una casilla a=
+utom=C3=A1tica no habilitada para recibir mensajes.</strong> </p>
+                        <p style=3D"font-size: 10px; color:#000051"><strong=
+>Por dudas, consultas y/o reclamos referidos a tasas municipales, envianos =
+un mail a <u><a href=3D"mailto:rentas@bahiablanca.gov.ar" style=3D"color:#4=
+392C7">rentas@bahiablanca.gov.ar</a></u>, o dirigite al Dto. de Recaudaci=
+=C3=B3n, Alsina 43 Bah=C3=ADa Blanca, Tel: (0291) 459 4000.</strong></p><st=
+rong>
+                          <p style=3D"font-size: 10px; color:#000051"><stro=
+ng>Por cualquier otro tipo de consultas no relacionadas a la Dir. de Rentas=
+ Municipales, por favor contactate al <b>0800 BAHIA ATENCI=C3=93N AL VECINO=
+</b> (0800 666 2244).</strong></p>
+                        <br/>
+                      </strong></div><strong>
+                    </strong></div><strong>
+                  </strong></td>
+                  <td width=3D"10"></td>
+                </tr>
+                <tr><td colspan=3D"5" height=3D"30"></td></tr>
+              </tbody></table>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+    </td>
+  </tr>
+</tbody></table>
+
+
+</body></html>
+
+--812a3c211a4597d0405513ff6c66f033774cbe13f072507d0d888c75c2c5--
+
