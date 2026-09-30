@@ -248,5 +248,14 @@
     "date": "2026-10-05",
     "amount": 93552.09,
     "extra": "Parser local de Personal"
+  },
+  {
+    "id": "29",
+    "service": "ABSA",
+    "detail": "Factura de agua y saneamiento",
+    "location": "Unidad de facturación 2220782",
+    "date": "2026-10-20",
+    "amount": 20381.79,
+    "extra": "Unidad de facturación 2220782"
   }
 ]
