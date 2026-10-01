@@ -257,5 +257,14 @@
     "date": "2026-10-20",
     "amount": 20381.79,
     "extra": "Unidad de facturación 2220782"
+  },
+  {
+    "id": "30",
+    "service": "EDES",
+    "detail": "Factura de energía eléctrica",
+    "location": "ZELARRAYAN Nro 133 PB/D BAHIA BLANCA",
+    "date": "2026-10-13",
+    "amount": 166945.99,
+    "extra": "NIS 258805601"
   }
 ]
