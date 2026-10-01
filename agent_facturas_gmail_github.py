@@ -61,6 +61,31 @@ PROVIDER_PRIORITY = [
     "general",
 ]
 
+
+def extract_email_body(msg) -> str:
+    body_part = None
+    for part in (msg.walk() if msg.is_multipart() else [msg]):
+        content_type = part.get_content_type()
+        content_disposition = str(part.get("Content-Disposition"))
+        if "attachment" in content_disposition:
+            continue
+        if content_type == "text/plain":
+            body_part = part
+            break
+        if content_type == "text/html" and body_part is None:
+            body_part = part
+
+    if body_part is None:
+        return ""
+
+    payload = body_part.get_payload(decode=True) or b""
+    charset = body_part.get_content_charset() or "utf-8"
+    body = payload.decode(charset, errors="ignore")
+    if body_part.get_content_type() == "text/html" or re.search(r"<[^>]+>", body):
+        body = re.sub(r"<[^>]+>", " ", html.unescape(body))
+    return body
+
+
 PROVIDER_KEYWORDS = {
     "personal": [
         "personal.com.ar",
@@ -197,25 +222,7 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
                                 if from_email:
                                     from_email = from_email.group(1).strip().lower()
 
-                        body = ""
-                        body_part = None
-                        for part in (msg.walk() if msg.is_multipart() else [msg]):
-                            content_type = part.get_content_type()
-                            content_disposition = str(part.get("Content-Disposition"))
-                            if "attachment" in content_disposition:
-                                continue
-                            if content_type == "text/plain":
-                                body_part = part
-                                break
-                            if content_type == "text/html" and body_part is None:
-                                body_part = part
-
-                        if body_part is not None:
-                            payload = body_part.get_payload(decode=True) or b""
-                            charset = body_part.get_content_charset() or "utf-8"
-                            body = payload.decode(charset, errors="ignore")
-                            if body_part.get_content_type() == "text/html" or re.search(r"<[^>]+>", body):
-                                body = re.sub(r"<[^>]+>", " ", html.unescape(body))
+                        body = extract_email_body(msg)
 
                         if provider and not email_matches_provider(provider, from_email, decoded_subject, body):
                             continue
@@ -225,7 +232,7 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
                             "from_email": from_email,
                             "subject": decoded_subject,
                             "date": msg.get("Date"),
-                            "body": (body or "")[:3000],
+                            "body": body,
                         })
 
         mail.logout()

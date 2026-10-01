@@ -1,9 +1,13 @@
 import unittest
+from email import policy
+from email.parser import BytesParser
+from pathlib import Path
 from unittest.mock import patch
 
 from agent_facturas_gmail_github import (
     detect_provider,
     email_matches_provider,
+    extract_email_body,
     group_emails_by_provider,
     parse_absa_bill,
     parse_camuzzi_bill,
@@ -101,6 +105,16 @@ class ProviderRoutingTests(unittest.TestCase):
         self.assertEqual(result[0]["date"], "2026-10-06")
         self.assertEqual(result[0]["location"], "Cuenta 8000/0-1012-02042924")
         self.assertEqual(result[0]["extra"], "Factura 70003-47094827/1")
+
+    def test_camuzzi_sample_email_is_not_truncated_before_invoice_fields(self):
+        sample_path = Path(__file__).resolve().parents[1] / "sample emails" / "camuzzi.eml"
+        message = BytesParser(policy=policy.default).parsebytes(sample_path.read_bytes())
+
+        result = parse_camuzzi_bill(extract_email_body(message))
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["amount"], 29587.89)
+        self.assertEqual(result[0]["date"], "2026-10-06")
 
     def test_parse_absa_bill_extracts_invoice_fields(self):
         result = parse_absa_bill(
