@@ -293,5 +293,14 @@
     "date": "2026-10-01",
     "amount": 243818.97,
     "extra": "Aviso de servicios por vencer de Brubank"
+  },
+  {
+    "id": "34",
+    "service": "ARBA",
+    "detail": "Impuesto Automotor - Cuota 8",
+    "location": "Patente AE565SD",
+    "date": "2026-10-09",
+    "amount": 36601.6,
+    "extra": "Patente AE565SD - Cuota 8"
   }
 ]
