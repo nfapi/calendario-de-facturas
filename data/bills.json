@@ -266,5 +266,32 @@
     "date": "2026-10-13",
     "amount": 166945.99,
     "extra": "NIS 258805601"
+  },
+  {
+    "id": "31",
+    "service": "ARBA",
+    "detail": "Impuesto Automotor - Cuota 8",
+    "location": "Patente AD478JM",
+    "date": "2026-10-09",
+    "amount": 60469.9,
+    "extra": "Patente AD478JM - Cuota 8"
+  },
+  {
+    "id": "32",
+    "service": "ABSA",
+    "detail": "Factura de agua y saneamiento",
+    "location": "Unidad de facturación 2220784",
+    "date": "2026-10-13",
+    "amount": 8046.53,
+    "extra": "Unidad de facturación 2220784"
+  },
+  {
+    "id": "33",
+    "service": "Gas Pampeana",
+    "detail": "Factura informada por Brubank",
+    "location": "",
+    "date": "2026-10-01",
+    "amount": 243818.97,
+    "extra": "Aviso de servicios por vencer de Brubank"
   }
 ]
