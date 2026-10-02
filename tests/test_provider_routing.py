@@ -10,6 +10,8 @@ from agent_facturas_gmail_github import (
     extract_email_body,
     group_emails_by_provider,
     parse_absa_bill,
+    parse_arba_bill,
+    parse_brubank_bill,
     parse_camuzzi_bill,
     parse_edes_bill,
     parse_movistar_bill,
@@ -45,11 +47,31 @@ class ProviderRoutingTests(unittest.TestCase):
         )
         self.assertEqual(provider, "edes")
 
+    def test_arba_sender_is_routed_to_arba(self):
+        provider = detect_provider(
+            "boletaelectronica@arba.gov.ar",
+            "Boleta por Mail - Vencimiento del Impuesto Automotor Cuota 8",
+            "El 9 de octubre vence la cuota 8 del Impuesto Automotor.",
+        )
+
+        self.assertEqual(provider, "arba")
+
+    def test_brubank_sender_is_routed_as_aggregator(self):
+        provider = detect_provider(
+            "info@brubank.com",
+            "Servicios por vencer",
+            "Absa $ 24.497,46. Edes $ 134.836,32.",
+        )
+
+        self.assertEqual(provider, "brubank")
+
     def test_provider_email_filter_matches_only_the_expected_sender(self):
         self.assertTrue(email_matches_provider("personal", "facturacion@email.personal.com.ar"))
         self.assertTrue(email_matches_provider("camuzzi", "factura@factura.camuzzigas.com.ar"))
+        self.assertTrue(email_matches_provider("arba", "boletaelectronica@arba.gov.ar"))
         self.assertFalse(email_matches_provider("personal", "factura@factura.camuzzigas.com.ar"))
         self.assertFalse(email_matches_provider("camuzzi", "facturacion@email.personal.com.ar"))
+        self.assertFalse(email_matches_provider("arba", "facturacion@email.personal.com.ar"))
 
     def test_parse_personal_bill_extracts_amount_and_due_date(self):
         text = """
@@ -125,6 +147,59 @@ class ProviderRoutingTests(unittest.TestCase):
         self.assertEqual(result[0]["amount"], 21514.46)
         self.assertEqual(result[0]["date"], "2026-09-21")
         self.assertEqual(result[0]["extra"], "Unidad de facturación 2220782")
+
+    def test_parse_arba_automotor_sample(self):
+        sample_path = Path(__file__).resolve().parents[1] / "sample emails" / "arba automotor.eml"
+        message = BytesParser(policy=policy.default).parsebytes(sample_path.read_bytes())
+        email_data = {
+            "date": str(message["Date"]),
+            "subject": str(message["Subject"]),
+            "body": extract_email_body(message),
+        }
+
+        result = parser_dispatcher.parse_provider_bills("arba", [email_data])
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["service"], "ARBA")
+        self.assertEqual(result[0]["detail"], "Impuesto Automotor - Cuota 8")
+        self.assertEqual(result[0]["location"], "Patente AD478JM")
+        self.assertEqual(result[0]["amount"], 60469.90)
+        self.assertEqual(result[0]["date"], "2026-10-09")
+
+    def test_parse_arba_automotor_requires_message_date_for_yearless_due_date(self):
+        result = parse_arba_bill(
+            "El 9 de octubre vence la cuota 8 del Impuesto Automotor. "
+            "Objeto Imponible AD478JM Importe $60.469,90"
+        )
+
+        self.assertEqual(result, [])
+
+    def test_parse_brubank_sample_extracts_underlying_bills(self):
+        sample_path = Path(__file__).resolve().parents[1] / "sample emails" / "brubank.eml"
+        message = BytesParser(policy=policy.default).parsebytes(sample_path.read_bytes())
+
+        result = parse_brubank_bill(extract_email_body(message))
+
+        self.assertEqual([bill["service"] for bill in result], ["ABSA", "EDES"])
+        self.assertEqual([bill["amount"] for bill in result], [24497.46, 134836.32])
+        self.assertEqual([bill["date"] for bill in result], ["2026-07-20", "2026-07-20"])
+        self.assertNotIn("Brubank", [bill["service"] for bill in result])
+
+    def test_parse_brubank_credit_card_sample_as_brubank_bill(self):
+        sample_path = Path(__file__).resolve().parents[1] / "sample emails" / "brubank tc.eml"
+        message = BytesParser(policy=policy.default).parsebytes(sample_path.read_bytes())
+        email_data = {
+            "subject": str(message["Subject"]),
+            "body": extract_email_body(message),
+        }
+
+        result = parser_dispatcher.parse_provider_bills("brubank", [email_data])
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["service"], "Brubank")
+        self.assertEqual(result[0]["detail"], "Resumen de tarjeta de crédito")
+        self.assertEqual(result[0]["amount"], 795189.09)
+        self.assertEqual(result[0]["date"], "2026-09-10")
 
     def test_parse_movistar_bill_extracts_invoice_fields(self):
         result = parse_movistar_bill(

@@ -14,6 +14,8 @@ import requests
 from datetime import datetime, timedelta, timezone
 from parsers import (
     parse_absa_bill,
+    parse_arba_bill,
+    parse_brubank_bill,
     parse_camuzzi_bill,
     parse_edes_bill,
     parse_generic_provider_bill,
@@ -57,6 +59,7 @@ PROVIDER_PRIORITY = [
     "movistar",
     "brubank",
     "municipalidad",
+    "arba",
     "bvnet",
     "general",
 ]
@@ -64,17 +67,29 @@ PROVIDER_PRIORITY = [
 
 def extract_email_body(msg) -> str:
     body_part = None
+    html_body_part = None
     for part in (msg.walk() if msg.is_multipart() else [msg]):
         content_type = part.get_content_type()
         content_disposition = str(part.get("Content-Disposition"))
         if "attachment" in content_disposition:
             continue
         if content_type == "text/plain":
-            body_part = part
-            break
-        if content_type == "text/html" and body_part is None:
-            body_part = part
+            payload = part.get_payload(decode=True) or b""
+            charset = part.get_content_charset() or "utf-8"
+            plain_text = payload.decode(charset, errors="ignore")
+            plain_text = re.sub(
+                r"(?im)^\s*--\s*powered by phplist\b.*$",
+                "",
+                plain_text,
+            )
+            if plain_text.strip(" \t\r\n-"):
+                body_part = part
+                break
+        if content_type == "text/html" and html_body_part is None:
+            html_body_part = part
 
+    if body_part is None:
+        body_part = html_body_part
     if body_part is None:
         return ""
 
@@ -103,6 +118,7 @@ PROVIDER_KEYWORDS = {
     ],
     "edes": ["edes", "edes.com.ar", "electricidad"],
     "absa": ["absa", "absa.com.ar"],
+    "arba": ["arba.gov.ar", "arba"],
     "arca": ["arca", "arca.com.ar"],
     "movistar": ["movistar", "movistar.com.ar"],
     "brubank": ["brubank", "brubank.com"],
@@ -115,6 +131,7 @@ PROVIDER_EMAILS = {
     "camuzzi": ["@camuzzigas.com.ar", "factura.camuzzigas.com.ar"],
     "edes": ["@edessa.com.ar", "@edes.com.ar", "edes"],
     "absa": ["@absa.com.ar", "absa"],
+    "arba": ["@arba.gov.ar", "arba.gov.ar"],
     "arca": ["@arca.com.ar", "arca"],
     "movistar": ["@movistar.com.ar", "movistar"],
     "brubank": ["@brubank.com", "brubank"],
@@ -246,6 +263,9 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
 
 def detect_provider(from_email: str = "", subject: str = "", body: str = "") -> str:
     """Detecta el proveedor según remitente, asunto y contenido del correo."""
+    if "@brubank.com" in from_email.lower():
+        return "brubank"
+
     haystack = " ".join(part for part in [from_email, subject, body] if part).lower()
     for provider, keywords in PROVIDER_KEYWORDS.items():
         if any(keyword.lower() in haystack for keyword in keywords):

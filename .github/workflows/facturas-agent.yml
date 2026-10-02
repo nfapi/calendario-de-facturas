@@ -22,6 +22,7 @@ jobs:
           - movistar
           - brubank
           - municipalidad
+          - arba
           - bvnet
     steps:
       - name: Checkout repo

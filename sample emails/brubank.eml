@@ -1,0 +1,404 @@
+Delivered-To: nicolasfapitalle@gmail.com
+Received: by 2002:a05:7010:e811:b0:538:faf9:e793 with SMTP id lo17csp16745mdb;
+        Fri, 17 Jul 2026 10:36:59 -0700 (PDT)
+X-Received: by 2002:a05:6a00:451a:b0:847:8842:8c63 with SMTP id d2e1a72fcca58-84c294c4e23mr3678580b3a.56.1784309819082;
+        Fri, 17 Jul 2026 10:36:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784309819; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FxoA5VioDkDGAj77M9MIv9AssVE5Bc2k/LRw+WJzm98uEOlzBhW693B3oatZGuU30A
+         sY9Ts/5CiaenL4TYHyR7biQLIoDI06uDAPjnefpUE4uxugoceoQguPRKvkNe+KDM0aoF
+         4SBFm9uI0NC1ypEWAPb47b+7GI7HH0akVP5OdQxe6s/DDhbnj9mclQAiDhTjCoMFfgmg
+         ufI+E618iLTZN1mwITlsp+tAaYINjymUwlZFj+zl2W9BTqXMFBXs3aYZ7w58CY87shYy
+         ECnEwD57kEBZewkJwqIa0d5/57SvxW4TXMGAlwWxdFkjdIFRSoYWObNP75qM4gmcUImq
+         as+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:mime-version:from:date:dkim-signature
+         :dkim-signature;
+        bh=uc+JgPMSmUBOR8/mzOHixhIkcbJ0bfTgmnHhMIQRm5k=;
+        fh=AgEcz2UiyzW5T7LHtYw7aR6MbU9PDSudv8X8dv45Gtk=;
+        b=ZCo7zFs1wH2A8NC+W0+4ozOTwg9NKGcMoB7avp9uCvVzqYSytZ+Fr//wNPhHlB32kr
+         8Rw+MO/kYT89/7D0WFhM46xXQEwPlV2OmC8HbMmiXnFc4PC74hi3rq+Ejdf7Dw/FatjT
+         Cjcx8A+MSbgOC2inByxARWfKBCq/qsBq8wqnSANSh/4qW8Q3N0gvOSgOoXdKPs9XT9Aw
+         f+c3ZEdvEvKOi6AcXua2HJMAZrMty6/Vh/eplQB6/oUJ6GhyuL5MAu5ZP0n62n8Ohrit
+         na743Sg1JeaE4HDTarfGvPLEJ1ggaFXl8Lx9RnGQOs+SSDWFDePnplHM88NYb9THxjg4
+         MIOw==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@brubank.com header.s=s1 header.b=AdaiqwPp;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=WQrLofut;
+       spf=pass (google.com: domain of bounces+7320278-7156-nicolasfapitalle=gmail.com@em6165.brubank.com designates 149.72.173.131 as permitted sender) smtp.mailfrom="bounces+7320278-7156-nicolasfapitalle=gmail.com@em6165.brubank.com";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=brubank.com
+Return-Path: <bounces+7320278-7156-nicolasfapitalle=gmail.com@em6165.brubank.com>
+Received: from o1.ptr6039.brubank.com (o1.ptr6039.brubank.com. [149.72.173.131])
+        by mx.google.com with ESMTPS id d2e1a72fcca58-84c2ad879d8si5196505b3a.48.2026.07.17.10.36.58
+        for <nicolasfapitalle@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 10:36:59 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+7320278-7156-nicolasfapitalle=gmail.com@em6165.brubank.com designates 149.72.173.131 as permitted sender) client-ip=149.72.173.131;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@brubank.com header.s=s1 header.b=AdaiqwPp;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=WQrLofut;
+       spf=pass (google.com: domain of bounces+7320278-7156-nicolasfapitalle=gmail.com@em6165.brubank.com designates 149.72.173.131 as permitted sender) smtp.mailfrom="bounces+7320278-7156-nicolasfapitalle=gmail.com@em6165.brubank.com";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=brubank.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=brubank.com;
+	h=content-type:date:from:mime-version:subject:to:cc:content-type:date:
+	feedback-id:from:subject:to;
+	s=s1; t=1784309817;
+	bh=uc+JgPMSmUBOR8/mzOHixhIkcbJ0bfTgmnHhMIQRm5k=;
+	b=AdaiqwPpTLgBHBfRBalSQb3cMzWfFbNpo7+sJrn+iTLclR8mz/Vhl13ZNOx3JLMH83ZR
+	eIM7Su3M9pB9wn/BwxrPj9IFnf/9qrk6TPQY1Pd1P9b0DzfFxuY4W3yqzN6XKZkTJ6jP4S
+	/tMnn6Y3PhXIRVXSB6QS7LMLsnDTCmEANp2r7yeqlvi4iOVK0wuphybrjp8R3pUn730Y3W
+	Od4/BU8qOL0mfxntsJLsCqkqL8+m3QTCQsVC+/PqVXWooXM3ghUAun+x5wxWbNP94UqXuK
+	PsnNxMr3iHyP2413bWjbp4VRix39VEijfxy0nKh45hm5GR7JBlPxlgB2G4HYnGBg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sendgrid.info;
+	h=content-type:date:from:mime-version:subject:to:cc:content-type:date:
+	feedback-id:from:subject:to;
+	s=smtpapi; t=1784309817;
+	bh=uc+JgPMSmUBOR8/mzOHixhIkcbJ0bfTgmnHhMIQRm5k=;
+	b=WQrLofuto/9lAvLGz2bfDfApLflvwkvBGCQ+SsfeQpRkt6Jf0Pg3OzqwSVBitT4DRtJ1
+	M7QO5QSPmWxUvtcO7U5FT0NtvOG/apc7z71sBPAEFSI8Yostq+vAvny86SntlKN3w3xkWY
+	Mda/iUtkF5bs5MrFnraN+Xs0aGMhvLysM=
+Received: by recvd-7bbf98b59b-9b6b6 with SMTP id recvd-7bbf98b59b-9b6b6-1-6A5A6839-52
+	2026-07-17 17:36:57.492836167 +0000 UTC m=+672923.754199434
+Received: from NzMyMDI3OA (unknown)
+	by geopod-ismtpd-64 (SG) with HTTP
+	id 5Y4yArr7RjCzDlPOJDWllw
+	Fri, 17 Jul 2026 17:36:57.461 +0000 (UTC)
+Content-Type: multipart/alternative; boundary=5ecb557c8f9ed9af1f12c626fd96e14ab6132971243c5d145e4244f59af7
+Date: Fri, 17 Jul 2026 17:36:57 +0000 (UTC)
+From: Brubank <info@brubank.com>
+Mime-Version: 1.0
+Message-ID: <5Y4yArr7RjCzDlPOJDWllw@geopod-ismtpd-64>
+Subject: Servicios por vencer
+X-SG-EID: 
+ =?us-ascii?Q?u001=2EUklTresF+trXjBoHn2adwfnGYWdWIxsID2YpdXKx9aXqXPbKGpRlQzxnz?=
+ =?us-ascii?Q?HfV2L7UTaaptXlLcbDeNTQIY7SiY+CaVBgA671M?=
+ =?us-ascii?Q?cUVVldeXanwqKLI09fS+HzmcZ6FnRFdqsLDDZAt?=
+ =?us-ascii?Q?+pE=2Fy7=2Fxn9V3nAU0SXe6dgzI5E2dg+Bo7KCufx6?=
+ =?us-ascii?Q?irKrtgU9DfjhGmlQdBfYly5nTQ41W+o4d7+lKHd?=
+ =?us-ascii?Q?kdJW9Iv4jUpJCAh8jwTDYQ=3D?=
+X-SG-ID: 
+ =?us-ascii?Q?u001=2ESdBcvi+Evd=2FbQef8eZF3BpTL9BgbK5wfSJMJGMsmprAyAGi0sYKnv+rPA?=
+ =?us-ascii?Q?QZdTJT4POcN7a=2FKjQACHMd5+x0uUrw3XlFLqpPM?=
+ =?us-ascii?Q?mAKPLldQAAOdX7W1QNIsevaicr1LBwCV?=
+To: nicolasfapitalle@gmail.com
+X-Entity-ID: u001.W49SpS96Se8MPb6ogPmF/g==
+
+--5ecb557c8f9ed9af1f12c626fd96e14ab6132971243c5d145e4244f59af7
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Mime-Version: 1.0
+
+Hola Nicolas,
+
+Tenes facturas por vencer.
+
+*Absa:* *$ 24.497,46*
+
+Vence el 20-07-2026
+
+*Edes:* *$ 134.836,32*
+
+Vence el 20-07-2026
+
+VER FACTURA ( https://brubank.com/app/utilities )
+
+Ante cualquier consulta o inconveniente escribinos a ayuda@brubank.com ( ay=
+uda@brubank.com ). Si ya ten=E9s tu cuenta activa, ingres=E1 a la app, en l=
+a secci=F3n 'Mi Cuenta' > 'Chate=E1 con nosotros'. brubank 2026. =A0 Todos =
+los derechos reservados.
+--5ecb557c8f9ed9af1f12c626fd96e14ab6132971243c5d145e4244f59af7
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=iso-8859-1
+Mime-Version: 1.0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml">
+<head>
+	<title>Servicios por vencer</title>
+	<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8" /=
+>
+	<meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D1=
+.0" />
+	<style type=3D"text/css">
+		* {
+			-ms-text-size-adjust:100%;
+			-webkit-text-size-adjust:none;
+			-webkit-text-resize:100%;
+			text-resize:100%;
+		}
+		a{
+			outline:none;
+			color:#40aceb;
+			text-decoration:underline;
+		}
+		a:hover{text-decoration:none !important;}
+		.nav a:hover{text-decoration:underline !important;}
+		.title a:hover{text-decoration:underline !important;}
+		.title-2 a:hover{text-decoration:underline !important;}
+		.btn:hover{opacity:0.8;}
+		.btn a:hover{text-decoration:none !important;}
+		.btn{
+			-webkit-transition:all 0.3s ease;
+			-moz-transition:all 0.3s ease;
+			-ms-transition:all 0.3s ease;
+			transition:all 0.3s ease;
+		}
+		table td {border-collapse: collapse !important;}
+		.ExternalClass, .ExternalClass a, .ExternalClass span, .ExternalClass b, =
+.ExternalClass br, .ExternalClass p, .ExternalClass div{line-height:inherit=
+;}
+		@media only screen and (max-width:500px) {
+			table[class=3D"flexible"]{width:100% !important;}
+			table[class=3D"center"]{
+				float:none !important;
+				margin:0 auto !important;
+			}
+			*[class=3D"hide"]{
+				display:none !important;
+				width:0 !important;
+				height:0 !important;
+				padding:0 !important;
+				font-size:0 !important;
+				line-height:0 !important;
+			}
+			td[class=3D"img-flex"] img{
+				height:auto !important;
+			}
+			td[class=3D"aligncenter"]{text-align:center !important;}
+			th[class=3D"flex"]{
+				display:block !important;
+				width:100% !important;
+			}
+			td[class=3D"wrapper"]{padding:0 !important;}
+			td[class=3D"holder"]{padding:30px 15px 20px !important;}
+			td[class=3D"nav"]{
+				padding:20px 0 0 !important;
+				text-align:center !important;
+			}
+			td[class=3D"h-auto"]{height:auto !important;}
+			td[class=3D"description"]{padding:30px 20px !important;}
+			td[class=3D"i-120"] img{
+				width:120px !important;
+				height:auto !important;
+			}
+			td[class=3D"footer"]{padding:5px 20px 20px !important;}
+			td[class=3D"footer"] td[class=3D"aligncenter"]{
+				line-height:25px !important;
+				padding:20px 0 0 !important;
+			}
+			tr[class=3D"table-holder"]{
+				display:table !important;
+				width:100% !important;
+			}
+			th[class=3D"thead"]{display:table-header-group !important; width:100% !i=
+mportant;}
+			th[class=3D"tfoot"]{display:table-footer-group !important; width:100% !i=
+mportant;}
+		}
+	</style>
+</head>
+<body style=3D"margin:0; padding:0; margin-top: 20px" bgcolor=3D"#eaeced">
+<table style=3D"min-width:320px;" width=3D"100%" cellspacing=3D"0" cellpadd=
+ing=3D"0" bgcolor=3D"#eaeced">
+=09
+	<tr>
+		<td class=3D"hide">
+			<table width=3D"600" cellpadding=3D"0" cellspacing=3D"0" style=3D"width:=
+600px !important;">
+				<tr>
+					<td style=3D"min-width:600px; font-size:0; line-height:0;">&nbsp;</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class=3D"wrapper" style=3D"padding:0 10px;">
+		=09
+			<table data-module=3D"module-6" data-thumb=3D"" width=3D"100%" cellpaddi=
+ng=3D"0" cellspacing=3D"0">
+				<tr>
+					<td data-bgcolor=3D"bg-module" bgcolor=3D"#eaeced">
+						<table class=3D"flexible" width=3D"600" align=3D"center" style=3D"mar=
+gin:0 auto; border-top:#6600FF solid 5px" cellpadding=3D"0" cellspacing=3D"=
+0">
+							<tr>
+								<td data-bgcolor=3D"bg-block" class=3D"holder" style=3D"padding:34p=
+x 60px 50px;" bgcolor=3D"#FFFFFF">
+									<table width=3D"100%" cellpadding=3D"0" cellspacing=3D"0">
+										<tr>
+											<td class=3D"img-flex" style=3D"text-align: center"><img src=3D"=
+https://bbank.blob.core.windows.net/public/email-template/logo.png" style=
+=3D"vertical-align:top; text-align: center; margin:0 auto; margin-bottom: 3=
+0px" width=3D"199" height=3D"49" alt=3D"" /></td>
+										</tr>
+										<tr>
+											<td data-color=3D"text" data-size=3D"size text" data-min=3D"10" =
+data-max=3D"26" data-link-color=3D"link text color" data-link-style=3D"font=
+-weight:bold; text-decoration:underline; color:#40aceb;" style=3D"font:14px=
+/23px Arial, Helvetica, sans-serif; color:#888888; padding:0 0 51px;">
+											=09
+	<table width=3D"100%" cellpadding=3D"0" cellspacing=3D"10">
+		<tr>
+			<td style=3D"font:14px/23px Arial, Helvetica, sans-serif; padding:0 0 0p=
+x">
+				<p style=3D"font-weight: bold; font-size: 20px;margin:0"> Hola Nicolas,=
+  </p>
+			</td>
+		</tr>
+		<tr>
+			<td style=3D"font:14px/23px Arial, Helvetica, sans-serif; padding:0 0 20=
+px">
+				<p style=3D"color:#808080 ; font-size: 16px;margin:0"> Tenes facturas p=
+or vencer. </p>
+			</td>
+		</tr>
+	=09
+		<tr>
+			<td data-color=3D"text" data-size=3D"size text" data-min=3D"10" data-max=
+=3D"26" data-link-color=3D"link text color" data-link-style=3D"font-weight:=
+bold; text-decoration:underline; color:#40aceb;" style=3D"font:14px/23px Ar=
+ial, Helvetica, sans-serif; color:#888888; padding:0 0 0px;">
+				<table style=3D"margin-bottom: 20px" width=3D"100%" cellpadding=3D"0" c=
+ellspacing=3D"8">
+					<tr>
+						<td>
+							<table width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D"b=
+order-bottom: 1px solid #dfdfe5; padding: 15px 8px">
+								<tr>=20
+									<td> <strong> Absa: </strong> </td>
+									<td style=3D"text-align: right">  <strong> $ 24.497,46 </strong>  =
+</td>
+								</tr>
+								<tr>
+									<td> <p style=3D"font-size: 14px; color:#808080"> Vence el 20-07-2=
+026 </p> </td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+    =09
+		<tr>
+			<td data-color=3D"text" data-size=3D"size text" data-min=3D"10" data-max=
+=3D"26" data-link-color=3D"link text color" data-link-style=3D"font-weight:=
+bold; text-decoration:underline; color:#40aceb;" style=3D"font:14px/23px Ar=
+ial, Helvetica, sans-serif; color:#888888; padding:0 0 0px;">
+				<table style=3D"margin-bottom: 20px" width=3D"100%" cellpadding=3D"0" c=
+ellspacing=3D"8">
+					<tr>
+						<td>
+							<table width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D"b=
+order-bottom: 1px solid #dfdfe5; padding: 15px 8px">
+								<tr>=20
+									<td> <strong> Edes: </strong> </td>
+									<td style=3D"text-align: right">  <strong> $ 134.836,32 </strong> =
+ </td>
+								</tr>
+								<tr>
+									<td> <p style=3D"font-size: 14px; color:#808080"> Vence el 20-07-2=
+026 </p> </td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+    =09
+	</table>
+
+											</td>
+										</tr>
+									=09
+	<tr>
+		<td data-bgcolor=3D"bg-button" data-size=3D"size button" data-min=3D"10" =
+data-max=3D"20" class=3D"btn" align=3D"center" style=3D"font:bold 16px/18px=
+ Arial, Helvetica, sans-serif; color:#f9f9f9; text-transform:uppercase; mso=
+-padding-alt:22px 10px; border-radius:8px;" bgcolor=3D"#614AD9">
+			<a target=3D"_blank" style=3D"text-decoration:none; color:#f9f9f9; displ=
+ay:block; padding:18px 10px;" clicktracking=3D"off" href=3D"https://brubank=
+.com/app/utilities">VER FACTURA</a>
+		</td>
+	</tr>
+
+									</table>
+								</td>
+							</tr>
+							<tr><td height=3D"28"></td></tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table data-module=3D"module-7" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+				<tr>
+					<td data-bgcolor=3D"bg-module" bgcolor=3D"#eaeced">
+						<table class=3D"flexible" width=3D"600" align=3D"center" style=3D"mar=
+gin:0 auto;" cellpadding=3D"0" cellspacing=3D"0">
+							<tr>
+								<td class=3D"footer" style=3D"padding:0 0 10px;">
+									<table width=3D"100%" cellpadding=3D"0" cellspacing=3D"0">
+										<tr class=3D"table-holder">
+											<th class=3D"tfoot" width=3D"100%" align=3D"center" style=3D"ver=
+tical-align:top; padding:0;">
+												<table width=3D"100%" cellpadding=3D"0" cellspacing=3D"0">
+													<tr>
+														<td data-color=3D"text"  align=3D"center" data-link-color=3D"=
+link text color" data-link-style=3D"text-decoration:underline; color:#00000=
+0;" class=3D"aligncenter" style=3D"font:12px/16px Arial, Helvetica, sans-se=
+rif; color:#000000; padding:0 0 10px;">
+														=09
+															<a href=3D"mailto:ayuda@brubank.com">Ante cualquier consulta=
+ o inconveniente escribinos a ayuda@brubank.com</a>. Si ya ten=E9s tu cuent=
+a activa, ingres=E1 a la app, en la secci=F3n 'Mi Cuenta' > 'Chate=E1 con n=
+osotros'.
+														=09
+														</td>
+													</tr>
+													<tr>
+														<td data-color=3D"text" data-link-color=3D"link text color" d=
+ata-link-style=3D"text-decoration:underline; color:#797c82;" align=3D"cente=
+r" class=3D"aligncenter" style=3D"font:12px/16px Arial, Helvetica, sans-ser=
+if; color:#797c82; padding:0 0 10px;">
+															brubank 2026. &nbsp; Todos los derechos reservados.
+														</td>
+													</tr>
+												</table>
+											</th>
+
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+=09
+	<tr>
+		<td style=3D"line-height:0;"><div style=3D"display:none; white-space:nowr=
+ap; font:15px/1px courier;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></td>
+	</tr>
+</table>
+<img src=3D"http://url2323.brubank.com/wf/open?upn=3Du001.gVgKMYFhisJRqCk4Q=
+8GWsRV02Ywdrv-2FkhSPhqwJfuxVddrq-2FnytQI1ZH1Jj7v1InIuZyDvNRRV1ybc8ieTjXCOie=
+A2dPxkXZYESVLq-2BAYGlccxtYYeHFurTYmXhu4DnoZ5GDjSO3opKWddolRBgQlMfGD20BqjX9p=
+HnElt42pmNGVOmYS2HjLE-2Bze5bJhanOo1yWlu5cBzdQLI0VCoaMfmz2ac-2F4zzCLFxg5R5da=
+mAF7e2dJq2CP9B5mE2SxrKEtjJlunLP2mdlZB2GSD-2BUX8uFJfotj1DXVs2bu4mohqRxUbIVsw=
+bXviwTT3tuY58ib" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"he=
+ight:1px !important;width:1px !important;border-width:0 !important;margin-t=
+op:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin=
+-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;pad=
+ding-right:0 !important;padding-left:0 !important;"/></body>
+</html>
+
+--5ecb557c8f9ed9af1f12c626fd96e14ab6132971243c5d145e4244f59af7--

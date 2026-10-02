@@ -3,6 +3,8 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from .absa import parse_absa_bill
+from .arba import parse_arba_bill
+from .brubank import parse_brubank_bill
 from .camuzzi import parse_camuzzi_bill
 from .edes import parse_edes_bill
 from .generic import parse_generic_provider_bill
@@ -12,10 +14,12 @@ from .personal import parse_personal_bill
 
 
 PARSER_BY_PROVIDER = {
+    "brubank": parse_brubank_bill,
     "personal": parse_personal_bill,
     "camuzzi": parse_camuzzi_bill,
     "edes": parse_edes_bill,
     "absa": parse_absa_bill,
+    "arba": parse_arba_bill,
     "movistar": parse_movistar_bill,
     "municipalidad": parse_municipalidad_bill,
 }
@@ -33,7 +37,10 @@ def parse_provider_bills(provider: str, emails_data: list) -> list:
             email_data.get("subject", ""),
             email_data.get("body", ""),
         ])
-        parsed = parser(combined_text) if parser else parse_generic_provider_bill(provider, combined_text)
+        if provider == "arba" and parser:
+            parsed = parser(combined_text, email_data.get("date", ""))
+        else:
+            parsed = parser(combined_text) if parser else parse_generic_provider_bill(provider, combined_text)
         bills.extend(parsed)
     return bills
 

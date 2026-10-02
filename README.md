@@ -78,7 +78,7 @@ El workflow deriva `GITHUB_REPO` de `${{ github.repository }}` y usa `actions/ch
 
 ## Proveedores considerados
 
-El análisis presta especial atención a EDES, ABSA, ARCA, Camuzzi, Brubank, Movistar, Personal, Municipalidad de Bahía Blanca y BVNET. También puede extraer otros servicios cuando el correo contiene datos de vencimiento.
+El análisis presta especial atención a EDES, ABSA, ARBA (impuesto automotor), ARCA, Camuzzi, Brubank, Movistar, Personal, Municipalidad de Bahía Blanca y BVNET. También puede extraer otros servicios cuando el correo contiene datos de vencimiento.
 
 ## Publicación
 
