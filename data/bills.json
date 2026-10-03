@@ -302,5 +302,14 @@
     "date": "2026-10-09",
     "amount": 36601.6,
     "extra": "Patente AE565SD - Cuota 8"
+  },
+  {
+    "id": "35",
+    "service": "EDES",
+    "detail": "Factura de energía eléctrica",
+    "location": "GRECIA Nro 524  BAHIA BLANCA",
+    "date": "2026-10-15",
+    "amount": 147251.72,
+    "extra": "NIS 260457201"
   }
 ]
