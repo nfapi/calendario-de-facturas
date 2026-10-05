@@ -311,5 +311,14 @@
     "date": "2026-10-15",
     "amount": 147251.72,
     "extra": "NIS 260457201"
+  },
+  {
+    "id": "36",
+    "service": "Brubank",
+    "detail": "Resumen de tarjeta de crédito",
+    "location": "",
+    "date": "2026-10-13",
+    "amount": 825788.09,
+    "extra": "Saldo en pesos"
   }
 ]
