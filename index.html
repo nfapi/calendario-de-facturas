@@ -224,6 +224,11 @@
         const dayFormatted = String(day).padStart(2, '0');
         const dateStr = `${currentYear}-${monthFormatted}-${dayFormatted}`;
         const dayBills = bills.filter(b => b.date === dateStr);
+        const dayTotal = dayBills.reduce(
+          (totalCents, bill) =>
+            totalCents + Math.round((Number(bill.amount) || 0) * 100),
+          0
+        ) / 100;
 
         const cell = document.createElement('div');
         const isToday = dateStr === formatDateKey(todayDate);
@@ -258,10 +263,39 @@
           <div class="flex justify-between items-center mb-1">
             <span class="text-xs font-bold text-slate-300">${day}${isToday ? ' · Hoy' : ''}</span>
           </div>
+          ${dayBills.length ? `
+            <button
+              type="button"
+              class="day-total mb-1 w-full rounded bg-slate-950/70 px-1 py-0.5 text-center text-[8px] sm:text-[10px] font-semibold text-white whitespace-nowrap"
+              data-compact="${escapeHtml(formatCompactAmount(dayTotal))}"
+              data-exact="${escapeHtml(formatCurrency(dayTotal))}"
+              aria-label="Importe del día: ${escapeHtml(formatCurrency(dayTotal))}. Toca para alternar el formato."
+              aria-expanded="false"
+            >
+              <span class="day-total-mobile sm:hidden">${escapeHtml(formatCompactAmount(dayTotal))}</span>
+              <span class="hidden sm:inline">${escapeHtml(formatCurrency(dayTotal))}</span>
+            </button>
+          ` : ''}
           <div class="min-w-0 space-y-1">${billItemsHtml}</div>
         `;
         grid.appendChild(cell);
       }
+
+      grid.querySelectorAll('.day-total').forEach(button => {
+        button.addEventListener('click', () => {
+          const showingExact = button.getAttribute('aria-expanded') === 'true';
+          button.querySelector('.day-total-mobile').textContent = showingExact
+            ? button.dataset.compact
+            : button.dataset.exact;
+          button.setAttribute('aria-expanded', String(!showingExact));
+          button.setAttribute(
+            'aria-label',
+            showingExact
+              ? `Importe del día: ${button.dataset.exact}. Toca para ver el formato compacto.`
+              : `Importe del día: ${button.dataset.exact}. Toca para volver al formato compacto.`
+          );
+        });
+      });
 
       lucide.createIcons();
     }
