@@ -1,0 +1,754 @@
+Delivered-To: nicolasfapitalle@gmail.com
+Received: by 2002:a05:7010:4899:b0:538:faf9:e793 with SMTP id f25csp5009352mdi;
+        Tue, 6 Oct 2026 06:19:08 -0700 (PDT)
+X-Received: by 2002:a05:6a20:918c:b0:3da:b8b4:91d7 with SMTP id adf61e73a8af0-3e12449e602mr1382310637.2.1791292748141;
+        Tue, 06 Oct 2026 06:19:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791292748; cv=none;
+        d=google.com; s=arc-20260327;
+        b=R6doG3vTADHdKMSyDGqcf7aLAmjFvLL0jI5K2BqBvTUI6xKPp6V2gwB+Iv16eBHE4B
+         nR9TC/yJSDjXVvk/oa3CxnjsoygYOGFFrtQEbo1qGrQSQ6xefqTJU/JLlQ/DQdrRGk4Y
+         RsIr3Uw9Vp++7Rhjr31eJD1Op5BxLD+rcAa3fat784bakQNrgsOJtjIKcHigxFRZa5WI
+         HNP28UBUTbDSMmnWuWf8CE7g/MLo/Kr6cXVsEFX5911ND4SOPrmF79DBHlpL+suvnmnj
+         CwuZvt6lAxGcZZz3BBE6iwK6FqAVvVFYesoU4Gi9OTeBfXFPOMr/ezx6kFjLGrYItven
+         Aw7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:reply-to:subject:message-id:mime-version:from:date
+         :content-transfer-encoding:dkim-signature:dkim-signature;
+        bh=zoqCFF4gCEbuDS1RxBUi6u2DS691246Oso8VRJsV34Y=;
+        fh=cWm6U9/GDsXuNkLshA11NezgWOhS9vnNXixO0kia3Js=;
+        b=eSLCWjOo5YTRaGat1qnYQTimqXj46aaMB+stwHZ8WhTRQs+LwKP8kQUfaztAbbl427
+         OzSMhU7NJ7KwA9UBHeCS7Ly0a8ZeuXNNf+DY6q22pMDXsDcL3UfpAF+Et5H7xvdBNEFq
+         OvJGckB8AtzHc6OgtMbG1Q/3PjyptDlvBYXhBjzzkFuaUTmSWph8JgJYd5+FstiS/npI
+         wTDBzXyrGISoxUpulxvzIcsAF4NMJVz92hoR8oFkEw92hvdeZRdsqN9CQL8TjV+vNEsN
+         bgBj7h3ZvDFAMKvNkbKZAvplRRWTJN4SsUWQsMKyh0GJLF+iqKw6gl8O7OYMruB9hJFU
+         6HNw==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@mercadopago.com.ar header.s=s1 header.b=o5OSMQ6Z;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=dKIaYR40;
+       spf=pass (google.com: domain of bounces+9647731-a63a-nicolasfapitalle=gmail.com@em1791.mercadopago.com.ar designates 159.183.85.40 as permitted sender) smtp.mailfrom="bounces+9647731-a63a-nicolasfapitalle=gmail.com@em1791.mercadopago.com.ar";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=mercadopago.com.ar
+Return-Path: <bounces+9647731-a63a-nicolasfapitalle=gmail.com@em1791.mercadopago.com.ar>
+Received: from o23.ptr2326.mercadolibre.com (o23.ptr2326.mercadolibre.com. [159.183.85.40])
+        by mx.google.com with ESMTPS id 41be03b00d2f7-ccb71bbd3bbsi16493722a12.36.2026.10.06.06.19.07
+        for <nicolasfapitalle@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 06:19:08 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+9647731-a63a-nicolasfapitalle=gmail.com@em1791.mercadopago.com.ar designates 159.183.85.40 as permitted sender) client-ip=159.183.85.40;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@mercadopago.com.ar header.s=s1 header.b=o5OSMQ6Z;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=dKIaYR40;
+       spf=pass (google.com: domain of bounces+9647731-a63a-nicolasfapitalle=gmail.com@em1791.mercadopago.com.ar designates 159.183.85.40 as permitted sender) smtp.mailfrom="bounces+9647731-a63a-nicolasfapitalle=gmail.com@em1791.mercadopago.com.ar";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=mercadopago.com.ar
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mercadopago.com.ar;
+	h=content-transfer-encoding:content-type:date:from:mime-version:subject:
+	reply-to:to:cc:content-type:date:feedback-id:from:subject:to;
+	s=s1; t=1791292747;
+	bh=zoqCFF4gCEbuDS1RxBUi6u2DS691246Oso8VRJsV34Y=;
+	b=o5OSMQ6ZWVnETrikOanq8uc4qt/dpMpPxKZaXc0rRt25qJrAErrdggQbMq3x8HSsYG/F
+	FQfUoyL/Se2znq+mDgP2Jw18C4RbfvOUuFEmmEmpTe6djho5Ztz12AwgU7NtxiG8nSed1H
+	hLokMUjPryVkf0p1CsojlalxVc8suIGhxlVJ5hjZguq65QBauZ5rIqyAm2NXnpTBnU0cVw
+	6DrSdnsv5GsZzXRdcmAlGhoDj4E8bMfnqDszVzDf8m1Bn5U+wtNIhWudHW1SeXEc9Re3kU
+	Nl04mTDJo2K6nHaAXFbnXe7S+oyylia1Zo+qQNGWWBwMpweTCYuKwaebVmPZCRVQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sendgrid.info;
+	h=content-transfer-encoding:content-type:date:from:mime-version:subject:
+	reply-to:to:cc:content-type:date:feedback-id:from:subject:to;
+	s=smtpapi; t=1791292747;
+	bh=zoqCFF4gCEbuDS1RxBUi6u2DS691246Oso8VRJsV34Y=;
+	b=dKIaYR40WorV+qPoxzlUhVmvvJhrF9NRveQKOrEvSJhyyLYpww7PberI7X8/b19OAFA6
+	EYLb8mZxw6w0oIBdgQg7LpPg8NTdON7DTreEC62GhEs6Dkqv8wzcTC1KruvKbQ/vEyr47t
+	yKfyavS8mQkvgxXzmtED/LhzcMwfNZ/zk=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=iso-8859-1
+Date: Tue, 06 Oct 2026 13:19:06 +0000 (UTC)
+From: Mercado Pago <no-responder@mercadopago.com.ar>
+Mime-Version: 1.0
+Message-ID: <Fdv8SpRlTGapge6CpHbAsQ@geopod-ismtpd-86>
+Subject: Debitaremos el total de tu tarjeta el 13 de octubre
+Reply-To: NICOLAS FAPITALLE <nicolasfapitalle@gmail.com>
+X-SG-EID: 
+ =?us-ascii?Q?u001=2E5zG4qDUf=2FaCQGw2lPfoo8xIk6emc4alHzOc5SBTFNBbqqY39+o8=2FoH=2F47?=
+ =?us-ascii?Q?hD8TPCAKKsH3HI2orbXO=2FSTUoosmw7ibCOsDAiq?=
+ =?us-ascii?Q?iW2tiAjsMAJ1ojQo9n8hUVkcvmmfUO9=2F2LQefrk?=
+ =?us-ascii?Q?glf1P1+aug5H5UZoBqEib2GGPhHzjIoLQFW8V0y?=
+ =?us-ascii?Q?1BkoDfdAWB5pnUn1MpO=2FXLBQ336DgXODFX6FWgb?=
+ =?us-ascii?Q?7QZdkG21pQCiDI3nimVibcxUrbTd1qbzTZ=2FtSOQ?=
+ =?us-ascii?Q?kwV7jvPj26gMPlG1e3Ao3660vw=3D=3D?=
+X-SG-ID: 
+ =?us-ascii?Q?u001=2ESdBcvi+Evd=2FbQef8eZF3Bp0202hnctVShXLNypJLeH9zAJR3h83QGpiB8?=
+ =?us-ascii?Q?ne3ZmvYDryaSXorlNGBsYbA4DlwgwVtucRRm=2F33?=
+ =?us-ascii?Q?yvFIR7S3QWQUzBq2sedoAznEtX8wpt4Rd4H+QtM?=
+ =?us-ascii?Q?AjwvSEtZioMVmWmf7YBxEncQTiHzR+1JN0+NXeI?=
+ =?us-ascii?Q?psQ1LxlQah1Zb8i2pV4Toya0hkcFWxsTTO+ofjP?=
+ =?us-ascii?Q?zBdgY+=2FsCxVlFge9NM9Hcv7cBrEPjSSGLWMWNvd?=
+ =?us-ascii?Q?1QodcKeInpN7YmZ5UG20CjNUCWYNrbth36Aedxv?=
+ =?us-ascii?Q?z1Lw24CFOE4FNIBhD526E2oMiU8VJlFt=2FUcD+oV?=
+ =?us-ascii?Q?swkM0O17yVWTUEkER5qQ6JcUw8HwXNR6n5VSCfO?=
+ =?us-ascii?Q?J0FKGTXMVXQkoQgGvAhkC+wqjWy4W4Mt3E1fWAD?=
+ =?us-ascii?Q?ZNk3Ez6RK64P6C7uQEonFEwEGL48Y3brbvYgOT8?=
+ =?us-ascii?Q?Bosa3v8LzrvTGQjma1hc5uGpr18=2FIRd+j5kC6Yo?=
+ =?us-ascii?Q?r7X5sfnAkXuZiNOrJfm9kIivfzscaDrzaqLjfg8?=
+ =?us-ascii?Q?Wq7JljTODy19LZ2A3sYJJ8vPSGcM=2FO3mRhilhhQ?=
+ =?us-ascii?Q?Q1va2nW2NT5ZjWnIFYzBOSUfUYfZU6NID2hu+nP?=
+ =?us-ascii?Q?A+w6mT5WaSjftI1A4=2FOGM46Nwv2XAP=2FzaBKn4Ti?=
+ =?us-ascii?Q?8excDubCMC+3XIWYjFkNzV0XSKAt5i2nHtmJ3wS?=
+ =?us-ascii?Q?SQXhjcS6JqR=2F=2FHZlCLVYjuZlC3jLxnhfTrCr2Gk?=
+ =?us-ascii?Q?mJV59+NA60eogXHNdQdOW4pVCWYKERvkUN5oVj1?=
+ =?us-ascii?Q?XlmPlHgh+MYnpq3+Cb+rfYOiuspycIvQxW9mwub?=
+ =?us-ascii?Q?Zpi+eg1EWm8IlmAYxYzFawEVYwW86Ik1fb07f40?=
+ =?us-ascii?Q?b6G76ziiByNWQvTL6Kzigzn8xE=2FijdySzVE6=2Fdg?=
+ =?us-ascii?Q?l3Tx1Rp2OU39k1wq1e9CRYWj6mC20guHPmbEGLF?=
+ =?us-ascii?Q?7FJJmD2R4ybjf=2FIeu+u+m2NLvUkllOuU7TmuEiu?=
+ =?us-ascii?Q?HzyhoZDQgH=2F8ZCZGn8Vfw3fM37Gwbxo81Q0OUCO?=
+ =?us-ascii?Q?m5L28Hmwb9urPgH9LMieVobmvCfRpgwiCQTfeZO?=
+ =?us-ascii?Q?j6gPsDYw6V1nP4OXwVeNKZOvhYgbEGZV8VP=2FsrF?=
+ =?us-ascii?Q?pVWTLM9TLNbTBOJBRX9HVN5S5fbS8uvnrZnStTn?=
+ =?us-ascii?Q?W5kUzQCcNb1MMcRCqPl2Yr=2FYJNPXwgZ4QYD+YfB?=
+ =?us-ascii?Q?JbTW=2FF8uMmqM8kF+7tHDXC4dJxggsKgvMSiN1lQ?=
+ =?us-ascii?Q?AdWwC1yFdIzg5ECXVpYi7dkYaHRXCrnWIeu+ibE?=
+ =?us-ascii?Q?A09x5ti8q956eF1mBkl=2FFt5Nb8R4VOEL9HilRw+?=
+ =?us-ascii?Q?Izbdh95uLXlGuLDf5iwFvJZICasc7R8vaU1eE68?=
+ =?us-ascii?Q?hUKtxfnEG1Wp6G5jdz8qcHRxO8Ap9ZkKDqcAla+?=
+ =?us-ascii?Q?5iWIbgltncSRan7lgEgCOKZlprY8dFZztxT6vQF?=
+ =?us-ascii?Q?vnqk=3D?=
+To: NICOLAS FAPITALLE <nicolasfapitalle@gmail.com>
+X-Entity-ID: u001.vKFg7gojbb5Tr0Er+wG0xA==
+
+<!DOCTYPE html>
+
+<html lang=3D"es" xmlns=3D"https://www.w3.org/1999/xhtml" xmlns:v=3D"urn:sc=
+hemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:office=
+" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; marg=
+in: 0; padding: 0; width: 100%;">
+<head>
+
+  <meta charset=3D"utf-8">
+  <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D=
+1">
+  <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+  <meta name=3D"x-apple-disable-message-reformatting">
+  <title></title>
+  <!--[if mso]><style>*{font-family:sans-serif!important}</style><![endif]-=
+->
+  <!-- TODO(follow-up): cargar webfont Inter (MLStatic) con un link guardad=
+o para no-MSO -->
+  <style>
+@media only screen and (max-width: 600px) {
+  .andes-emails-x-button {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+  }
+
+  .btn-group {
+    width: 100% !important;
+  }
+
+  .btn-group td {
+    display: block !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .btn-group td + td {
+    padding-top: 8px !important;
+  }
+}
+</style>
+</head>
+
+<body id=3D"MLA_CLOSED_STATEMENT_FULL_AUTOMATIC_DEBIT" style=3D"-webkit-tex=
+t-size-adjust: 100%; -ms-text-size-adjust: 100%; background-color: #ffffff;=
+ font-family: 'Inter', -apple-system, 'Helvetica Neue', Helvetica, 'Roboto'=
+, Arial, sans-serif; margin: 0; padding: 0; width: 100%;"><img src=3D"https=
+://webhooks.mercadolibre.com/emails-sender/images/eJwB0AMv_NrW3YRnEABy_SPBI=
+NReazwkhrD-8__6iTIy5fmIA8IhJ0GOQJex3e0QbslP-8-auIRfYs5F97luYCXZbh6pdgjxghO4=
+FVnMP0Wk15XKWKh8e52JqflLq4SUPnlaCvffMo4F8QpNaJgO7Kq5zAk7lYMlAKG5VEHW0LiEksb=
+03_b8gRgpqysUU1WXpMFejAQxbfngJ1MmzFIlglxtC8ndXwnn_Hyx9yoe9a-sCDmoQfZoTqOzBK=
+G3C64cX8MNZXG0Ele89n8mySpS2Ud5l3b2sQEEuuB_DaUPhtJCCLM51Rlu2TWLTWlPaL_Eg-v7X=
+FzOZm5OZaJjYCU9khm01fcuTrRParw1DALqiqoQ2D-IqXKAh-MG8NOI2aE2FFuY3l8mXOFUQkmt=
+CENi-SyyzvFGTO6boVi5015NXlDFJ4mUhdZNBjw7_H57_0kA3PNYOgljD3HJmkszwh4qsfIpGZU=
+sTMi68FvlWmx-obYjGVRM4NNPL8_vu24H51zQlcMba6u3ti7A-NB3jkPSYQHwe4Lf9ZsJAptxuU=
+spRcwcaFfoDqob0uaNATxwGj6CFL1L2iOBWqpZbjiuWy-uXC3dtZ51-zduPcPF0eRsP_UsuSque=
+QVsU9fizUzWqRKY89rgLF5TtUR2DY4f-ILvejJaE0_48xw-p2qdEamrgJ-yccypG2xhe6VpYXIA=
+sTxY9J89PysrimWMgQcIYheQN4WVjm-2J5yS1wHN-qnWLx9gKI0ZiPZRkHFGUizxrHFTBrJB4Yl=
+DKIb5FdZAq5iBWNJqfsnBbKvex19nH_Wb7aIcX0i1B1rhYZmcKfZyqByxGT9W4BFpBwAZzRRBjp=
+WhGfj5tknjXh_3ADcEBFYhBZp07PDIeY4giRXSQLo9b9AgPz5xEAnceHMZPakb2jVKyt0qfgy54=
+an0r5-wVM6HxPgqV5zNC4aGDzL3IuFxvTL3Jjem_-UYu3bfomRuXxJKO31so7ihqAiptY676oUc=
+ods6G5_4qw1SDxKpRdI4pISDMoEgBuM6mFA3_CDPzGPG1ZQK1AYtj-RkO7ZC28g4cd4ZCHMUn6-=
+uZMA_J5ZeVu0UViHynQPPS19QDv83VasMV7-9dUJCIMJ6EN1eGOs7HDuFsKgLv_6d0YveMoVbdq=
+BH16iRfcSdWIM04sbawsDeQBWriUTsTEKJ5hMq3hj1UnQrcz6GKnqmEmeQXVOeohFRyVHEM_HlA=
+qI7tVBB5jNMq0HKr_5pLysG9BHlROCxAS6bze6s7dkKeTg_rzL72517ZuBHA8MIUI5UcPyZPnn6=
+gS7f2G7vOZVyANvq/space.gif"/>
+<table role=3D"presentation" width=3D"100%" cellspacing=3D"0" cellpadding=
+=3D"0" border=3D"0" bgcolor=3D"#ffffff" style=3D"-ms-text-size-adjust: 100%=
+; -webkit-text-size-adjust: 100%; border-collapse: collapse; background-col=
+or: #ffffff; margin: 0; padding: 0; mso-table-lspace: 0; mso-table-rspace: =
+0;">
+<tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+<td align=3D"center" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size=
+-adjust: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rs=
+pace: 0;">
+<link rel=3D"preload" as=3D"image" href=3D"https://http2.mlstatic.com/stora=
+ge/mercurio-frontend/campaign-images/andes-emails/logo-mercadopago.png"><li=
+nk rel=3D"preload" as=3D"image" href=3D"https://http2.mlstatic.com/storage/=
+credit-card-assets/os-creditcard-assets/resource/informative_mla_credit_car=
+d_mastercard_notification.png"><link rel=3D"preload" as=3D"image" href=3D"h=
+ttps://http2.mlstatic.com/storage/credit-card-assets/os-creditcard-assets/r=
+esource/open_icon_andes_x.png"><table role=3D"presentation" cellspacing=3D"=
+0" cellpadding=3D"0" border=3D"0" width=3D"100%" style=3D"-ms-text-size-adj=
+ust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; backg=
+round-color: #ffffff; max-width: 600px; margin: 0 auto; mso-table-lspace: 0=
+; mso-table-rspace: 0;" bgcolor=3D"#ffffff"><tbody style=3D"-ms-text-size-a=
+djust: 100%; -webkit-text-size-adjust: 100%;"><tr style=3D"-ms-text-size-ad=
+just: 100%; -webkit-text-size-adjust: 100%;"><td style=3D"-ms-text-size-adj=
+ust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; mso-t=
+able-lspace: 0; mso-table-rspace: 0;"><div style=3D"-ms-text-size-adjust: 1=
+00%; -webkit-text-size-adjust: 100%; display: none; max-height: 0; max-widt=
+h: 0; overflow: hidden; font-size: 1px; line-height: 1; opacity: 0; color: =
+transparent; mso-hide: all;">
+Cerr=F3 el resumen de octubre</div>
+</td>
+</tr>
+<tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><=
+td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; bor=
+der-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><table r=
+ole=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" width=
+=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 10=
+0%; border-collapse: collapse; background-color: #ffe600; mso-table-lspace:=
+ 0; mso-table-rspace: 0;" bgcolor=3D"#ffe600"><tbody style=3D"-ms-text-size=
+-adjust: 100%; -webkit-text-size-adjust: 100%;"><tr style=3D"-ms-text-size-=
+adjust: 100%; -webkit-text-size-adjust: 100%;"><td style=3D"-ms-text-size-a=
+djust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; bac=
+kground-color: #ffe600; padding: 16px 24px; mso-table-lspace: 0; mso-table-=
+rspace: 0;" bgcolor=3D"#ffe600"><table role=3D"presentation" cellspacing=3D=
+"0" cellpadding=3D"0" border=3D"0" width=3D"100%" style=3D"-ms-text-size-ad=
+just: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; mso-=
+table-lspace: 0; mso-table-rspace: 0;"><tbody style=3D"-ms-text-size-adjust=
+: 100%; -webkit-text-size-adjust: 100%;"><tr style=3D"-ms-text-size-adjust:=
+ 100%; -webkit-text-size-adjust: 100%;"><td align=3D"left" valign=3D"middle=
+" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; bord=
+er-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><table ro=
+le=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" class=
+=3D"andes-emails-x-image" width=3D"124" height=3D"32" align=3D"left" style=
+=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-coll=
+apse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><tbody style=3D"=
+-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><tr style=3D"-=
+ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><td align=3D"ce=
+nter" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; =
+border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><img =
+src=3D"https://http2.mlstatic.com/storage/mercurio-frontend/campaign-images=
+/andes-emails/logo-mercadopago.png" alt=3D"Mercado Pago" width=3D"124" heig=
+ht=3D"32" border=3D"0" style=3D"-ms-text-size-adjust: 100%; -webkit-text-si=
+ze-adjust: 100%; border: 0; line-height: 100%; outline: none; text-decorati=
+on: none; -ms-interpolation-mode: bicubic; display: block;" class=3D"g-img"=
+></td>
+</tr>
+</tbody></table>
+</td>
+<td align=3D"right" valign=3D"middle" style=3D"-ms-text-size-adjust: 100%; =
+-webkit-text-size-adjust: 100%; border-collapse: collapse; white-space: now=
+rap; mso-table-lspace: 0; mso-table-rspace: 0;"><span style=3D"-ms-text-siz=
+e-adjust: 100%; -webkit-text-size-adjust: 100%; font-family:Inter, -apple-s=
+ystem, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-weight:=
+ 400; margin: 0; padding: 0; width: 100%; display: block; -webkit-font-smoo=
+thing: antialiased; -moz-osx-font-smoothing: grayscale; text-align: right; =
+font-size: 14px; line-height: 18px; color: #282834;">Tarjeta de cr=E9dito</=
+span></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><=
+td align=3D"left" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; padding: 24px 24px 0 24px; mso-table=
+-lspace: 0; mso-table-rspace: 0;"><table role=3D"presentation" cellspacing=
+=3D"0" cellpadding=3D"0" border=3D"0" width=3D"100%" style=3D"-ms-text-size=
+-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; m=
+so-table-lspace: 0; mso-table-rspace: 0;"><tbody style=3D"-ms-text-size-adj=
+ust: 100%; -webkit-text-size-adjust: 100%;"><tr style=3D"-ms-text-size-adju=
+st: 100%; -webkit-text-size-adjust: 100%;"><td align=3D"left" valign=3D"top=
+" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; bord=
+er-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><table ro=
+le=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" class=
+=3D"andes-emails-x-image" width=3D"56" height=3D"56" align=3D"left" style=
+=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-coll=
+apse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><tbody style=3D"=
+-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><tr style=3D"-=
+ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><td align=3D"ce=
+nter" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; =
+border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><img =
+src=3D"https://http2.mlstatic.com/storage/credit-card-assets/os-creditcard-=
+assets/resource/informative_mla_credit_card_mastercard_notification.png" al=
+t=3D"Tarjeta de cr=E9dito" width=3D"56" height=3D"56" border=3D"0" style=3D=
+"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border: 0; lin=
+e-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mod=
+e: bicubic; display: block;" class=3D"g-img"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 16px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" style=3D"-ms-text-size-adjust: 100%; -webkit-tex=
+t-size-adjust: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-ta=
+ble-rspace: 0;"><span style=3D"-ms-text-size-adjust: 100%; -webkit-text-siz=
+e-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica Neue', Helveti=
+ca, Roboto, Arial, sans-serif; font-weight: 700; margin: 0; padding: 0; wid=
+th: 100%; display: block; -webkit-font-smoothing: antialiased; -moz-osx-fon=
+t-smoothing: grayscale; text-align: left; font-size: 24px; line-height: 28p=
+x; color: #282834;">Cerr=F3 el resumen de tu tarjeta y debitaremos el total=
+</span></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 8px; padding-bottom: 0; mso-t=
+able-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" style=3D"-ms-text-size-adjust: 100%; -webkit-tex=
+t-size-adjust: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-ta=
+ble-rspace: 0;"><span style=3D"-ms-text-size-adjust: 100%; -webkit-text-siz=
+e-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica Neue', Helveti=
+ca, Roboto, Arial, sans-serif; font-weight: 400; margin: 0; padding: 0; wid=
+th: 100%; display: block; -webkit-font-smoothing: antialiased; -moz-osx-fon=
+t-smoothing: grayscale; text-align: left; font-size: 14px; line-height: 18p=
+x; color: #646587;">Usaremos tu dinero disponible.</span></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 32px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" style=3D"-ms-text-size-adjust: 100%; -webkit-tex=
+t-size-adjust: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-ta=
+ble-rspace: 0;"><span style=3D"-ms-text-size-adjust: 100%; -webkit-text-siz=
+e-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica Neue', Helveti=
+ca, Roboto, Arial, sans-serif; font-weight: 700; margin: 0; padding: 0; wid=
+th: 100%; display: block; -webkit-font-smoothing: antialiased; -moz-osx-fon=
+t-smoothing: grayscale; text-align: left; font-size: 24px; line-height: 28p=
+x; color: #282834;">El 13 de octubre haremos el d=E9bito autom=E1tico</span=
+></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 12px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" style=3D"-ms-text-size-adjust: 100%; -webkit-tex=
+t-size-adjust: 100%; border-collapse: collapse; font-size: 0; line-height: =
+0; mso-table-lspace: 0; mso-table-rspace: 0;"><span style=3D"-ms-text-size-=
+adjust: 100%; -webkit-text-size-adjust: 100%; font-family:Inter, -apple-sys=
+tem, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 32p=
+x; line-height: 36px; font-weight: 600; color: #282834;">$ 799.167<span sty=
+le=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-size=
+: 0;">,</span><span style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-=
+adjust: 100%; font-size: 20px; vertical-align: super; margin-left: 1px;">60=
+</span></span></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 32px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-bottom: 0; mso-table-lspace: 0; ms=
+o-table-rspace: 0;"><table role=3D"presentation" cellspacing=3D"0" cellpadd=
+ing=3D"0" border=3D"0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; =
+-webkit-text-size-adjust: 100%; border-collapse: collapse; mso-table-lspace=
+: 0; mso-table-rspace: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -web=
+kit-text-size-adjust: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webk=
+it-text-size-adjust: 100%;"><td align=3D"left" valign=3D"top" width=3D"48" =
+style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border=
+-collapse: collapse; padding-right: 8px; vertical-align: top; padding-top: =
+2px; mso-table-lspace: 0; mso-table-rspace: 0;"><table role=3D"presentation=
+" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" class=3D"andes-emails-x-=
+image" width=3D"48" height=3D"48" align=3D"left" style=3D"-ms-text-size-adj=
+ust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; mso-t=
+able-lspace: 0; mso-table-rspace: 0;"><tbody style=3D"-ms-text-size-adjust:=
+ 100%; -webkit-text-size-adjust: 100%;"><tr style=3D"-ms-text-size-adjust: =
+100%; -webkit-text-size-adjust: 100%;"><td align=3D"center" style=3D"-ms-te=
+xt-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: coll=
+apse; mso-table-lspace: 0; mso-table-rspace: 0;"><img src=3D"https://http2.=
+mlstatic.com/storage/credit-card-assets/os-creditcard-assets/resource/open_=
+icon_andes_x.png" alt width=3D"48" height=3D"48" border=3D"0" style=3D"-ms-=
+text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border: 0; line-hei=
+ght: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bi=
+cubic; display: block;" class=3D"g-img"></td>
+</tr>
+</tbody></table>
+</td>
+<td align=3D"left" valign=3D"middle" style=3D"-ms-text-size-adjust: 100%; -=
+webkit-text-size-adjust: 100%; border-collapse: collapse; mso-table-lspace:=
+ 0; mso-table-rspace: 0;"><p style=3D"-ms-text-size-adjust: 100%; -webkit-t=
+ext-size-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica Neue', =
+Helvetica, Roboto, Arial, sans-serif; font-weight: 400; margin: 0; padding:=
+ 0; width: 100%; display: block; -webkit-font-smoothing: antialiased; -moz-=
+osx-font-smoothing: grayscale; text-align: left; font-size: 16px; line-heig=
+ht: 20px; color: #282834;">Revis=E1 el detalle del periodo.</p><table role=
+=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" width=3D=
+"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;=
+ border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><tbo=
+dy style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><t=
+r style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><td=
+ style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; borde=
+r-collapse: collapse; padding-top: 2px; padding-bottom: 0; mso-table-lspace=
+: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<a style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; fon=
+t-family:Inter, -apple-system, 'Helvetica Neue', Helvetica, Roboto, Arial, =
+sans-serif; font-weight: 600; margin: 0; padding: 0; width: 100%; display: =
+block; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: graysc=
+ale; text-align: left; font-size: 14px; line-height: 18px; color: #434ce4; =
+text-decoration: underline;" href=3D"https://852u.adj.st/pdf-viewer/show_pd=
+f?viewer_type=3Dinternal&url=3Dhttps%3A%2F%2Fwww.mercadopago.com.ar%2Fcredi=
+t-card%2Fsites%2FMLA%2Fdocuments%2Fstatements%2Fpdf%3Faccount_id%3D7c24563e=
+-0530-48e8-8575-f0a63ae2f601%26due_date%3D3f6c8ae8-3ed7-432e-9d37-de8d7f254=
+9ae%26download%3Dfalse%26share%3Dtrue&fileName=3DResumen%20de%20octubre%202=
+026.pdf&title=3DResumen%20de%20octubre%202026&share=3Dtrue&flow=3Dcredits_c=
+redit_card_statements&filename=3DResumen%20de%20octubre%202026.pdf&adj_t=3D=
+214ngepo&adj_campaign=3Dcredit_card_close_statement&adj_redirect=3Dhttps%3A=
+%2F%2Fwww.mercadopago.com.ar%2Fcredit-card%2Fsites%2FMLA%2Fdocuments%2Fstat=
+ements%2Fpdf%3Faccount_id%3D7c24563e-0530-48e8-8575-f0a63ae2f601%26due_date=
+%3D3f6c8ae8-3ed7-432e-9d37-de8d7f2549ae%26download%3Dfalse%26share%3Dtrue" =
+target=3D"_blank" rel=3D"noopener noreferrer">Abrir resumen</a></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><=
+td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; bor=
+der-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><table r=
+ole=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" width=
+=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 10=
+0%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><=
+tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"=
+><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">=
+<td align=3D"left" valign=3D"top" style=3D"-ms-text-size-adjust: 100%; -web=
+kit-text-size-adjust: 100%; border-collapse: collapse; padding: 32px 24px 4=
+0px 24px; mso-table-lspace: 0; mso-table-rspace: 0;"><table role=3D"present=
+ation" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" width=3D"100%" styl=
+e=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-col=
+lapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><tbody style=3D=
+"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><tr style=3D"=
+-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"><td align=3D"l=
+eft" valign=3D"top" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-=
+adjust: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rsp=
+ace: 0;"><table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" b=
+order=3D"0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-tex=
+t-size-adjust: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-ta=
+ble-rspace: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-si=
+ze-adjust: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-siz=
+e-adjust: 100%;"><td align=3D"left" style=3D"-ms-text-size-adjust: 100%; -w=
+ebkit-text-size-adjust: 100%; border-collapse: collapse; mso-table-lspace: =
+0; mso-table-rspace: 0;"><span style=3D"-ms-text-size-adjust: 100%; -webkit=
+-text-size-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica Neue'=
+, Helvetica, Roboto, Arial, sans-serif; font-weight: 400; margin: 0; paddin=
+g: 0; width: 100%; display: block; -webkit-font-smoothing: antialiased; -mo=
+z-osx-font-smoothing: grayscale; text-align: left; font-size: 14px; line-he=
+ight: 18px; color: #646587;">El equipo de Mercado Pago.</span></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 18px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" valign=3D"top" style=3D"-ms-text-size-adjust: 10=
+0%; -webkit-text-size-adjust: 100%; border-collapse: collapse; mso-table-ls=
+pace: 0; mso-table-rspace: 0;"><span style=3D"-ms-text-size-adjust: 100%; -=
+webkit-text-size-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica=
+ Neue', Helvetica, Roboto, Arial, sans-serif; font-weight: 400; margin: 0; =
+padding: 0; width: auto; display: inline; -webkit-font-smoothing: antialias=
+ed; -moz-osx-font-smoothing: grayscale; text-align: left; font-size: 14px; =
+line-height: 18px; color: #646587;">=BFTen=E9s m=E1s dudas?</span></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 18px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" valign=3D"top" style=3D"-ms-text-size-adjust: 10=
+0%; -webkit-text-size-adjust: 100%; border-collapse: collapse; mso-table-ls=
+pace: 0; mso-table-rspace: 0;"><span style=3D"-ms-text-size-adjust: 100%; -=
+webkit-text-size-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica=
+ Neue', Helvetica, Roboto, Arial, sans-serif; font-weight: 400; margin: 0; =
+padding: 0; width: auto; display: inline; -webkit-font-smoothing: antialias=
+ed; -moz-osx-font-smoothing: grayscale; text-align: left; font-size: 14px; =
+line-height: 18px; color: #646587;">Consult=E1 nuestras </span><a style=3D"=
+-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-family:Int=
+er, -apple-system, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; =
+font-weight: 700; margin: 0; padding: 0; width: auto; display: inline; -web=
+kit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-a=
+lign: left; font-size: 14px; line-height: 18px; color: #434ce4; text-decora=
+tion: underline;" href=3D"https://www.mercadopago.com.ar/onlinepayments/uni=
+versal-link?fallback=3Dhttps://www.mercadopago.com.ar/ayuda/38360&amp;ios=
+=3Dmercadopago://cx/help?title=3DAyuda%26url=3Dhttps://www.mercadopago.com.=
+ar/ayuda/38360&amp;android=3Dmercadopago://cx/help?title=3DAyuda%26url=3Dht=
+tps://www.mercadopago.com.ar/ayuda/38360" target=3D"_blank" rel=3D"noopener=
+ noreferrer">preguntas frecuentes.</a></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 32px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" valign=3D"top" style=3D"-ms-text-size-adjust: 10=
+0%; -webkit-text-size-adjust: 100%; border-collapse: collapse; mso-table-ls=
+pace: 0; mso-table-rspace: 0;"><span style=3D"-ms-text-size-adjust: 100%; -=
+webkit-text-size-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica=
+ Neue', Helvetica, Roboto, Arial, sans-serif; font-weight: 400; margin: 0; =
+padding: 0; width: auto; display: inline; -webkit-font-smoothing: antialias=
+ed; -moz-osx-font-smoothing: grayscale; text-align: left; font-size: 12px; =
+line-height: 16px; color: #646587;">Te enviamos este e-mail a nicolasfapita=
+lle@gmail.com porque elegiste recibir informaci=F3n.</span></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 16px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" valign=3D"top" style=3D"-ms-text-size-adjust: 10=
+0%; -webkit-text-size-adjust: 100%; border-collapse: collapse; mso-table-ls=
+pace: 0; mso-table-rspace: 0;"><a style=3D"-ms-text-size-adjust: 100%; -web=
+kit-text-size-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica Ne=
+ue', Helvetica, Roboto, Arial, sans-serif; font-weight: 700; margin: 0; pad=
+ding: 0; width: auto; display: inline; -webkit-font-smoothing: antialiased;=
+ -moz-osx-font-smoothing: grayscale; text-align: left; font-size: 12px; lin=
+e-height: 16px; color: #434ce4; text-decoration: underline;" href=3D"https:=
+//www.mercadopago.com.ar/communication-preferences/emails?associated_info=
+=3DeJxNjs1ugzAQhN_F565klgUHboheIkVJFbijtb1pfYihAVeVqr57jdpDpTl986P5UvIpLm1h=
+jlPwqlW-KgtjsYZSBIHcoQHLjGCtODLVjbwh9aQc3xcOr38lNFhkZb5K3CbPm-xU55lCg65HbVp=
+NbbUneFkeM7u3HBiv3Xno-vF4OXenvZzs9M_uT90wHPtsSPwIjzne83jmL9fLc4Y2rSHKuk4phv=
+ckv0-I9YEMGnB0a6DMl6HRpYcaa0ayFVou1PcP5e1IAA=3D=3D&matt_tool=3D56435726&mat=
+t_word=3Dmercurio_2721721_ae46901f-0a14-4a42-bb28-86f2a16da923_approach-sub=
+approach:transactional:classic_2026-10-06T09:19:06_MLA_PROD_buid:757f450d-3=
+781-3a67-b134-30f86278cfcf_c7kyBwCufHAOSeV4.0cKYnlfErRlrnw1IvZS1Z7hMtDZY_PG=
+O&matt_track=3Demail_click&utm_campaign=3Dmercurio_2721721_ae46901f-0a14-4a=
+42-bb28-86f2a16da923_approach-subapproach:transactional:classic_2026-10-06T=
+09:19:06_MLA_PROD_buid:757f450d-3781-3a67-b134-30f86278cfcf_c7kyBwCufHAOSeV=
+4.0cKYnlfErRlrnw1IvZS1Z7hMtDZY_PGO&utm_source=3Dnon_promotional_emails&utm_=
+medium=3Demail" target=3D"_blank" rel=3D"noopener noreferrer">Administrar p=
+referencias de e-mails.</a></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: =
+100%; border-collapse: collapse; padding-top: 16px; padding-bottom: 0; mso-=
+table-lspace: 0; mso-table-rspace: 0;"></td>
+</tr>
+</tbody></table>
+<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+0" width=3D"100%" style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-ad=
+just: 100%; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspac=
+e: 0;"><tbody style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust=
+: 100%;"><tr style=3D"-ms-text-size-adjust: 100%; -webkit-text-size-adjust:=
+ 100%;"><td align=3D"left" valign=3D"top" style=3D"-ms-text-size-adjust: 10=
+0%; -webkit-text-size-adjust: 100%; border-collapse: collapse; mso-table-ls=
+pace: 0; mso-table-rspace: 0;"><span style=3D"-ms-text-size-adjust: 100%; -=
+webkit-text-size-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica=
+ Neue', Helvetica, Roboto, Arial, sans-serif; font-weight: 400; margin: 0; =
+padding: 0; width: auto; display: inline; -webkit-font-smoothing: antialias=
+ed; -moz-osx-font-smoothing: grayscale; text-align: left; font-size: 12px; =
+line-height: 16px; color: #646587;">Conoc=E9 </span><a style=3D"-ms-text-si=
+ze-adjust: 100%; -webkit-text-size-adjust: 100%; font-family:Inter, -apple-=
+system, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-weight=
+: 700; margin: 0; padding: 0; width: auto; display: inline; -webkit-font-sm=
+oothing: antialiased; -moz-osx-font-smoothing: grayscale; text-align: left;=
+ font-size: 12px; line-height: 16px; color: #434ce4; text-decoration: under=
+line;" href=3D"https://www.mercadopago.com.ar/privacidad?matt_tool=3D564357=
+26&matt_word=3Dmercurio_2721721_ae46901f-0a14-4a42-bb28-86f2a16da923_approa=
+ch-subapproach:transactional:classic_2026-10-06T09:19:06_MLA_PROD_buid:757f=
+450d-3781-3a67-b134-30f86278cfcf_c7kyBwCufHAOSeV4.0cKYnlfErRlrnw1IvZS1Z7hMt=
+DZY_PGO&matt_track=3Demail_click&utm_campaign=3Dmercurio_2721721_ae46901f-0=
+a14-4a42-bb28-86f2a16da923_approach-subapproach:transactional:classic_2026-=
+10-06T09:19:06_MLA_PROD_buid:757f450d-3781-3a67-b134-30f86278cfcf_c7kyBwCuf=
+HAOSeV4.0cKYnlfErRlrnw1IvZS1Z7hMtDZY_PGO&utm_source=3Dnon_promotional_email=
+s&utm_medium=3Demail" target=3D"_blank" rel=3D"noopener noreferrer">c=F3mo =
+cuidamos tu Privacidad</a><span style=3D"-ms-text-size-adjust: 100%; -webki=
+t-text-size-adjust: 100%; font-family:Inter, -apple-system, 'Helvetica Neue=
+', Helvetica, Roboto, Arial, sans-serif; font-weight: 400; margin: 0; paddi=
+ng: 0; width: auto; display: inline; -webkit-font-smoothing: antialiased; -=
+moz-osx-font-smoothing: grayscale; text-align: left; font-size: 12px; line-=
+height: 16px; color: #646587;"> y visit=E1 los </span><a style=3D"-ms-text-=
+size-adjust: 100%; -webkit-text-size-adjust: 100%; font-family:Inter, -appl=
+e-system, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-weig=
+ht: 700; margin: 0; padding: 0; width: auto; display: inline; -webkit-font-=
+smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-align: lef=
+t; font-size: 12px; line-height: 16px; color: #434ce4; text-decoration: und=
+erline;" href=3D"https://www.mercadopago.com.ar/ayuda/terminos-y-condicione=
+s_299?matt_tool=3D56435726&matt_word=3Dmercurio_2721721_ae46901f-0a14-4a42-=
+bb28-86f2a16da923_approach-subapproach:transactional:classic_2026-10-06T09:=
+19:06_MLA_PROD_buid:757f450d-3781-3a67-b134-30f86278cfcf_c7kyBwCufHAOSeV4.0=
+cKYnlfErRlrnw1IvZS1Z7hMtDZY_PGO&matt_track=3Demail_click&utm_campaign=3Dmer=
+curio_2721721_ae46901f-0a14-4a42-bb28-86f2a16da923_approach-subapproach:tra=
+nsactional:classic_2026-10-06T09:19:06_MLA_PROD_buid:757f450d-3781-3a67-b13=
+4-30f86278cfcf_c7kyBwCufHAOSeV4.0cKYnlfErRlrnw1IvZS1Z7hMtDZY_PGO&utm_source=
+=3Dnon_promotional_emails&utm_medium=3Demail" target=3D"_blank" rel=3D"noop=
+ener noreferrer">T=E9rminos y condiciones de Mercado Pago</a><span style=3D=
+"-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-family:In=
+ter, -apple-system, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;=
+ font-weight: 400; margin: 0; padding: 0; width: auto; display: inline; -we=
+bkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-=
+align: left; font-size: 12px; line-height: 16px; color: #646587;">.</span><=
+/td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+
+</td>
+
+</tr>
+
+</table>
+
+<img src=3D"http://url2585.mercadopago.com.ar/wf/open?upn=3Du001.gVgKMYFhis=
+JRqCk4Q8GWsRV02Ywdrv-2FkhSPhqwJfuxVddrq-2FnytQI1ZH1Jj7v1In1RhnMrhJV6jaZq2e4=
+oUDw4Jx41t94Jq3TRi5yihMJYkBlXxHNs1LDxxl-2Fb-2FNtSopNqXzA1Hj-2B5-2BYdV1cAfGc=
+d-2BnSzJWzQdr18kD62tT7pyzQc1wsCa1SUQgqT-2BX-2ByGioIIifUGy8tni2-2FPRaCHV4t2q=
+gnKcMRCFfXJgtGF-2BCzRSthVMs-2FJjJRq-2FHOyM9QNBqkd77MgnFHqL4N7rCATB1OP1KQMZn=
+iYjfZBezPjgAIH0pzS2Xuw-2F5rWvO1wZg0sfawWfP2QMcm4J9p6XEOClt9jt6SEtQpWiIi-2FP=
+81CnjowV4ybVGs8fU-2FSLuw74nc2wfSp657QfIzb9KEdls6KfuL6kj9aZwfp8aS4wlPkU3Q6Kj=
+3bh0scxfOEa9S4hvxmmU7FkyGOdyqELB20rK-2FvT2rznh-2B-2BHqzbwVqlThXqulSiXGAgx0U=
+XfxH6T9MTBQIn5sXknnux8GPXNS4Cgi5VJiEKV2m56f1RPpb34FCMY2q9sScyRBS9jVgyaFlity=
+Tp9DZ-2F1d9ckQ-2F8bC1YPyjBbgqAYDL5AQDZj0NAofP4R2rsfieZ1c-2BvQGxEjExP27YXWO9=
+ijSB9aJqOyn2K3ajd1eigh1lbaiaeEJqUs4gfu7wwQuCP-2BKMn1HXSMj8qz-2FkeTs7smxh8iw=
+TTQntV7TWxP0XajUmE-2B-2FjFC72YCVgbtnz2d81rMMGWerv3Urq9jmTW0Pz5DvYk3GbHe9BP-=
+2F7nSCTjKPnz5zabEulu3beytRc7wPtheIxfk1snlY8POLSkR7-2Fvu1rEJ4a3jsFxftwqiBjXk=
+PElUSXh17wfHFnPRT8glq4WC-2BrWfCeklraAtsCzcjN5rveSTbmGl7ukkMa37kr4ty7HqzzwPD=
+b0L-2B2XMMiHgUvfWhgaOrL63caHUmJ-2FveddVVFbZvfoCCcZAWrSRtM7-2BaJ84NuYw60rXiW=
+TKde7RfxU4rEdAgfU1gG3Ou8uOw8zgQpUWalHNwMd5vDm7DkQGHXN-2F-2BxRTWSuSW99bWRslG=
+fq0sinWo9o8dE53spFI9vrdZPQIhe7xaff14tfML-2BvJbu-2F3s6-2FrHj6IAVl74WV0Uav384=
+0lIJpRUsjHcLdQBzubexxkkPqq236V2IQLL7DaNwjRxS3U5vopqbZrwWEdrK8DjZpiAZWD6I2ru=
+9BzMiiEWiSh2-2BekAs-2BTRpwbGqn7cGSCTDngQhKC1dBfaDZ66PcC4I-2FlG0PxUvzDEmBK63=
+eMOIhdpTQd4cSq1F2FI3WfQdrNSlU3I0A3BQI1JcdS5DmYHzhp9E7DtTV9eyC-2BbjuErGCJNbm=
+iBPLPukTz6lPMfhLOy9FQTsEhOPrbSkeKoneVdya3yYQ-2FWQXob76jb0Yt4L6HAf0GSYGIAIEP=
+Sj8XmdRu-2F5IxP0o1TmlyyHGNdQSmfJXrIrz2H3s9Yka9U-2FE6u5WMALPHwA7w-2FXGqEq4xB=
+wW1EOtyL2-2FgukAkg5WZEepZa6071npS8NDRf-2Fg5NCucykiz0O-2F0M3VICpFe9kVV-2BxWL=
+fCpodbKxESPpRLOSM-3D" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=
+=3D"height:1px !important;width:1px !important;border-width:0 !important;ma=
+rgin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;=
+margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !importa=
+nt;padding-right:0 !important;padding-left:0 !important;"/></body>
+
+</html>

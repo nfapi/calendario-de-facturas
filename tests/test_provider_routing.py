@@ -16,6 +16,7 @@ from agent_facturas_gmail_github import (
     parse_edes_bill,
     parse_movistar_bill,
     parse_municipalidad_bill,
+    parse_mercadopago_bill,
     parse_personal_bill,
     parse_providers_in_parallel,
 )
@@ -65,13 +66,23 @@ class ProviderRoutingTests(unittest.TestCase):
 
         self.assertEqual(provider, "brubank")
 
+    def test_mercadopago_sender_is_routed_to_mercadopago(self):
+        provider = detect_provider(
+            "no-responder@mercadopago.com.ar",
+            "Debitaremos el total de tu tarjeta el 13 de octubre",
+        )
+
+        self.assertEqual(provider, "mercadopago")
+
     def test_provider_email_filter_matches_only_the_expected_sender(self):
         self.assertTrue(email_matches_provider("personal", "facturacion@email.personal.com.ar"))
         self.assertTrue(email_matches_provider("camuzzi", "factura@factura.camuzzigas.com.ar"))
         self.assertTrue(email_matches_provider("arba", "boletaelectronica@arba.gov.ar"))
+        self.assertTrue(email_matches_provider("mercadopago", "no-responder@mercadopago.com.ar"))
         self.assertFalse(email_matches_provider("personal", "factura@factura.camuzzigas.com.ar"))
         self.assertFalse(email_matches_provider("camuzzi", "facturacion@email.personal.com.ar"))
         self.assertFalse(email_matches_provider("arba", "facturacion@email.personal.com.ar"))
+        self.assertFalse(email_matches_provider("mercadopago", "facturacion@email.personal.com.ar"))
 
     def test_parse_personal_bill_extracts_amount_and_due_date(self):
         text = """
@@ -200,6 +211,31 @@ class ProviderRoutingTests(unittest.TestCase):
         self.assertEqual(result[0]["detail"], "Resumen de tarjeta de crédito")
         self.assertEqual(result[0]["amount"], 795189.09)
         self.assertEqual(result[0]["date"], "2026-09-10")
+
+    def test_parse_mercadopago_credit_card_sample(self):
+        sample_path = Path(__file__).resolve().parents[1] / "sample emails" / "tarjeta mercadopago.eml"
+        message = BytesParser(policy=policy.default).parsebytes(sample_path.read_bytes())
+        email_data = {
+            "date": str(message["Date"]),
+            "subject": str(message["Subject"]),
+            "body": extract_email_body(message),
+        }
+
+        result = parser_dispatcher.parse_provider_bills("mercadopago", [email_data])
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["service"], "Mercado Pago")
+        self.assertEqual(result[0]["detail"], "Resumen de tarjeta de crédito")
+        self.assertEqual(result[0]["amount"], 799167.60)
+        self.assertEqual(result[0]["date"], "2026-10-13")
+
+    def test_parse_mercadopago_credit_card_uses_next_year_when_due_month_passed(self):
+        result = parse_mercadopago_bill(
+            "Tarjeta de crédito. El 10 de enero haremos el débito automático $ 5.000,00",
+            "Sun, 28 Dec 2025 10:00:00 +0000",
+        )
+
+        self.assertEqual(result[0]["date"], "2026-01-10")
 
     def test_parse_movistar_bill_extracts_invoice_fields(self):
         result = parse_movistar_bill(

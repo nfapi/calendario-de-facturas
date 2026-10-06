@@ -19,6 +19,7 @@ from parsers import (
     parse_camuzzi_bill,
     parse_edes_bill,
     parse_generic_provider_bill,
+    parse_mercadopago_bill,
     parse_movistar_bill,
     parse_municipalidad_bill,
     parse_personal_bill,
@@ -58,6 +59,7 @@ PROVIDER_PRIORITY = [
     "arca",
     "movistar",
     "brubank",
+    "mercadopago",
     "municipalidad",
     "arba",
     "bvnet",
@@ -122,6 +124,7 @@ PROVIDER_KEYWORDS = {
     "arca": ["arca", "arca.com.ar"],
     "movistar": ["movistar", "movistar.com.ar"],
     "brubank": ["brubank", "brubank.com"],
+    "mercadopago": ["mercado pago", "mercadopago.com.ar", "mercadopago"],
     "municipalidad": ["municipalidad", "bahia blanca", "municipio"],
     "bvnet": ["bvnet", "bvnet.com.ar"],
 }
@@ -135,6 +138,7 @@ PROVIDER_EMAILS = {
     "arca": ["@arca.com.ar", "arca"],
     "movistar": ["@movistar.com.ar", "movistar"],
     "brubank": ["@brubank.com", "brubank"],
+    "mercadopago": ["@mercadopago.com.ar", "mercadopago.com.ar"],
     "municipalidad": ["municipalidad", "bahia blanca"],
     "bvnet": ["@bvnet.com.ar", "bvnet"],
 }
@@ -265,6 +269,8 @@ def detect_provider(from_email: str = "", subject: str = "", body: str = "") -> 
     """Detecta el proveedor según remitente, asunto y contenido del correo."""
     if "@brubank.com" in from_email.lower():
         return "brubank"
+    if "@mercadopago.com.ar" in from_email.lower():
+        return "mercadopago"
 
     haystack = " ".join(part for part in [from_email, subject, body] if part).lower()
     for provider, keywords in PROVIDER_KEYWORDS.items():
