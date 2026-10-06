@@ -6,25 +6,33 @@ on:
   workflow_dispatch:
 
 jobs:
+  discover-providers:
+    name: Discover configured providers
+    runs-on: ubuntu-latest
+    outputs:
+      providers: ${{ steps.list-providers.outputs.providers }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Read provider list from service configs
+        id: list-providers
+        run: echo "providers=$(python service_catalog.py --providers-json)" >> "$GITHUB_OUTPUT"
+
   parse-bills:
     name: Parse ${{ matrix.provider }} bills
+    needs: discover-providers
     runs-on: ubuntu-latest
     continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
-        provider:
-          - personal
-          - camuzzi
-          - edes
-          - absa
-          - arca
-          - movistar
-          - brubank
-          - mercadopago
-          - municipalidad
-          - arba
-          - bvnet
+        provider: ${{ fromJson(needs.discover-providers.outputs.providers) }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5

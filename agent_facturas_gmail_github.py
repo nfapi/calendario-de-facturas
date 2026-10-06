@@ -26,6 +26,12 @@ from parsers import (
     parse_provider_bills,
     parse_providers_in_parallel,
 )
+from service_catalog import (
+    PROVIDER_EMAILS,
+    PROVIDER_KEYWORDS,
+    PROVIDER_PRIORITY,
+    SERVICE_CONFIGS,
+)
 
 """
 ===============================================================================
@@ -50,22 +56,6 @@ Variables de entorno requeridas:
   - GITHUB_REPO: Tu repositorio en formato 'usuario/nombre-repo'
 ===============================================================================
 """
-
-PROVIDER_PRIORITY = [
-    "personal",
-    "camuzzi",
-    "edes",
-    "absa",
-    "arca",
-    "movistar",
-    "brubank",
-    "mercadopago",
-    "municipalidad",
-    "arba",
-    "bvnet",
-    "general",
-]
-
 
 def extract_email_body(msg) -> str:
     body_part = None
@@ -102,46 +92,6 @@ def extract_email_body(msg) -> str:
         body = re.sub(r"<[^>]+>", " ", html.unescape(body))
     return body
 
-
-PROVIDER_KEYWORDS = {
-    "personal": [
-        "personal.com.ar",
-        "email.personal.com.ar",
-        "personal",
-        "internet",
-        "cable",
-        "fibra",
-    ],
-    "camuzzi": [
-        "camuzzi",
-        "camuzzigas.com.ar",
-        "factura.camuzzigas.com.ar",
-        "gas",
-    ],
-    "edes": ["edes", "edes.com.ar", "electricidad"],
-    "absa": ["absa", "absa.com.ar"],
-    "arba": ["arba.gov.ar", "arba"],
-    "arca": ["arca", "arca.com.ar"],
-    "movistar": ["movistar", "movistar.com.ar"],
-    "brubank": ["brubank", "brubank.com"],
-    "mercadopago": ["mercado pago", "mercadopago.com.ar", "mercadopago"],
-    "municipalidad": ["municipalidad", "bahia blanca", "municipio"],
-    "bvnet": ["bvnet", "bvnet.com.ar"],
-}
-
-PROVIDER_EMAILS = {
-    "personal": ["@personal.com.ar", "email.personal.com.ar"],
-    "camuzzi": ["@camuzzigas.com.ar", "factura.camuzzigas.com.ar"],
-    "edes": ["@edessa.com.ar", "@edes.com.ar", "edes"],
-    "absa": ["@absa.com.ar", "absa"],
-    "arba": ["@arba.gov.ar", "arba.gov.ar"],
-    "arca": ["@arca.com.ar", "arca"],
-    "movistar": ["@movistar.com.ar", "movistar"],
-    "brubank": ["@brubank.com", "brubank"],
-    "mercadopago": ["@mercadopago.com.ar", "mercadopago.com.ar"],
-    "municipalidad": ["municipalidad", "bahia blanca"],
-    "bvnet": ["@bvnet.com.ar", "bvnet"],
-}
 
 def get_env(var_name: str, required: bool = True) -> str:
     """Obtiene y valida variables de entorno."""
@@ -267,12 +217,15 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
 
 def detect_provider(from_email: str = "", subject: str = "", body: str = "") -> str:
     """Detecta el proveedor según remitente, asunto y contenido del correo."""
-    if "@brubank.com" in from_email.lower():
-        return "brubank"
-    if "@mercadopago.com.ar" in from_email.lower():
-        return "mercadopago"
-
     haystack = " ".join(part for part in [from_email, subject, body] if part).lower()
+    for provider in PROVIDER_PRIORITY:
+        routing = SERVICE_CONFIGS[provider]["routing"]
+        if any(
+            marker.lower() in from_email.lower()
+            for marker in routing.get("sender_priority_markers", [])
+        ):
+            return provider
+
     for provider, keywords in PROVIDER_KEYWORDS.items():
         if any(keyword.lower() in haystack for keyword in keywords):
             return provider
@@ -313,16 +266,9 @@ def normalize_service(service: object) -> str:
     value = unicodedata.normalize("NFKD", str(service or ""))
     value = "".join(character for character in value if not unicodedata.combining(character))
     value = " ".join(value.casefold().split())
-    if "arba" in value:
-        return "arba"
-    if "edes" in value:
-        return "edes"
-    if "absa" in value:
-        return "absa"
-    if "roela" in value or "consorcioabierto" in value or "consorcio abierto" in value:
-        return "consorcio"
-    if "assertia" in value or "zoho" in value:
-        return "assertia"
+    for service_id, config in SERVICE_CONFIGS.items():
+        if any(term in value for term in config.get("normalization_terms", [])):
+            return service_id
     return value
 
 def bill_identity(bill: dict) -> tuple:

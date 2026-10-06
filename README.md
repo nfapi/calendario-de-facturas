@@ -5,6 +5,9 @@ Agente que lee correos de Gmail, extrae facturas con parsers locales y mantiene 
 ## Arquitectura
 
 - `agent_facturas_gmail_github.py`: integración Gmail + parsers locales y actualización de datos.
+- `data/services.json`: catálogo único de nombres y alias, paletas, parsers, remitentes, reglas de enrutamiento y particularidades por servicio.
+- `service_catalog.py`: valida y carga el catálogo compartido por el agente y los parsers; también expone los proveedores para GitHub Actions.
+- `parsers/`: parsers locales referenciados desde las configuraciones JSON.
 - `data/bills.json`: base de datos JSON versionada con el histórico de facturas.
 - `data/sync.json`: fecha y hora UTC de la última sincronización completada correctamente.
 - `index.html`: calendario estático que carga `data/bills.json` desde el navegador.
@@ -13,7 +16,17 @@ Agente que lee correos de Gmail, extrae facturas con parsers locales y mantiene 
 
 El agente no genera ni modifica el HTML. Busca correos de los últimos 30 días en las carpetas seleccionables de Gmail, incluyendo Inbox, archivados y etiquetas. Excluye Spam, Papelera, Enviados y Borradores. Los mensajes repetidos por distintas etiquetas se procesan una sola vez.
 
-En GitHub Actions, cada proveedor se procesa en un job paralelo y guarda sus facturas como artifact. El job `merge-and-publish` espera a todos con `if: always()`, conserva los resultados de los jobs exitosos aunque otro falle y realiza una única actualización de `data/bills.json` y `data/sync.json`.
+En GitHub Actions, la matriz de proveedores se deriva de `data/services.json`; cada proveedor se procesa en un job paralelo y guarda sus facturas como artifact. El job `merge-and-publish` espera a todos con `if: always()`, conserva los resultados de los jobs exitosos aunque otro falle y realiza una única actualización de `data/bills.json` y `data/sync.json`.
+
+Cada elemento de `data/services.json` declara:
+
+- nombre visible, nombres cortos y alias usados por el histórico;
+- descripción y colores de fondo y texto para el calendario;
+- referencia al parser y los argumentos que recibe;
+- remitentes asociados, más reglas de correo y prioridad cuando participa del enrutamiento;
+- reglas de normalización para deduplicar nombres alternativos y particularidades de extracción y del servicio.
+
+Para agregar un servicio, se agrega un elemento al arreglo `services`. El catálogo valida la estructura y las referencias; la interfaz aplica su paleta a los alias declarados.
 
 ## Datos y estados
 
@@ -78,7 +91,7 @@ El workflow deriva `GITHUB_REPO` de `${{ github.repository }}` y usa `actions/ch
 
 ## Proveedores considerados
 
-El análisis presta especial atención a EDES, ABSA, ARBA (impuesto automotor), ARCA, Camuzzi, Brubank, Mercado Pago, Movistar, Personal, Municipalidad de Bahía Blanca y BVNET. También puede extraer otros servicios cuando el correo contiene datos de vencimiento.
+Los servicios, parsers y remitentes soportados se mantienen en `data/services.json`; el enrutamiento y la matriz de GitHub Actions se derivan de esa configuración. También puede extraer otros servicios cuando el correo contiene datos de vencimiento.
 
 ## Publicación
 

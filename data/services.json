@@ -1,0 +1,442 @@
+{
+  "services": [
+    {
+      "id": "absa",
+      "name": "ABSA",
+      "calendar_name": "ABSA",
+      "description": "Agua y saneamiento de Aguas Bonaerenses.",
+      "aliases": ["ABSA"],
+      "normalization_terms": ["absa"],
+      "palette": {
+        "background": "#083344",
+        "foreground": "#cffafe"
+      },
+      "parser": {
+        "reference": "parsers.absa:parse_absa_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@absa.com.ar", "absa", "@brubank.com"],
+      "particularities": [
+        "El importe y el vencimiento se extraen del aviso.",
+        "Los avisos de Brubank también pueden informar facturas de ABSA."
+      ],
+      "routing": {
+        "priority": 40,
+        "workflow": true,
+        "keywords": ["absa", "absa.com.ar"],
+        "email_patterns": ["@absa.com.ar", "absa"]
+      }
+    },
+    {
+      "id": "arba",
+      "name": "ARBA",
+      "calendar_name": "ARBA",
+      "description": "Agencia de Recaudación de la Provincia de Buenos Aires.",
+      "aliases": ["ARBA Automotor", "ARBA"],
+      "normalization_terms": ["arba"],
+      "palette": {
+        "background": "#e2e8f0",
+        "foreground": "#0f172a"
+      },
+      "parser": {
+        "reference": "parsers.arba:parse_arba_bill",
+        "arguments": ["email_text", "email_date"]
+      },
+      "senders": ["@arba.gov.ar", "arba.gov.ar", "@brubank.com"],
+      "particularities": [
+        "Reconoce impuesto automotor, patente, cuota, importe y vencimiento.",
+        "Si el aviso no incluye el año del vencimiento, lo toma de la fecha del correo.",
+        "Los avisos de servicios de Brubank pueden producir facturas ARBA."
+      ],
+      "routing": {
+        "priority": 100,
+        "workflow": true,
+        "keywords": ["arba.gov.ar", "arba"],
+        "email_patterns": ["@arba.gov.ar", "arba.gov.ar"]
+      }
+    },
+    {
+      "id": "arca",
+      "name": "ARCA",
+      "calendar_name": "ARCA",
+      "description": "Agencia de Recaudación y Control Aduanero.",
+      "aliases": ["ARCA"],
+      "palette": {
+        "background": "#064e3b",
+        "foreground": "#d1fae5"
+      },
+      "parser": {
+        "reference": "parsers.generic:parse_generic_provider_bill",
+        "arguments": ["provider_id", "email_text"]
+      },
+      "senders": ["@arca.com.ar", "arca", "@brubank.com"],
+      "particularities": [
+        "Utiliza el parser genérico cuando el correo trae etiquetas de importe y vencimiento.",
+        "Puede aparecer como servicio informado por Brubank."
+      ],
+      "routing": {
+        "priority": 50,
+        "workflow": true,
+        "keywords": ["arca", "arca.com.ar"],
+        "email_patterns": ["@arca.com.ar", "arca"]
+      }
+    },
+    {
+      "id": "assertia",
+      "name": "Assertia Solutions LLC",
+      "calendar_name": "Assertia",
+      "description": "Servicio de Assertia Solutions LLC.",
+      "aliases": ["Assertia Solutions LLC", "Assertia", "Zoho"],
+      "normalization_terms": ["assertia", "zoho"],
+      "palette": {
+        "background": "#701a75",
+        "foreground": "#fae8ff"
+      },
+      "parser": {
+        "reference": "parsers.generic:parse_generic_provider_bill",
+        "arguments": ["provider_id", "email_text"]
+      },
+      "senders": ["@brubank.com"],
+      "particularities": [
+        "El histórico incluye una factura en USD.",
+        "La factura histórica fue informada por Brubank."
+      ]
+    },
+    {
+      "id": "brubank",
+      "name": "Brubank",
+      "calendar_name": "Brubank",
+      "description": "Banco digital y agregador de avisos de vencimiento de otros servicios.",
+      "aliases": ["Brubank"],
+      "palette": {
+        "background": "#6d28d9",
+        "foreground": "#f5f3ff"
+      },
+      "parser": {
+        "reference": "parsers.brubank:parse_brubank_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@brubank.com", "brubank"],
+      "particularities": [
+        "Puede generar varias facturas de distintos servicios a partir de un único aviso.",
+        "Reconoce resúmenes de tarjeta Brubank y facturas de terceros con fecha de vencimiento.",
+        "Los servicios informados por Brubank se representan con su propia identidad y color cuando tienen configuración."
+      ],
+      "routing": {
+        "priority": 70,
+        "workflow": true,
+        "keywords": ["brubank", "brubank.com"],
+        "email_patterns": ["@brubank.com", "brubank"],
+        "sender_priority_markers": ["@brubank.com"]
+      }
+    },
+    {
+      "id": "bvnet",
+      "name": "BVNET",
+      "calendar_name": "BVNET",
+      "description": "Servicio de conectividad BVNET.",
+      "aliases": ["BVNET"],
+      "palette": {
+        "background": "#365314",
+        "foreground": "#ecfccb"
+      },
+      "parser": {
+        "reference": "parsers.generic:parse_generic_provider_bill",
+        "arguments": ["provider_id", "email_text"]
+      },
+      "senders": ["@bvnet.com.ar", "bvnet"],
+      "particularities": [
+        "Usa el parser genérico de etiquetas de importe y vencimiento."
+      ],
+      "routing": {
+        "priority": 110,
+        "workflow": true,
+        "keywords": ["bvnet", "bvnet.com.ar"],
+        "email_patterns": ["@bvnet.com.ar", "bvnet"]
+      }
+    },
+    {
+      "id": "camuzzi",
+      "name": "Camuzzi",
+      "calendar_name": "Camuzzi",
+      "description": "Distribuidora de gas natural Camuzzi.",
+      "aliases": ["Camuzzi"],
+      "palette": {
+        "background": "#1d4ed8",
+        "foreground": "#eff6ff"
+      },
+      "parser": {
+        "reference": "parsers.camuzzi:parse_camuzzi_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@camuzzigas.com.ar", "factura.camuzzigas.com.ar"],
+      "particularities": [
+        "Extrae número de cuenta, factura, importe y vencimiento."
+      ],
+      "routing": {
+        "priority": 20,
+        "workflow": true,
+        "keywords": ["camuzzi", "camuzzigas.com.ar", "factura.camuzzigas.com.ar", "gas"],
+        "email_patterns": ["@camuzzigas.com.ar", "factura.camuzzigas.com.ar"]
+      }
+    },
+    {
+      "id": "colegio-claret",
+      "name": "Colegio Claret",
+      "calendar_name": "Claret",
+      "description": "Cuotas escolares del Colegio Claret.",
+      "aliases": ["Colegio Claret", "Claret"],
+      "palette": {
+        "background": "#881337",
+        "foreground": "#ffe4e6"
+      },
+      "parser": {
+        "reference": "parsers.brubank:parse_brubank_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@brubank.com"],
+      "particularities": [
+        "El histórico contiene avisos recibidos vía Brubank."
+      ]
+    },
+    {
+      "id": "consorcio",
+      "name": "Consorcio",
+      "calendar_name": "Consorcio",
+      "description": "Expensas del consorcio de Zelarrayán 133.",
+      "aliases": [
+        "B Roela Siro",
+        "B Roela Siro / Consorcio Zelarrayan 133",
+        "Consorcio Zelarrayan 133",
+        "Consorcio Zelarrayán 133",
+        "ConsorcioAbierto"
+      ],
+      "normalization_terms": ["roela", "consorcioabierto", "consorcio abierto"],
+      "palette": {
+        "background": "#115e59",
+        "foreground": "#ccfbf1"
+      },
+      "parser": {
+        "reference": "parsers.brubank:parse_brubank_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@brubank.com", "ConsorcioAbierto"],
+      "particularities": [
+        "Agrupa nombres históricos usados por los avisos de Roela y ConsorcioAbierto.",
+        "Los avisos históricos se recibieron tanto vía Brubank como directamente."
+      ]
+    },
+    {
+      "id": "edes",
+      "name": "EDES",
+      "calendar_name": "EDES",
+      "description": "Energía eléctrica de EDES.",
+      "aliases": ["EDES"],
+      "normalization_terms": ["edes"],
+      "palette": {
+        "background": "#134e4a",
+        "foreground": "#ccfbf1"
+      },
+      "parser": {
+        "reference": "parsers.edes:parse_edes_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@edessa.com.ar", "@edes.com.ar", "edes", "@brubank.com"],
+      "particularities": [
+        "Extrae NIS, ubicación, importe y vencimiento.",
+        "Los avisos de Brubank también pueden informar facturas EDES."
+      ],
+      "routing": {
+        "priority": 30,
+        "workflow": true,
+        "keywords": ["edes", "edes.com.ar", "electricidad"],
+        "email_patterns": ["@edessa.com.ar", "@edes.com.ar", "edes"]
+      }
+    },
+    {
+      "id": "gas-pampeana",
+      "name": "Gas Pampeana",
+      "calendar_name": "Gas",
+      "description": "Factura de gas informada por el agregador bancario.",
+      "aliases": ["Gas Pampeana"],
+      "palette": {
+        "background": "#1d4ed8",
+        "foreground": "#eff6ff"
+      },
+      "parser": {
+        "reference": "parsers.brubank:parse_brubank_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@brubank.com"],
+      "particularities": [
+        "El registro histórico fue extraído de un aviso de servicios por vencer de Brubank."
+      ]
+    },
+    {
+      "id": "general",
+      "name": "Otros servicios",
+      "calendar_name": "Servicio",
+      "description": "Ruta genérica para facturas de servicios todavía no configurados.",
+      "aliases": [],
+      "palette": {
+        "background": "#334155",
+        "foreground": "#f1f5f9"
+      },
+      "parser": {
+        "reference": "parsers.generic:parse_generic_provider_bill",
+        "arguments": ["provider_id", "email_text"]
+      },
+      "senders": [],
+      "particularities": [
+        "Se usa como último recurso cuando un correo no coincide con un proveedor conocido.",
+        "Requiere etiquetas genéricas reconocibles de importe y vencimiento."
+      ],
+      "routing": {
+        "priority": 999,
+        "workflow": false,
+        "keywords": [],
+        "email_patterns": []
+      }
+    },
+    {
+      "id": "mercadopago",
+      "name": "Mercado Pago",
+      "calendar_name": "M. Pago",
+      "description": "Tarjeta de crédito y servicios financieros de Mercado Pago.",
+      "aliases": ["Mercado Pago", "MercadoPago"],
+      "palette": {
+        "background": "#ffe600",
+        "foreground": "#003b8e"
+      },
+      "parser": {
+        "reference": "parsers.mercadopago:parse_mercadopago_bill",
+        "arguments": ["email_text", "email_date"]
+      },
+      "senders": ["@mercadopago.com.ar", "mercadopago.com.ar"],
+      "particularities": [
+        "Extrae el monto total y la fecha del débito automático de la tarjeta.",
+        "Los avisos indican día y mes; el año se resuelve usando la fecha del correo."
+      ],
+      "routing": {
+        "priority": 80,
+        "workflow": true,
+        "keywords": ["mercado pago", "mercadopago.com.ar", "mercadopago"],
+        "email_patterns": ["@mercadopago.com.ar", "mercadopago.com.ar"],
+        "sender_priority_markers": ["@mercadopago.com.ar"]
+      }
+    },
+    {
+      "id": "movistar",
+      "name": "Movistar",
+      "calendar_name": "Movistar",
+      "description": "Servicios móviles y conectividad Movistar.",
+      "aliases": ["Movistar"],
+      "palette": {
+        "background": "#009fe3",
+        "foreground": "#ffffff"
+      },
+      "parser": {
+        "reference": "parsers.movistar:parse_movistar_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@movistar.com.ar", "movistar"],
+      "particularities": [
+        "Puede incluir número de cuenta y línea."
+      ],
+      "routing": {
+        "priority": 60,
+        "workflow": true,
+        "keywords": ["movistar", "movistar.com.ar"],
+        "email_patterns": ["@movistar.com.ar", "movistar"]
+      }
+    },
+    {
+      "id": "municipalidad",
+      "name": "Municipalidad de Bahía Blanca",
+      "calendar_name": "Municipalidad",
+      "description": "Tasas y tributos de la Municipalidad de Bahía Blanca.",
+      "aliases": ["Municipalidad de Bahía Blanca", "Municipalidad"],
+      "palette": {
+        "background": "#302bb8",
+        "foreground": "#ffffff"
+      },
+      "parser": {
+        "reference": "parsers.municipalidad:parse_municipalidad_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["municipalidad", "bahia blanca"],
+      "particularities": [
+        "Puede extraer partida, cuota, importe y vencimiento."
+      ],
+      "routing": {
+        "priority": 90,
+        "workflow": true,
+        "keywords": ["municipalidad", "bahia blanca", "municipio"],
+        "email_patterns": ["municipalidad", "bahia blanca"]
+      }
+    },
+    {
+      "id": "osde",
+      "name": "OSDE",
+      "calendar_name": "OSDE",
+      "description": "Servicio de medicina prepaga OSDE.",
+      "aliases": ["OSDE"],
+      "palette": {
+        "background": "#164e63",
+        "foreground": "#cffafe"
+      },
+      "parser": {
+        "reference": "parsers.brubank:parse_brubank_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@brubank.com"],
+      "particularities": [
+        "Los registros históricos fueron informados vía Brubank."
+      ]
+    },
+    {
+      "id": "personal",
+      "name": "Personal",
+      "calendar_name": "Personal",
+      "description": "Servicios de conectividad Personal.",
+      "aliases": ["Personal"],
+      "palette": {
+        "background": "#075985",
+        "foreground": "#e0f2fe"
+      },
+      "parser": {
+        "reference": "parsers.personal:parse_personal_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@personal.com.ar", "email.personal.com.ar"],
+      "particularities": [
+        "Extrae saldo total, total a pagar o cargos del mes y fecha de vencimiento."
+      ],
+      "routing": {
+        "priority": 10,
+        "workflow": true,
+        "keywords": ["personal.com.ar", "email.personal.com.ar", "personal", "internet", "cable", "fibra"],
+        "email_patterns": ["@personal.com.ar", "email.personal.com.ar"]
+      }
+    },
+    {
+      "id": "visa",
+      "name": "Visa",
+      "calendar_name": "Visa",
+      "description": "Tarjeta Visa identificada en los avisos de facturación.",
+      "aliases": ["Visa"],
+      "palette": {
+        "background": "#312e81",
+        "foreground": "#e0e7ff"
+      },
+      "parser": {
+        "reference": "parsers.brubank:parse_brubank_bill",
+        "arguments": ["email_text"]
+      },
+      "senders": ["@brubank.com"],
+      "particularities": [
+        "El histórico contiene un resumen de tarjeta informado por Brubank."
+      ]
+    }
+  ]
+}

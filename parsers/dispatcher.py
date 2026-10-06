@@ -1,29 +1,28 @@
 """Selección del parser local según el proveedor."""
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from importlib import import_module
 
-from .absa import parse_absa_bill
-from .arba import parse_arba_bill
-from .brubank import parse_brubank_bill
-from .camuzzi import parse_camuzzi_bill
-from .edes import parse_edes_bill
+from service_catalog import SERVICE_CONFIGS
+
 from .generic import parse_generic_provider_bill
-from .mercadopago import parse_mercadopago_bill
-from .movistar import parse_movistar_bill
-from .municipalidad import parse_municipalidad_bill
-from .personal import parse_personal_bill
+
+
+def resolve_parser(reference: str):
+    """Resuelve una referencia declarada como modulo:funcion en el catálogo."""
+    module_name, separator, function_name = reference.partition(":")
+    if not separator or not module_name or not function_name:
+        raise ValueError(f"Referencia de parser inválida: {reference!r}")
+    parser = getattr(import_module(module_name), function_name, None)
+    if not callable(parser):
+        raise ValueError(f"No se encontró el parser {reference!r}.")
+    return parser
 
 
 PARSER_BY_PROVIDER = {
-    "brubank": parse_brubank_bill,
-    "personal": parse_personal_bill,
-    "camuzzi": parse_camuzzi_bill,
-    "edes": parse_edes_bill,
-    "absa": parse_absa_bill,
-    "arba": parse_arba_bill,
-    "movistar": parse_movistar_bill,
-    "municipalidad": parse_municipalidad_bill,
-    "mercadopago": parse_mercadopago_bill,
+    service_id: resolve_parser(config["parser"]["reference"])
+    for service_id, config in SERVICE_CONFIGS.items()
+    if "routing" in config
 }
 
 
@@ -33,17 +32,27 @@ def parse_provider_bills(provider: str, emails_data: list) -> list:
         return []
 
     parser = PARSER_BY_PROVIDER.get(provider)
+    config = SERVICE_CONFIGS.get(provider)
+    if config and "routing" in config:
+        parser_arguments = config["parser"].get("arguments", ["email_text"])
+    elif parser:
+        parser_arguments = ["email_text"]
+    else:
+        parser = parse_generic_provider_bill
+        parser_arguments = ["provider_id", "email_text"]
+
     bills = []
     for email_data in emails_data:
         combined_text = "\n".join([
             email_data.get("subject", ""),
             email_data.get("body", ""),
         ])
-        if provider in {"arba", "mercadopago"} and parser:
-            parsed = parser(combined_text, email_data.get("date", ""))
-        else:
-            parsed = parser(combined_text) if parser else parse_generic_provider_bill(provider, combined_text)
-        bills.extend(parsed)
+        values = {
+            "provider_id": provider,
+            "email_text": combined_text,
+            "email_date": email_data.get("date", ""),
+        }
+        bills.extend(parser(*(values[name] for name in parser_arguments)))
     return bills
 
 
