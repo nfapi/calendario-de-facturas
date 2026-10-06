@@ -59,7 +59,7 @@
         <div>DOM</div><div>LUN</div><div>MAR</div><div>MIÉ</div><div>JUE</div><div>VIE</div><div>SÁB</div>
       </div>
 
-      <div id="calendar-grid" class="grid grid-cols-7 auto-rows-fr gap-px bg-slate-700/50"></div>
+      <div id="calendar-grid" class="grid grid-cols-7 auto-rows-min gap-px bg-slate-700/50"></div>
     </div>
 
     <!-- Invoice Lists -->
@@ -121,6 +121,16 @@
       return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(val);
     }
 
+    function formatCompactAmount(val) {
+      const amount = Number(val);
+      if (!Number.isFinite(amount)) return formatCurrency(val);
+      if (Math.abs(amount) >= 1000000) {
+        return `$${(amount / 1000000).toLocaleString('es-AR', { maximumFractionDigits: 1 })}M`;
+      }
+      if (Math.abs(amount) >= 1000) return `$${Math.round(amount / 1000)}k`;
+      return `$${Math.round(amount)}`;
+    }
+
     function formatDateKey(date) {
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -130,6 +140,73 @@
 
     function getBillStatus(billDate) {
       return billDate >= formatDateKey(todayDate) ? 'pending' : 'overdue';
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[character]);
+    }
+
+    function getServiceColor(service) {
+      const normalizedService = String(service || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLocaleLowerCase('es-AR');
+      const serviceColors = [
+        [['absa'], 'bg-cyan-950 text-cyan-100'],
+        [['edes'], 'bg-teal-900 text-teal-100'],
+        [['arba'], 'bg-slate-200 text-slate-900'],
+        [['arca'], 'bg-emerald-950 text-emerald-200'],
+        [['brubank'], 'bg-violet-700 text-violet-50'],
+        [['visa'], 'bg-indigo-950 text-indigo-200'],
+        [['osde'], 'bg-cyan-950 text-cyan-200'],
+        [['personal'], 'bg-sky-800 text-sky-50'],
+        [['movistar'], 'bg-blue-950 text-blue-200'],
+        [['camuzzi', 'gas pampeana'], 'bg-blue-700 text-blue-50'],
+        [['mercado pago', 'mercadopago'], 'bg-blue-900 text-blue-100'],
+        [['colegio claret'], 'bg-rose-950 text-rose-200'],
+        [['consorcio', 'roela'], 'bg-teal-950 text-teal-200'],
+        [['assertia', 'zoho'], 'bg-fuchsia-950 text-fuchsia-200'],
+        [['bvnet'], 'bg-lime-950 text-lime-200']
+      ];
+      const match = serviceColors.find(([names]) =>
+        names.some(name => normalizedService.includes(name))
+      );
+      if (match) return match[1];
+
+      const fallbackColors = [
+        'bg-purple-950 text-purple-200',
+        'bg-teal-950 text-teal-200',
+        'bg-rose-950 text-rose-200',
+        'bg-lime-950 text-lime-200',
+        'bg-fuchsia-950 text-fuchsia-200',
+        'bg-indigo-950 text-indigo-200',
+        'bg-cyan-950 text-cyan-200'
+      ];
+      const hash = [...normalizedService].reduce(
+        (value, character) => (value * 31 + character.charCodeAt(0)) >>> 0,
+        0
+      );
+      return fallbackColors[hash % fallbackColors.length];
+    }
+
+    function getCalendarServiceName(service) {
+      const normalizedService = String(service || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLocaleLowerCase('es-AR');
+      if (normalizedService.includes('mercado pago') || normalizedService.includes('mercadopago')) return 'M. Pago';
+      if (normalizedService.includes('gas pampeana')) return 'Gas';
+      if (normalizedService.includes('colegio claret')) return 'Claret';
+      if (normalizedService.includes('consorcio') || normalizedService.includes('roela')) return 'Consorcio';
+      if (normalizedService.includes('assertia')) return 'Assertia';
+      if (normalizedService.startsWith('arba')) return 'ARBA';
+      return service || 'Servicio';
     }
 
     function renderCalendar() {
@@ -157,19 +234,27 @@
 
         const cell = document.createElement('div');
         const isToday = dateStr === formatDateKey(todayDate);
-        cell.className = `p-2 min-h-[100px] flex flex-col justify-start bg-slate-800/90 border-t border-slate-800${isToday ? ' ring-2 ring-inset ring-indigo-400 bg-indigo-950/50' : ''}`;
+        cell.className = `min-w-0 p-1 sm:p-2 min-h-[100px] flex flex-col justify-start bg-slate-800/90 border-t border-slate-800${isToday ? ' ring-2 ring-inset ring-indigo-400 bg-indigo-950/50' : ''}`;
 
         let billItemsHtml = '';
         dayBills.forEach(bill => {
           const status = getBillStatus(bill.date);
-          let badgeClass = 'bg-slate-700 text-slate-300';
-          if (status === 'pending') badgeClass = 'bg-amber-500/20 text-amber-300 border border-amber-500/40';
-          if (status === 'overdue') badgeClass = 'bg-rose-500/20 text-rose-300 border border-rose-500/40';
+          const statusBorder = status === 'pending'
+            ? 'border-amber-500'
+            : 'border-rose-500';
+          const serviceColor = getServiceColor(bill.service);
+          const service = escapeHtml(bill.service || 'Servicio');
+          const amount = escapeHtml(formatCurrency(bill.amount));
+          const compactAmount = escapeHtml(formatCompactAmount(bill.amount));
+          const calendarService = escapeHtml(getCalendarServiceName(bill.service));
 
           billItemsHtml += `
-            <div class="p-1.5 mb-1 rounded-lg text-[11px] leading-tight ${badgeClass} shadow-sm">
-              <div class="font-bold truncate">${bill.service}</div>
-              <div class="text-[10px] opacity-90">${formatCurrency(bill.amount)}</div>
+            <div class="min-w-0 rounded-md border-2 ${statusBorder} ${serviceColor} px-0.5 sm:px-1.5 py-1 text-[8px] sm:text-[11px] leading-tight shadow-sm" title="${service} · ${amount}">
+              <div class="font-bold truncate">${calendarService}</div>
+              <div class="mt-0.5 whitespace-nowrap opacity-90">
+                <span class="sm:hidden">${compactAmount}</span>
+                <span class="hidden sm:inline">${amount}</span>
+              </div>
             </div>
           `;
         });
@@ -178,7 +263,7 @@
           <div class="flex justify-between items-center mb-1">
             <span class="text-xs font-bold text-slate-300">${day}${isToday ? ' · Hoy' : ''}</span>
           </div>
-          <div class="space-y-1 overflow-y-auto max-h-[75px]">${billItemsHtml}</div>
+          <div class="min-w-0 space-y-1">${billItemsHtml}</div>
         `;
         grid.appendChild(cell);
       }
