@@ -320,5 +320,32 @@
     "date": "2026-10-13",
     "amount": 825788.09,
     "extra": "Saldo en pesos"
+  },
+  {
+    "id": "37",
+    "service": "B Roela Siro",
+    "detail": "Factura informada por Brubank",
+    "location": "",
+    "date": "2026-10-09",
+    "amount": 179870.0,
+    "extra": "Aviso de servicios por vencer de Brubank"
+  },
+  {
+    "id": "38",
+    "service": "Mercado Pago",
+    "detail": "Resumen de tarjeta de crédito",
+    "location": "",
+    "date": "2026-10-13",
+    "amount": 284355.25,
+    "extra": "Débito automático"
+  },
+  {
+    "id": "39",
+    "service": "Mercado Pago",
+    "detail": "Resumen de tarjeta de crédito",
+    "location": "",
+    "date": "2026-10-13",
+    "amount": 799167.6,
+    "extra": "Débito automático"
   }
 ]
