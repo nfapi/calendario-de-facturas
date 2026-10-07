@@ -347,5 +347,32 @@
     "date": "2026-10-13",
     "amount": 799167.6,
     "extra": "Débito automático"
+  },
+  {
+    "id": "40",
+    "service": "Col Claret Ba",
+    "detail": "Factura informada por Brubank",
+    "location": "",
+    "date": "2026-10-10",
+    "amount": 5000.0,
+    "extra": "Aviso de servicios por vencer de Brubank"
+  },
+  {
+    "id": "41",
+    "service": "Col Claret Ba",
+    "detail": "Factura informada por Brubank",
+    "location": "",
+    "date": "2026-10-10",
+    "amount": 154861.6,
+    "extra": "Aviso de servicios por vencer de Brubank"
+  },
+  {
+    "id": "42",
+    "service": "Col Claret Ba",
+    "detail": "Factura informada por Brubank",
+    "location": "",
+    "date": "2026-10-10",
+    "amount": 42000.0,
+    "extra": "Aviso de servicios por vencer de Brubank"
   }
 ]
