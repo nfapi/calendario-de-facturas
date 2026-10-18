@@ -383,5 +383,23 @@
     "date": "2026-10-26",
     "amount": 41699.12,
     "extra": "NIS 255211201"
+  },
+  {
+    "id": "44",
+    "service": "Monotr Fisica",
+    "detail": "Factura informada por Brubank",
+    "location": "",
+    "date": "2026-10-20",
+    "amount": 210899.93,
+    "extra": "Aviso de servicios por vencer de Brubank"
+  },
+  {
+    "id": "45",
+    "service": "Monotr Fisica",
+    "detail": "Factura informada por Brubank",
+    "location": "",
+    "date": "2026-10-20",
+    "amount": 173661.45,
+    "extra": "Aviso de servicios por vencer de Brubank"
   }
 ]
