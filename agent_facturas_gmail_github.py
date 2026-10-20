@@ -115,8 +115,8 @@ def email_matches_provider(provider: str, from_email: str, subject: str = "", bo
 
 def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int = 15, provider: str | None = None) -> list:
     """
-    Recorre las carpetas seleccionables de Gmail y recupera correos recientes
-    relacionados con facturas y vencimientos.
+    Lee la carpeta Todos/All de Gmail y recupera correos recientes relacionados
+    con facturas y vencimientos.
     """
     print(f"📧 Conectando a Gmail vía IMAP{f' para {provider}' if provider else ''}...")
     try:
@@ -130,19 +130,13 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
         for mailbox_data_item in mailbox_data or []:
             mailbox_line = mailbox_data_item.decode("utf-8", errors="replace")
             mailbox_name = mailbox_line.rsplit(' "/" ', 1)[-1].strip('"')
-            mailbox_name_lower = mailbox_name.casefold()
-            mailbox_flags = mailbox_line.split(")", 1)[0].casefold()
-            if (
-                mailbox_name
-                and "\\noselect" not in mailbox_flags
-                and "\\sent" not in mailbox_flags
-                and "\\drafts" not in mailbox_flags
-                and "\\spam" not in mailbox_flags
-                and "\\trash" not in mailbox_flags
-                and not mailbox_name_lower.endswith(("/spam", "/trash", "/papelera"))
-                and mailbox_name_lower not in {"spam", "trash", "papelera"}
-            ):
+            mailbox_label = mailbox_name.rsplit("/", 1)[-1].strip().casefold()
+            if mailbox_label in {"all", "todos", "all mail"}:
                 mailboxes.append(mailbox_name)
+                break
+
+        if not mailboxes:
+            raise RuntimeError("No se encontró la carpeta Todos/All de Gmail")
 
         email_contents = []
         seen_message_ids = set()
@@ -151,7 +145,7 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
         for mailbox_name in mailboxes:
             status, _ = mail.select(f'"{mailbox_name}"')
             if status != "OK":
-                continue
+                raise RuntimeError(f"No se pudo abrir la carpeta de Gmail {mailbox_name!r}")
 
             status, messages = mail.search(None, "SINCE", since_date)
             if status != "OK" or not messages[0]:

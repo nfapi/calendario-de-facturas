@@ -2,13 +2,14 @@ import unittest
 from email import policy
 from email.parser import BytesParser
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from agent_facturas_gmail_github import (
     append_new_bills,
     detect_provider,
     email_matches_provider,
     extract_email_body,
+    fetch_recent_bill_emails,
     group_emails_by_provider,
     parse_absa_bill,
     parse_arba_bill,
@@ -84,6 +85,66 @@ class ProviderRoutingTests(unittest.TestCase):
         self.assertFalse(email_matches_provider("camuzzi", "facturacion@email.personal.com.ar"))
         self.assertFalse(email_matches_provider("arba", "facturacion@email.personal.com.ar"))
         self.assertFalse(email_matches_provider("mercadopago", "facturacion@email.personal.com.ar"))
+
+    def test_fetch_recent_emails_selects_only_all_or_todos_mailbox(self):
+        mail = Mock()
+        mail.list.return_value = (
+            "OK",
+            [
+                b'(\\HasNoChildren) "/" "INBOX"',
+                b'(\\HasNoChildren \\Sent) "/" "[Gmail]/Sent Mail"',
+                b'(\\HasNoChildren) "/" "[Gmail]/All Mail"',
+                b'(\\HasNoChildren) "/" "Facturas"',
+            ],
+        )
+        mail.select.return_value = ("OK", [b"0"])
+        mail.search.return_value = ("OK", [b""])
+        mail.logout.return_value = "BYE"
+
+        with (
+            patch("agent_facturas_gmail_github.imaplib.IMAP4_SSL", return_value=mail),
+            patch("builtins.print"),
+        ):
+            result = fetch_recent_bill_emails("user@example.com", "password")
+
+        self.assertEqual(result, [])
+        mail.select.assert_called_once_with('"[Gmail]/All Mail"')
+
+    def test_fetch_recent_emails_supports_todos_mailbox_name(self):
+        mail = Mock()
+        mail.list.return_value = (
+            "OK",
+            [
+                b'(\\HasNoChildren) "/" "INBOX"',
+                b'(\\HasNoChildren) "/" "Todos"',
+                b'(\\HasNoChildren) "/" "Facturas"',
+            ],
+        )
+        mail.select.return_value = ("OK", [b"0"])
+        mail.search.return_value = ("OK", [b""])
+        mail.logout.return_value = "BYE"
+
+        with (
+            patch("agent_facturas_gmail_github.imaplib.IMAP4_SSL", return_value=mail),
+            patch("builtins.print"),
+        ):
+            result = fetch_recent_bill_emails("user@example.com", "password")
+
+        self.assertEqual(result, [])
+        mail.select.assert_called_once_with('"Todos"')
+
+    def test_fetch_recent_emails_fails_when_all_mailbox_is_missing(self):
+        mail = Mock()
+        mail.list.return_value = ("OK", [b'(\\HasNoChildren) "/" "INBOX"'])
+
+        with (
+            patch("agent_facturas_gmail_github.imaplib.IMAP4_SSL", return_value=mail),
+            patch("builtins.print"),
+            self.assertRaises(SystemExit),
+        ):
+            fetch_recent_bill_emails("user@example.com", "password")
+
+        mail.select.assert_not_called()
 
     def test_parse_personal_bill_extracts_amount_and_due_date(self):
         text = """
