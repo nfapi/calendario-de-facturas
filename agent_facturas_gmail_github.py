@@ -277,11 +277,14 @@ def bill_identity(bill: dict) -> tuple:
         amount = Decimal(str(bill.get("amount", ""))).normalize()
     except (InvalidOperation, ValueError):
         amount = str(bill.get("amount", "")).strip()
-    return (
+    identity = (
         normalize_service(bill.get("service", "")),
         str(bill.get("date", "")).strip(),
         amount,
     )
+    if identity[0] == "movistar":
+        return (*identity, str(bill.get("location", "")).strip())
+    return identity
 
 def append_new_bills(existing_bills: list, extracted_bills: list) -> list:
     """Conserva el histórico y agrega solamente facturas inexistentes."""

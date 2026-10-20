@@ -1,95 +1,95 @@
 Delivered-To: nicolasfapitalle@gmail.com
-Received: by 2002:a05:6174:ea5a:10b0:538:faf9:e793 with SMTP id qs26-n1csp458809mdb;
-        Thu, 9 Jul 2026 14:45:15 -0700 (PDT)
-X-Received: by 2002:a05:6820:81cb:b0:6a1:8889:5608 with SMTP id 006d021491bc7-6a36d86010dmr5985717eaf.9.1783633514982;
-        Thu, 09 Jul 2026 14:45:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783633514; cv=none;
+Received: by 2002:a05:7010:df88:b0:538:faf9:e793 with SMTP id ok8csp4410928mdb;
+        Sat, 10 Oct 2026 16:13:01 -0700 (PDT)
+X-Received: by 2002:a05:6214:2689:b0:91b:5d39:e128 with SMTP id 6a1803df08f44-91b5d39e8f0mr94695716d6.49.1791673981565;
+        Sat, 10 Oct 2026 16:13:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791673981; cv=none;
         d=google.com; s=arc-20260327;
-        b=D5zt3+SJfUa2L8Nru6woW59JPx+tljKSNoecXVp2egQ37398WHKyX7I/krha52RNfs
-         h+iE7OG/Peqqv31GqdnEdlm4qkBgvRziw+VDJWVmgwM0NwLWstzKVo0Im+U6+kyBeMTx
-         KgrrNh9OXSJ6U88ORsIKCZvBKZAMJbGmJtNuUFYxwukxwcVPBUTnXnGihlw/Fdyoy9sN
-         fgJEeeJWfW6lqSdmwNgLdzbya8NAcv+GI9Am29FLeBZN66N7QEziCDfZvOYKd62S8QSJ
-         AgySFknJMAuHV5BKVh5lOi+jIPBTuGDW5JZQvmo8rV7hVR/6fp1wcaf/gEVfDQOCQqqg
-         /X9Q==
+        b=RjonlN/pHnPoY+2aQGYMnWTNhWc0rimgudzbz+NtoxrKIduj7VgbDTEWKfwxn8rRCO
+         ar33XHXn9URR2X+GMslfyMGib9j46FqMkIm8N+kb7fMWqugx9yogsNotCWEA4YYvx64X
+         lK9sHanI62EkAuPg2GvZ85dAq5IzmSayNC9NajE89NHRb8R1JoCnpot6nhIijat5ejfC
+         fypSxw7wSGww+Kx0EGSrl0cUoMHzmoUVrBngE3fxs3+f3Phm5Jp0p40cME5h04xFXOvb
+         lk6ywcVryolEhY4Xfl5a7z0VPopi7MaiW+ApCSBLEMnRlrptvv5qFhwERjMug5Zhc0m7
+         8t8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=mime-version:cc:list-unsubscribe-post:list-unsubscribe:list-id
          :charset:errors-to:reply-to:to:message-id:subject:date:from
          :dkim-signature:dkim-signature;
-        bh=ycQ3R7IkGq4zfEaSKz0vsMamKrmz1hsRcQY50Gf/Pt4=;
+        bh=DHhEa/G93KssQvFsKoTny+iiJsS4qBv0xFT8cJD7QuI=;
         fh=E70Bllmzgg6N5c4kOM6MXMR5LIXCAH9M8xRT7ziSH74=;
-        b=mz4+0h1iIkveNpoq2htRnZ2jIL/ALqQi1bpXNyS0volPKfRnOHKIUEsrv/0tfI7iXG
-         w6BldWBDRRtd6tgfan6ZrTP73wtkGBIZAOKGFIK2kRrRDiuGPwaoT/Aks1G7Xrh7sad1
-         kVQOlvlRyFU3F3LMNhaEJZ01gEVfGKllxEFoX8S/CE7TBXxSAiL4a+b4MvHxle2bnAmn
-         ieGkLn2Hs7CSiekXeZYIPYk45+GL1k31J9Q0peKelhfe4ThoSygO+AYzUrsh595uIfia
-         UdjEN/M1uPOS8VNzRNWMcUmXmvwGVlsVwCQ8odLZwOOen2BaoftZOoLy0DgMcpBtKVvY
-         KnCw==;
+        b=TiIOrjK9QKVER2jxG6f4ynJpm/OTcMfS76MQ+gMGh5LR7CdfsIH3UrjzGmG/kxHsk6
+         LeoQZjtCy091qwlqRC1LYWUkbpCQcvZUuuK5TyoCaF/0IUlKBge/f3Nlddh66CEZJZXX
+         mbspxvB8HGOIXKIApkqJ7T/DFlKKcqJyM0vNR8IxTkgJC5TEQq+MImWZVw3yxszfPtER
+         i0SYeARQICRpQDoYxXsxNI6rOuWtvrcQ4MKjOHxCHHq39+56WT59tiUMqsFyUf3VgUbe
+         +Ufu42aYA3d8BAvOsZA7dcxd1vpsrZtUIhvgi/F+ft2NQw4uE/uwW4jN++VuJcOUwVAB
+         oNoQ==;
         dara=google.com
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass header.i=@movistar.com.ar header.s=relayybtwt19on7 header.b="MM/AsGg0";
-       dkim=pass header.i=@dopplerrelay.com header.s=doppler header.b=gNpCLkbG;
-       spf=pass (google.com: domain of bouncemta-20260709-2145-0279-bf43-328de5b0d693@in158.relayricoh.com designates 161.47.110.158 as permitted sender) smtp.mailfrom=bounceMTA-20260709-2145-0279-bf43-328de5b0d693@in158.relayricoh.com;
+       dkim=pass header.i=@movistar.com.ar header.s=relayybtwt19on7 header.b="XX5xwrd/";
+       dkim=pass header.i=@dopplerrelay.com header.s=doppler header.b=VcrsgM1t;
+       spf=pass (google.com: domain of bouncemta-20261010-2313-001a-969a-99d8d8738f92@in158.relayricoh.com designates 161.47.110.158 as permitted sender) smtp.mailfrom=bounceMTA-20261010-2313-001a-969a-99d8d8738f92@in158.relayricoh.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=movistar.com.ar
-Return-Path: <bounceMTA-20260709-2145-0279-bf43-328de5b0d693@in158.relayricoh.com>
+Return-Path: <bounceMTA-20261010-2313-001a-969a-99d8d8738f92@in158.relayricoh.com>
 Received: from mail158.relayricoh.com (mail158.relayricoh.com. [161.47.110.158])
-        by mx.google.com with ESMTPS id 006d021491bc7-6a36a6a71d4si4559191eaf.16.2026.07.09.14.45.14
+        by mx.google.com with ESMTPS id 6a1803df08f44-91b550a2dc5si68484996d6.157.2026.10.10.16.13.01
         for <nicolasfapitalle@gmail.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 09 Jul 2026 14:45:14 -0700 (PDT)
-Received-SPF: pass (google.com: domain of bouncemta-20260709-2145-0279-bf43-328de5b0d693@in158.relayricoh.com designates 161.47.110.158 as permitted sender) client-ip=161.47.110.158;
+        Sat, 10 Oct 2026 16:13:01 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bouncemta-20261010-2313-001a-969a-99d8d8738f92@in158.relayricoh.com designates 161.47.110.158 as permitted sender) client-ip=161.47.110.158;
 Authentication-Results: mx.google.com;
-       dkim=pass header.i=@movistar.com.ar header.s=relayybtwt19on7 header.b="MM/AsGg0";
-       dkim=pass header.i=@dopplerrelay.com header.s=doppler header.b=gNpCLkbG;
-       spf=pass (google.com: domain of bouncemta-20260709-2145-0279-bf43-328de5b0d693@in158.relayricoh.com designates 161.47.110.158 as permitted sender) smtp.mailfrom=bounceMTA-20260709-2145-0279-bf43-328de5b0d693@in158.relayricoh.com;
+       dkim=pass header.i=@movistar.com.ar header.s=relayybtwt19on7 header.b="XX5xwrd/";
+       dkim=pass header.i=@dopplerrelay.com header.s=doppler header.b=VcrsgM1t;
+       spf=pass (google.com: domain of bouncemta-20261010-2313-001a-969a-99d8d8738f92@in158.relayricoh.com designates 161.47.110.158 as permitted sender) smtp.mailfrom=bounceMTA-20261010-2313-001a-969a-99d8d8738f92@in158.relayricoh.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=movistar.com.ar
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; t=1783633514; c=relaxed/relaxed;
- s=relayybtwt19on7; bh=ycQ3R7IkGq4zfEaSKz0vsMamKrmz1hsRcQY50Gf/Pt4=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; t=1791673981; c=relaxed/relaxed;
+ s=relayybtwt19on7; bh=DHhEa/G93KssQvFsKoTny+iiJsS4qBv0xFT8cJD7QuI=;
  d=movistar.com.ar;
  h=Content-Type:Content-Type:MIME-Version:MIME-Version:Cc:Cc:
  List-Unsubscribe-Post:List-Unsubscribe-Post:List-Unsubscribe:
  List-Unsubscribe:List-Id:List-Id:Reply-To:Reply-To:To:To:Message-Id:
- Message-Id:Subject:Subject:Date:Date:From:From; r=y; x=1783719911;
- b=MM/AsGg0eMTJyo0W57GZ+sQ4kYD7tBciqf3/49E+AzUzCFLCJsgTtwKYvcyYD8VCfC6Pd4S7
- bGfWZa6W2BA86K1iWVBVEslpNvdXVeJ5EKHFP9WKQBt/d5kL46AZ9PsaAYZ5xXRuDm/oPPkBxh
- qTNd0v1hTpjhngoL8cK34aRSQ=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; t=1783633514; c=relaxed/relaxed;
- s=doppler; bh=ycQ3R7IkGq4zfEaSKz0vsMamKrmz1hsRcQY50Gf/Pt4=;
+ Message-Id:Subject:Subject:Date:Date:From:From; r=y; x=1791760381;
+ b=XX5xwrd/Zk6P0mS1pc9FENndgM/5pRXn/aPk20i5vyWTKay617YqFk88k8rTjKtVrNXyEEFg
+ NyuUhtVZ2CMKmSdD0gCX7DCWe/539L5GtUn66onzM/nWXbyIhBEXeYsCc2JBaw//9lavj02qJw
+ DSuSnpIw2xcTUglhkKooNhiPI=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; t=1791673981; c=relaxed/relaxed;
+ s=doppler; bh=DHhEa/G93KssQvFsKoTny+iiJsS4qBv0xFT8cJD7QuI=;
  d=dopplerrelay.com;
  h=Content-Type:Content-Type:MIME-Version:MIME-Version:Cc:Cc:
  List-Unsubscribe-Post:List-Unsubscribe-Post:List-Unsubscribe:
  List-Unsubscribe:List-Id:List-Id:Reply-To:Reply-To:To:To:Message-Id:
- Message-Id:Subject:Subject:Date:Date:From:From; r=y; x=1783719911;
- b=gNpCLkbGmXdWr5DdbVDeP2cKA8rpCuDdAmoxTkv6KHMFr6hYKFmBlChpXln8ERx8BwKNGZNi
- lmw6dS32SU1BYer7qBGkmZnSBZr+sKcwyrx2Kgybdpdfm9UcIyCZmZ3AaPOl4c/qyuGihBG/En
- PysZNKb1Lzt+IKo43jQYFXV+KPvSVRQojgnT2UK3DPZGDHDmnvYu7y13JojIEiQ3cyHYqwqfJM
- 1FGVQPfExPqrJ48ncaXrp5JogHj9YME9jorZ0dgq/37ZBIcnsLtMwSPZ09f43T+NKQNJQqY9Ml
- Yg/nfspk6BO3SNZtokVeWVYdHyZDzWpCGGvY8FphW52q9G+w==
+ Message-Id:Subject:Subject:Date:Date:From:From; r=y; x=1791760381;
+ b=VcrsgM1tDz2Ez2gdqxYWEpUK20sa3nBF6vOEafjhbz8IXg7OqyeTRgAu2QcrIDDMYZiyFIKh
+ OakFX8j0fnn2fDz5mImJqfdbVpFcQ5rekiLE1KRY3s5xhKGB0+KZ6/pBbZbeJkX8mMTB3OSgWe
+ D53IQt0CnDX0LQLX0Tm0yFyDuS1tMCncbA+HFypmzDmEefHyhxDnKR8/R4ItWufDthUXqLyTW+
+ qE3+YOb0ObUYMLVvtOwkmipnJ93C1gsDUvaD7a8mv7kN5CYzpOC2WUEB/qkOb5Y0kga237mTM9
+ iFCoADm4Uv4ilhQs3E+PskSGBH5xlYi1LgPWAPC1dAroz2QQ==
 From: Factura Movistar <factura.sinpapel@movistar.com.ar>
-Date: Thu, 09 Jul 2026 21:45:10 +0000
+Date: Sat, 10 Oct 2026 23:13:01 +0000
 Subject: Movistar te acerca tu factura
-Message-Id: <b55aa2026070921450b55aa498b9da51014dd@in158.relayricoh.com>
+Message-Id: <59c97202610102313059c97cf954bdcdc3f80@in158.relayricoh.com>
 To: nicolasfapitalle@gmail.com
 Reply-To: Factura Movistar <factura.sinpapel@movistar.com.ar>
 Errors-To: factura.sinpapel@movistar.com.ar
 X-Mailer: PBBI e-Messaging Solution
 X-Priority: NORMAL
 Charset: UTF-8
-x-references: nicolasfapitalle@gma_tr.20260709094509.D9C838757CFD9D499A112ECFA91B11BF
+x-references: nicolasfapitalle@gma_tr.20261010111300.2962580654B1C14E862AB9C4B396E14D
 List-Id: Factura Movistar <1280.list-id.relaytrk.info>
 List-Unsubscribe:
- <https://relaytrk.movistar.com.ar/unsubscription?p=eyJkZWxpdmVyeUd1aWQiOiIyMDI2MDcwOS0yMTQ1LTAyNzktYmY0My0zMjhkZTViMGQ2OTMiLCJzaWduaW5nRG9tYWluIjoibW92aXN0YXIuY29tLmFyIiwiYUlkIjoxMjgwLCJ1bnN1YnNjcmlwdGlvbk9yaWdpbiI6Imxpc3QtdW5zdWJzY3JpcHRpb24taGVhZGVyIn0%3D>,
- <mailto:msncomplaints@makingsense.com?subject=relay-unsubscribe-20260709-2145-0279-bf43-328de5b0d693-movistar.com.ar-1280>
+ <https://relaytrk.movistar.com.ar/unsubscription?p=eyJkZWxpdmVyeUd1aWQiOiIyMDI2MTAxMC0yMzEzLTAwMWEtOTY5YS05OWQ4ZDg3MzhmOTIiLCJzaWduaW5nRG9tYWluIjoibW92aXN0YXIuY29tLmFyIiwiYUlkIjoxMjgwLCJ1bnN1YnNjcmlwdGlvbk9yaWdpbiI6Imxpc3QtdW5zdWJzY3JpcHRpb24taGVhZGVyIn0%3D>,
+ <mailto:msncomplaints@makingsense.com?subject=relay-unsubscribe-20261010-2313-001a-969a-99d8d8738f92-movistar.com.ar-1280>
 List-Unsubscribe-Post: List-Unsubscribe=One-Click
 X-Report-Abuse: Please report abuse for this campaign here:
  https://relaytrk.movistar.com.ar/unsubscription?p=eyJkZWxpdmVyeUd1aWQiOiIy
- MDI2MDcwOS0yMTQ1LTAyNzktYmY0My0zMjhkZTViMGQ2OTMiLCJzaWduaW5nRG9tYWluIjoibW
+ MDI2MTAxMC0yMzEzLTAwMWEtOTY5YS05OWQ4ZDg3MzhmOTIiLCJzaWduaW5nRG9tYWluIjoibW
  92aXN0YXIuY29tLmFyIiwiYUlkIjoxMjgwLCJ1bnN1YnNjcmlwdGlvbk9yaWdpbiI6ImFidXNl
  LWhlYWRlciJ9
 Cc:
 X-DR-RAWGENERATOR-IMPLEMENTATION: MimeKitWithRelaySignatureRawMimeGenerator
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="=-B3cpmXs021n/BSg3rzTmOg=="
+Content-Type: multipart/alternative; boundary="=-cr1udwZ9Hktxn2BGu6ECRA=="
 
---=-B3cpmXs021n/BSg3rzTmOg==
+--=-cr1udwZ9Hktxn2BGu6ECRA==
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
@@ -115,12 +115,12 @@ Movistar te acerca la factura
 
 Vencimiento
 =C2=A0
-19/07/2026
+02/11/2026
 
 
 Total=C2=A0a=C2=A0pagar
 =C2=A0
-$52.049,99
+$46.590,00
 
 
 
@@ -167,7 +167,7 @@ N=C3=BAmero de l=C3=ADnea=20
 Total servicios
 
 
-$52.049,99
+$46.590,00
 
 
 
@@ -175,7 +175,7 @@ $52.049,99
 Total cargos del per=C3=ADodo
 
 
-$52.049,99
+$46.590,00
 
 
 
@@ -183,7 +183,7 @@ $52.049,99
 Total a pagar
 
 
-$52.049,99
+$46.590,00
 
 
 
@@ -201,15 +201,7 @@ $52.049,99
 Movistar Movil 4GB
 
 
-$43.959,99
-
-
-
-
-Cargos a la cuenta
-
-
-$8.090,00
+$46.590,00
 
 
 
@@ -304,19 +296,19 @@ l env=C3=ADo de cartas a Av. Corrientes 707 PB, CP 1043, Ciudad Aut=C3=B3no=
 ma de Buenos Aires, y MOVISTAR proceder=C3=A1 a cumplir con el pedido dentr=
 o de los 5 d=C3=ADas h=C3=A1biles de recibida la notificaci=C3=B3n.=
 
---=-B3cpmXs021n/BSg3rzTmOg==
+--=-cr1udwZ9Hktxn2BGu6ECRA==
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
 w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- EngageOne Generate Build=3D6.6.11.3014 Date=3D08-07-2026 Time=3D21:27:=
-59 Platform=3DMicrosoft Windows -->
+<!-- EngageOne Generate Build=3D6.6.11.3014 Date=3D09-10-2026 Time=3D22:55:=
+25 Platform=3DMicrosoft Windows -->
 <html xmlns=3D"http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8">
-<!-- D9C838757CFD9D499A112ECFA91B11BF -->
-<title>EMAIL_01_012607_T20260708163233_20260708171914</title>
+<!-- 2962580654B1C14E862AB9C4B396E14D -->
+<title>EMAIL_01_012610_T20261009160438_20261009174914</title>
 
 <style type=3D"text/css">a:link {color:#0000FF} a:visited {color:#AAAAAA} a=
 :active {color:#FF0000}
@@ -330,7 +322,7 @@ td {line-height: 100%}
 margin-left:0; margin-bottom:0; margin-right:0; padding-top:0; padding-left=
 :0; padding-bottom:0; padding-right:0;"><img style=3D"display:none" alt=3D"=
 " src =3D"https://relaytrk.movistar.com.ar/Open/Track?p=3DeyJkZWxpdmVyeUd1a=
-WQiOiIyMDI2MDcwOS0yMTQ1LTAyNzktYmY0My0zMjhkZTViMGQ2OTMiLCJhSWQiOjEyODB9" />
+WQiOiIyMDI2MTAxMC0yMzEzLTAwMWEtOTY5YS05OWQ4ZDg3MzhmOTIiLCJhSWQiOjEyODB9" />
 <table align=3D"center" cellspacing=3D"0" cellpadding=3D"0" width=3D"602" s=
 tyle=3D"border-collapse:collapse;background-color:#FFFFFF;">
 <tr style=3D"vertical-align:top;">
@@ -398,7 +390,7 @@ order-left-style:none;border-right-style:none;">
 FF;font-family:Arial;font-size:11px;">Vencimiento</span></div>
 <div style=3D"font-size:8px;line-height:8px;">&nbsp;</div>
 <div style=3D"line-height:28px;text-align:left;"><span style=3D"color:#FFFF=
-FF;font-family:Arial;font-size:24px;">19&#47;07&#47;2026</span></div>
+FF;font-family:Arial;font-size:24px;">02&#47;11&#47;2026</span></div>
 </td>
 <td width=3D"273" height=3D"48" style=3D"padding-top:9px;padding-right:18px=
 ;padding-bottom:8px;background-color:#012739; border-top-style:none;border-=
@@ -407,7 +399,7 @@ bottom-style:none;border-left-style:none;border-right-style:none;">
 FFF;font-family:Arial;font-size:11px;">Total&nbsp;a&nbsp;pagar</span></div>
 <div style=3D"font-size:8px;line-height:8px;">&nbsp;</div>
 <div style=3D"line-height:28px;text-align:right;"><span style=3D"color:#FFF=
-FFF;font-family:Arial;font-size:24px;">&#36;52.049&#44;99</span></div>
+FFF;font-family:Arial;font-size:24px;">&#36;46.590&#44;00</span></div>
 </td>
 </tr>
 </table>
@@ -492,7 +484,7 @@ x;padding-bottom:10px;border-top-style:none;border-bottom-style:solid; bord=
 er-bottom-width:1px; border-bottom-color:#48A7F8;border-left-style:none;bor=
 der-right-style:none;">
 <div style=3D"line-height:16px;text-align:right;"><span style=3D"color:#48A=
-7F8;font-family:Arial;font-size:14px;">&#36;52.049&#44;99</span></div>
+7F8;font-family:Arial;font-size:14px;">&#36;46.590&#44;00</span></div>
 </td>
 </tr>
 <tr style=3D"vertical-align:top;">
@@ -510,7 +502,7 @@ r-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#48A7F8;=
 border-left-style:none;border-right-style:none;">
 <div style=3D"line-height:19px;text-align:right;"><span style=3D"color:#48A=
 7F8;font-weight:bold;font-family:Arial;font-size:15px;">&#36;</span><span s=
-tyle=3D"color:#48A7F8;font-family:Arial;font-size:16px;">52.049&#44;99</spa=
+tyle=3D"color:#48A7F8;font-family:Arial;font-size:16px;">46.590&#44;00</spa=
 n></div>
 </td>
 </tr>
@@ -525,7 +517,7 @@ F8;font-family:Arial;font-size:14px;">Total a pagar</span></div>
 x;padding-bottom:10px;border-top-style:none;border-bottom-style:none;border=
 -left-style:none;border-right-style:none;">
 <div style=3D"line-height:16px;text-align:right;"><span style=3D"color:#48A=
-7F8;font-family:Arial;font-size:14px;">&#36;52.049&#44;99</span></div>
+7F8;font-family:Arial;font-size:14px;">&#36;46.590&#44;00</span></div>
 </td>
 </tr>
 </table>
@@ -556,23 +548,7 @@ padding-right:7px;padding-bottom:10px;border-top-style:none;border-bottom-s=
 tyle:solid; border-bottom-width:1px; border-bottom-color:#00A8FF;border-lef=
 t-style:none;border-right-style:none;">
 <div style=3D"line-height:16px;text-align:right;"><span style=3D"color:#000=
-000;font-family:Arial;font-size:14px;">&#36;43.959&#44;99</span></div>
-</td>
-</tr>
-<tr style=3D"vertical-align:top;">
-<td width=3D"305" height=3D"17" style=3D"padding-left:7px;padding-top:10px;=
-padding-right:7px;padding-bottom:10px;border-top-style:none;border-bottom-s=
-tyle:solid; border-bottom-width:1px; border-bottom-color:#00A8FF;border-lef=
-t-style:none;border-right-style:none;">
-<div style=3D"line-height:16px;text-align:left;"><span style=3D"color:#0000=
-00;font-family:Arial;font-size:14px;">Cargos a la cuenta</span></div>
-</td>
-<td width=3D"271" height=3D"17" style=3D"padding-left:7px;padding-top:10px;=
-padding-right:7px;padding-bottom:10px;border-top-style:none;border-bottom-s=
-tyle:solid; border-bottom-width:1px; border-bottom-color:#00A8FF;border-lef=
-t-style:none;border-right-style:none;">
-<div style=3D"line-height:16px;text-align:right;"><span style=3D"color:#000=
-000;font-family:Arial;font-size:14px;">&#36;8.090&#44;00</span></div>
+000;font-family:Arial;font-size:14px;">&#36;46.590&#44;00</span></div>
 </td>
 </tr>
 </table>
@@ -583,13 +559,13 @@ t-style:none;border-right-style:none;">
 <td width=3D"602" height=3D"48" style=3D"border-top-style:none;border-botto=
 m-style:none;border-left-style:none;border-right-style:none;">
 <div style=3D"line-height:2px;text-align:center;"><a href=3D"https://relayt=
-rk.movistar.com.ar/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MDcwOS0yMTQ1=
-LTAyNzktYmY0My0zMjhkZTViMGQ2OTMiLCJsaW5rVXJsIjoiaHR0cHM6Ly9mYWN0dXJhLm1vdml=
-zdGFyLmNvbS5hci9mYWN0dXJhc0FsbC8%2FZj1NN00lMkZ3V1BqbzlvbUNqOTdwTVpyVWowd3M2=
-TWl3RUY2elVUJTJCUlBpUFFabyUzRCIsImFJZCI6MTI4MH0%3D"><img src=3D"https://del=
-iver.movistar.com.ar/botonDescargarFactura.png" width=3D"224" height=3D"44"=
- style=3D"border:0px; vertical-align:baseline;" alt=3D"descargar factura"><=
-/a>
+rk.movistar.com.ar/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MTAxMC0yMzEz=
+LTAwMWEtOTY5YS05OWQ4ZDg3MzhmOTIiLCJsaW5rVXJsIjoiaHR0cHM6Ly9mYWN0dXJhLm1vdml=
+zdGFyLmNvbS5hci9mYWN0dXJhc0FsbC8%2FZj1NN00lMkZ3V1BqbzlvbUNqOTdwTVpyVXNJZjAl=
+MkZkdEs4dnpsJTJGeG9RODU4aDU4JTNEIiwiYUlkIjoxMjgwfQ%3D%3D"><img src=3D"https=
+://deliver.movistar.com.ar/botonDescargarFactura.png" width=3D"224" height=3D=
+"44" style=3D"border:0px; vertical-align:baseline;" alt=3D"descargar factur=
+a"></a>
 </div>
 </td>
 </tr>
@@ -615,8 +591,8 @@ do m&#225;s f&#225;cil&#58;</span></div>
 ;background-color:#F5F5F5; border-top-style:none;border-bottom-style:none;b=
 order-left-style:none;border-right-style:none;">
 <div style=3D"line-height:2px;text-align:center;"><a href=3D"https://relayt=
-rk.movistar.com.ar/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MDcwOS0yMTQ1=
-LTAyNzktYmY0My0zMjhkZTViMGQ2OTMiLCJsaW5rVXJsIjoiaHR0cDovL21vdi5pcy9qWDgwZSI=
+rk.movistar.com.ar/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MTAxMC0yMzEz=
+LTAwMWEtOTY5YS05OWQ4ZDg3MzhmOTIiLCJsaW5rVXJsIjoiaHR0cDovL21vdi5pcy9qWDgwZSI=
 sImFJZCI6MTI4MH0%3D"><img src=3D"https://deliver.movistar.com.ar/infoFactur=
 a.png" width=3D"64" height=3D"67" style=3D"border:0px; vertical-align:basel=
 ine;" alt=3D"http://mov.is/jX80e"></a>
@@ -626,8 +602,8 @@ ine;" alt=3D"http://mov.is/jX80e"></a>
 #F5F5F5; border-top-style:none;border-bottom-style:none;border-left-style:n=
 one;border-right-style:none;">
 <div style=3D"line-height:2px;text-align:center;"><a href=3D"https://relayt=
-rk.movistar.com.ar/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MDcwOS0yMTQ1=
-LTAyNzktYmY0My0zMjhkZTViMGQ2OTMiLCJsaW5rVXJsIjoiaHR0cDovL21vdi5pcy9qWDNQRiI=
+rk.movistar.com.ar/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MTAxMC0yMzEz=
+LTAwMWEtOTY5YS05OWQ4ZDg3MzhmOTIiLCJsaW5rVXJsIjoiaHR0cDovL21vdi5pcy9qWDNQRiI=
 sImFJZCI6MTI4MH0%3D"><img src=3D"https://deliver.movistar.com.ar/celularLup=
 a.png" width=3D"46" height=3D"72" style=3D"border:0px; vertical-align:basel=
 ine;" alt=3D"http://mov.is/jX3PF"></a>
@@ -637,8 +613,8 @@ ine;" alt=3D"http://mov.is/jX3PF"></a>
 x;background-color:#F5F5F5; border-top-style:none;border-bottom-style:none;=
 border-left-style:none;border-right-style:none;">
 <div style=3D"line-height:2px;text-align:center;"><a href=3D"https://relayt=
-rk.movistar.com.ar/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MDcwOS0yMTQ1=
-LTAyNzktYmY0My0zMjhkZTViMGQ2OTMiLCJsaW5rVXJsIjoiaHR0cHM6Ly9hcHAubW92aXN0YXI=
+rk.movistar.com.ar/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MTAxMC0yMzEz=
+LTAwMWEtOTY5YS05OWQ4ZDg3MzhmOTIiLCJsaW5rVXJsIjoiaHR0cHM6Ly9hcHAubW92aXN0YXI=
 uY29tLmFyL2JpbGwtZmFxIiwiYUlkIjoxMjgwfQ%3D%3D"><img src=3D"https://deliver.=
 movistar.com.ar/variacionFactura.png" width=3D"66" height=3D"72" style=3D"b=
 order:0px; vertical-align:baseline;" alt=3D"  "></a>
@@ -685,8 +661,8 @@ padding=3D"0" style=3D"height:75px; border-collapse:collapse; border-width:=
 0px; ">
 <tr style=3D"vertical-align:top;">
 <td width=3D"602" height=3D"75"><a href=3D"https://relaytrk.movistar.com.ar=
-/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MDcwOS0yMTQ1LTAyNzktYmY0My0zMj=
-hkZTViMGQ2OTMiLCJsaW5rVXJsIjoiaHR0cDovL21vdi5pcy9LOVJTayIsImFJZCI6MTI4MH0%3=
+/Click/Track?p=3DeyJkZWxpdmVyeUd1aWQiOiIyMDI2MTAxMC0yMzEzLTAwMWEtOTY5YS05OW=
+Q4ZDg3MzhmOTIiLCJsaW5rVXJsIjoiaHR0cDovL21vdi5pcy9LOVJTayIsImFJZCI6MTI4MH0%3=
 D"><img src=3D"https://deliver.movistar.com.ar/Banner_Factura_Texto 600x75.=
 jpg" width=3D"600" height=3D"75" style=3D"border:0px; vertical-align:baseli=
 ne;" alt=3D"http://mov.is/K9RSk"></a>
@@ -744,4 +720,4 @@ edido dentro de los 5 d&#237;as h&#225;biles de recibida la notificaci&#243=
 </body>
 </html>=
 
---=-B3cpmXs021n/BSg3rzTmOg==--
+--=-cr1udwZ9Hktxn2BGu6ECRA==--

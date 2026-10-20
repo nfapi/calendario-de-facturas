@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from agent_facturas_gmail_github import (
+    append_new_bills,
     detect_provider,
     email_matches_provider,
     extract_email_body,
@@ -246,7 +247,39 @@ class ProviderRoutingTests(unittest.TestCase):
         self.assertEqual(result[0]["service"], "Movistar")
         self.assertEqual(result[0]["amount"], 52049.99)
         self.assertEqual(result[0]["date"], "2026-07-19")
+        self.assertEqual(result[0]["location"], "Línea 2914186999")
+        self.assertEqual(result[0]["id"], "movistar-2914186999")
         self.assertEqual(result[0]["extra"], "Cuenta 11683637")
+
+    def test_parse_updated_movistar_email_template(self):
+        sample_path = Path(__file__).resolve().parents[1] / "sample emails" / "movistar.eml"
+        message = BytesParser(policy=policy.default).parsebytes(sample_path.read_bytes())
+
+        result = parse_movistar_bill(extract_email_body(message))
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["date"], "2026-11-02")
+        self.assertEqual(result[0]["amount"], 46590.00)
+        self.assertEqual(result[0]["location"], "Línea 2914186999")
+
+    def test_movistar_bills_for_different_lines_are_not_deduplicated(self):
+        bills = [
+            {
+                "service": "Movistar",
+                "date": "2026-11-02",
+                "amount": 46590.00,
+                "location": f"Línea {line}",
+            }
+            for line in ("2914186999", "2914186000", "2914186999")
+        ]
+
+        result = append_new_bills([], bills)
+
+        self.assertEqual(len(result), 2)
+        self.assertEqual(
+            [bill["location"] for bill in result],
+            ["Línea 2914186999", "Línea 2914186000"],
+        )
 
     def test_parse_municipalidad_bill_extracts_invoice_fields(self):
         result = parse_municipalidad_bill(
