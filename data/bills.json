@@ -401,5 +401,23 @@
     "date": "2026-10-20",
     "amount": 173661.45,
     "extra": "Aviso de servicios por vencer de Brubank"
+  },
+  {
+    "id": "46",
+    "service": "Movistar",
+    "detail": "Factura de telefonía móvil",
+    "location": "Línea 2916485066",
+    "date": "2026-11-02",
+    "amount": 5375.99,
+    "extra": "Cuenta 568502494"
+  },
+  {
+    "id": "47",
+    "service": "Movistar",
+    "detail": "Factura de telefonía móvil",
+    "location": "Línea 2914186999",
+    "date": "2026-11-02",
+    "amount": 46590.0,
+    "extra": "Cuenta 11683637"
   }
 ]
