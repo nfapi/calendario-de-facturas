@@ -76,6 +76,26 @@ class ProviderRoutingTests(unittest.TestCase):
 
         self.assertEqual(provider, "mercadopago")
 
+    def test_movistar_sender_is_not_misrouted_by_personal_data_footer(self):
+        email_data = {
+            "from_email": "factura.sinpapel@movistar.com.ar",
+            "subject": "Movistar te acerca tu factura",
+            "body": (
+                "Vencimiento 02/11/2026 Total a pagar $46.590,00 "
+                "Número de cuenta 11683637 Número de línea 2914186999 "
+                "El titular de los datos personales puede ejercer sus derechos."
+            ),
+        }
+
+        groups = group_emails_by_provider([email_data])
+        result = parser_dispatcher.parse_provider_bills("movistar", groups["movistar"])
+
+        self.assertEqual(set(groups), {"movistar"})
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["date"], "2026-11-02")
+        self.assertEqual(result[0]["amount"], 46590.00)
+        self.assertEqual(result[0]["location"], "Línea 2914186999")
+
     def test_provider_email_filter_matches_only_the_expected_sender(self):
         self.assertTrue(email_matches_provider("personal", "facturacion@email.personal.com.ar"))
         self.assertTrue(email_matches_provider("camuzzi", "factura@factura.camuzzigas.com.ar"))

@@ -347,7 +347,8 @@
         "priority": 60,
         "workflow": true,
         "keywords": ["movistar", "movistar.com.ar"],
-        "email_patterns": ["@movistar.com.ar", "movistar"]
+        "email_patterns": ["@movistar.com.ar", "movistar"],
+        "sender_priority_markers": ["@movistar.com.ar"]
       }
     },
     {
