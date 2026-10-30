@@ -455,5 +455,14 @@
     "date": "2026-11-10",
     "amount": 8046.53,
     "extra": "Unidad de facturación 2220784"
+  },
+  {
+    "id": "52",
+    "service": "EDES",
+    "detail": "Factura de energía eléctrica",
+    "location": "GRECIA Nro 524  BAHIA BLANCA",
+    "date": "2026-11-13",
+    "amount": 153152.89,
+    "extra": "NIS 260457201"
   }
 ]
