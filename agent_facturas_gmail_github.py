@@ -113,7 +113,42 @@ def email_matches_provider(provider: str, from_email: str, subject: str = "", bo
     return any(pattern.lower() in haystack for pattern in patterns)
 
 
-def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int = 15, provider: str | None = None) -> list:
+def build_gmail_search_query(provider: str | None) -> str | None:
+    """Arma una búsqueda X-GM-RAW para que Gmail filtre los correos del proveedor."""
+    patterns = PROVIDER_EMAILS.get(provider, []) if provider else []
+    terms = []
+    for pattern in patterns:
+        term = pattern.strip().lstrip("@").replace("\\", "").replace('"', "")
+        if term and term not in terms:
+            terms.append(term)
+    if not terms:
+        return None
+    return "{" + " ".join(f'"{term}"' for term in terms) + "}"
+
+
+def quote_imap_string(value: str) -> str:
+    """Convierte un texto en un string IMAP entre comillas."""
+    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def search_recent_emails(mail, since_date: str, provider: str | None) -> list:
+    """Busca correos desde una fecha, filtrando en Gmail por proveedor si es posible."""
+    gmail_query = build_gmail_search_query(provider)
+    if gmail_query:
+        status, messages = mail.search(
+            None, "SINCE", since_date, "X-GM-RAW", quote_imap_string(gmail_query)
+        )
+        if status == "OK":
+            return messages[0].split() if messages and messages[0] else []
+        print(f"⚠️ Gmail rechazó la búsqueda {gmail_query!r}; se revisan todos los correos.")
+
+    status, messages = mail.search(None, "SINCE", since_date)
+    if status != "OK" or not messages or not messages[0]:
+        return []
+    return messages[0].split()
+
+
+def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int = 200, provider: str | None = None) -> list:
     """
     Lee la carpeta Todos/All de Gmail y recupera correos recientes relacionados
     con facturas y vencimientos.
@@ -147,16 +182,18 @@ def fetch_recent_bill_emails(username: str, app_password: str, max_emails: int =
             if status != "OK":
                 raise RuntimeError(f"No se pudo abrir la carpeta de Gmail {mailbox_name!r}")
 
-            status, messages = mail.search(None, "SINCE", since_date)
-            if status != "OK" or not messages[0]:
+            email_ids = search_recent_emails(mail, since_date, provider)
+            if not email_ids:
                 continue
 
-            email_ids = messages[0].split()
             latest_ids = email_ids[-max_emails:]
+            if len(email_ids) > max_emails:
+                print(f"⚠️ Hay {len(email_ids)} correos candidatos; se leen solo los {max_emails} más recientes.")
             print(f"📩 Leyendo hasta {len(latest_ids)} correos de {mailbox_name}...")
 
             for e_id in reversed(latest_ids):
-                _, msg_data = mail.fetch(e_id, "(RFC822)")
+                # BODY.PEEK evita marcar los correos como leídos.
+                _, msg_data = mail.fetch(e_id, "(BODY.PEEK[])")
                 for response_part in msg_data:
                     if isinstance(response_part, tuple):
                         msg = email.message_from_bytes(response_part[1])
@@ -350,12 +387,19 @@ def commit_to_github(repo: str, file_path: str, content: str, token: str):
     url = f"https://api.github.com/repos/{repo}/contents/{file_path}"
 
     # Check if file exists to get SHA
-    res = requests.get(url, headers=headers)
+    res = requests.get(url, headers=headers, timeout=30)
     if res.status_code not in [200, 404]:
         raise RuntimeError(
             f"Error al consultar el archivo en GitHub ({res.status_code}): {res.text}"
         )
-    sha = res.json().get("sha") if res.status_code == 200 else None
+    current_file = res.json() if res.status_code == 200 else {}
+    sha = current_file.get("sha")
+
+    if current_file.get("encoding") == "base64" and current_file.get("content"):
+        current_content = base64.b64decode(current_file["content"]).decode("utf-8", errors="replace")
+        if current_content == content:
+            print("ℹ️ El archivo no cambió; se omite el commit.")
+            return
 
     encoded_content = base64.b64encode(content.encode('utf-8')).decode('utf-8')
     payload = {
@@ -365,7 +409,7 @@ def commit_to_github(repo: str, file_path: str, content: str, token: str):
     if sha:
         payload["sha"] = sha
 
-    put_res = requests.put(url, headers=headers, json=payload)
+    put_res = requests.put(url, headers=headers, json=payload, timeout=30)
     if put_res.status_code in [200, 201]:
         print("🎉 ¡Sincronización con GitHub finalizada con éxito!")
         print("🌐 GitHub Pages desplegará los cambios automáticamente en instantes.")
