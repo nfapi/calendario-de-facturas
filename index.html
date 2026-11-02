@@ -325,10 +325,10 @@
 
         row.innerHTML = `
           <td class="py-3 px-4">${statusBadge}</td>
-          <td class="py-3 px-4 font-semibold text-white">${bill.service}</td>
-          <td class="py-3 px-4 text-xs text-slate-400">${bill.location || '-'}</td>
-          <td class="py-3 px-4 font-mono text-xs">${bill.date}</td>
-          <td class="py-3 px-4 text-right font-bold text-white">${formatCurrency(bill.amount)}</td>
+          <td class="py-3 px-4 font-semibold text-white">${escapeHtml(bill.service || 'Servicio')}</td>
+          <td class="py-3 px-4 text-xs text-slate-400">${escapeHtml(bill.location || '-')}</td>
+          <td class="py-3 px-4 font-mono text-xs">${escapeHtml(bill.date)}</td>
+          <td class="py-3 px-4 text-right font-bold text-white">${escapeHtml(formatCurrency(bill.amount))}</td>
         `;
         tbody.appendChild(row);
       });

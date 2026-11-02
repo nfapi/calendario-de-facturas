@@ -60,7 +60,7 @@
       "name": "ARCA",
       "calendar_name": "ARCA",
       "description": "Agencia de Recaudación y Control Aduanero.",
-      "aliases": ["ARCA"],
+      "aliases": ["ARCA", "Monotr Fisica"],
       "palette": {
         "background": "#064e3b",
         "foreground": "#d1fae5"
@@ -185,7 +185,7 @@
       "name": "Colegio Claret",
       "calendar_name": "Claret",
       "description": "Cuotas escolares del Colegio Claret.",
-      "aliases": ["Colegio Claret", "Claret"],
+      "aliases": ["Colegio Claret", "Claret", "Col Claret Ba"],
       "palette": {
         "background": "#881337",
         "foreground": "#ffe4e6"

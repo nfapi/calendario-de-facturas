@@ -1,3 +1,4 @@
+import base64
 import unittest
 from email import policy
 from email.parser import BytesParser
@@ -6,6 +7,7 @@ from unittest.mock import Mock, patch
 
 from agent_facturas_gmail_github import (
     append_new_bills,
+    commit_to_github,
     detect_provider,
     email_matches_provider,
     extract_email_body,
@@ -152,6 +154,66 @@ class ProviderRoutingTests(unittest.TestCase):
 
         self.assertEqual(result, [])
         mail.select.assert_called_once_with('"Todos"')
+
+    def test_fetch_recent_emails_filters_provider_in_gmail_without_marking_read(self):
+        raw_message = (
+            b"From: Personal <facturacion@email.personal.com.ar>\r\n"
+            b"Subject: Tu factura\r\n"
+            b"Message-ID: <1@personal>\r\n\r\n"
+            b"Total a pagar $100\r\n"
+        )
+        mail = Mock()
+        mail.list.return_value = ("OK", [b'(\\HasNoChildren) "/" "[Gmail]/All Mail"'])
+        mail.select.return_value = ("OK", [b"1"])
+        mail.search.return_value = ("OK", [b"1"])
+        mail.fetch.return_value = ("OK", [(b"1 (BODY[] {10}", raw_message)])
+        mail.logout.return_value = "BYE"
+
+        with (
+            patch("agent_facturas_gmail_github.imaplib.IMAP4_SSL", return_value=mail),
+            patch("builtins.print"),
+        ):
+            result = fetch_recent_bill_emails("user@example.com", "password", provider="personal")
+
+        self.assertEqual(len(result), 1)
+        search_args = mail.search.call_args.args
+        self.assertEqual(search_args[3], "X-GM-RAW")
+        self.assertIn("personal.com.ar", search_args[4])
+        mail.fetch.assert_called_once_with(b"1", "(BODY.PEEK[])")
+
+    def test_fetch_recent_emails_falls_back_when_gmail_search_fails(self):
+        mail = Mock()
+        mail.list.return_value = ("OK", [b'(\\HasNoChildren) "/" "[Gmail]/All Mail"'])
+        mail.select.return_value = ("OK", [b"0"])
+        mail.search.side_effect = [("NO", [b"error"]), ("OK", [b""])]
+        mail.logout.return_value = "BYE"
+
+        with (
+            patch("agent_facturas_gmail_github.imaplib.IMAP4_SSL", return_value=mail),
+            patch("builtins.print"),
+        ):
+            result = fetch_recent_bill_emails("user@example.com", "password", provider="personal")
+
+        self.assertEqual(result, [])
+        self.assertEqual(len(mail.search.call_args.args), 3)
+
+    def test_commit_to_github_skips_unchanged_file(self):
+        content = '{"a": 1}\n'
+        get_response = Mock(status_code=200)
+        get_response.json.return_value = {
+            "sha": "abc",
+            "encoding": "base64",
+            "content": base64.b64encode(content.encode("utf-8")).decode("ascii"),
+        }
+
+        with (
+            patch("agent_facturas_gmail_github.requests.get", return_value=get_response),
+            patch("agent_facturas_gmail_github.requests.put") as put,
+            patch("builtins.print"),
+        ):
+            commit_to_github("user/repo", "data/bills.json", content, "token")
+
+        put.assert_not_called()
 
     def test_fetch_recent_emails_fails_when_all_mailbox_is_missing(self):
         mail = Mock()
