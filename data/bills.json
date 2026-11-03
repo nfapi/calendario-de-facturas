@@ -464,5 +464,14 @@
     "date": "2026-11-13",
     "amount": 153152.89,
     "extra": "NIS 260457201"
+  },
+  {
+    "id": "53",
+    "service": "ARBA",
+    "detail": "Impuesto Automotor - Cuota 9",
+    "location": "Patente AD478JM",
+    "date": "2026-11-12",
+    "amount": 61274.5,
+    "extra": "Patente AD478JM - Cuota 9"
   }
 ]
