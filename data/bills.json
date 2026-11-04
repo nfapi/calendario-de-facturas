@@ -473,5 +473,14 @@
     "date": "2026-11-12",
     "amount": 61274.5,
     "extra": "Patente AD478JM - Cuota 9"
+  },
+  {
+    "id": "54",
+    "service": "ARBA",
+    "detail": "Impuesto Automotor - Cuota 9",
+    "location": "Patente AE565SD",
+    "date": "2026-11-12",
+    "amount": 37088.7,
+    "extra": "Patente AE565SD - Cuota 9"
   }
 ]
