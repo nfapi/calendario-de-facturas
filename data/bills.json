@@ -482,5 +482,14 @@
     "date": "2026-11-12",
     "amount": 37088.7,
     "extra": "Patente AE565SD - Cuota 9"
+  },
+  {
+    "id": "55",
+    "service": "Brubank",
+    "detail": "Resumen de tarjeta de crédito",
+    "location": "",
+    "date": "2026-11-11",
+    "amount": 812215.23,
+    "extra": "Saldo en pesos"
   }
 ]
