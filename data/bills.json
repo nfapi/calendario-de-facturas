@@ -491,5 +491,14 @@
     "date": "2026-11-11",
     "amount": 812215.23,
     "extra": "Saldo en pesos"
+  },
+  {
+    "id": "56",
+    "service": "Mercado Pago",
+    "detail": "Resumen de tarjeta de crédito",
+    "location": "",
+    "date": "2026-11-10",
+    "amount": 403609.93,
+    "extra": "Débito automático"
   }
 ]
