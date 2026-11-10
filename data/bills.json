@@ -545,5 +545,14 @@
     "date": "2026-11-10",
     "amount": 67000.0,
     "extra": "Aviso de servicios por vencer de Brubank"
+  },
+  {
+    "id": "62",
+    "service": "Arba Autom.",
+    "detail": "Factura informada por Brubank",
+    "location": "",
+    "date": "2026-11-12",
+    "amount": 37088.69,
+    "extra": "Aviso de servicios por vencer de Brubank"
   }
 ]
